@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<StackPane fx:id="rootPane" xmlns:fx="http://javafx.com/fxml" fx:controller="it.unina.controller.WelcomeController" prefWidth="600" prefHeight="400" style="-fx-background-color: #84fd86;">
+
+    <VBox fx:id="loginPane" alignment="CENTER" spacing="15" visible="true" prefWidth="300">
+        <Label text="Login" styleClass="login-title" style="-fx-font-size: 24px; -fx-font-weight: bold;" />
+        <TextField fx:id="loginUser" promptText="Username" />
+        <PasswordField fx:id="loginPass" promptText="Password" />
+        <Button text="Entra" onAction="#onLogin" />
+        <Hyperlink text="Non hai un account? Registrati" onAction="#showRegister" />
+    </VBox>
+
+    <VBox fx:id="registerPane" alignment="CENTER" spacing="12" visible="false">
+        <Label text="Registrazione" style="-fx-font-size: 24px; -fx-font-weight: bold;" />
+        <TextField fx:id="regUser" promptText="Username" />
+        <PasswordField fx:id="regPass" promptText="Password"/>
+        <TextField fx:id="regEmail" promptText="Email" />
+        <Button text="Registrati" onAction="#onRegister" />
+        <Hyperlink text="Hai già un account? Entra" onAction="#showLogin" />
+    </VBox>
+
+</StackPane>
+
+
