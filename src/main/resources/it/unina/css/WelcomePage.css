@@ -1,3 +1,14 @@
+
+
+.mfx-text-field {
+    -fx-min-width: 130;
+    -fx-font-family: 'Open Sans SemiBold';
+}
+
+.mfx-text-field .floating-text {
+    -fx-font-family: 'Open Sans SemiBold';
+}
+
 @font-face {
     font-family: 'FiraCode';
     src: url('../fonts/FiraCode-Regular.ttf');
@@ -9,12 +20,7 @@
     -fx-font-size: 14px;
 }
 
-.header {
-    -fx-font-size: 24px;
-    -fx-text-fill: #333;
-    -fx-font-weight: bold;
-    -fx-alignment: center;
-}
+
 
 .login-title {
     -fx-font-size: 24px;
@@ -22,15 +28,6 @@
     -fx-text-fill: #346835;
 }
 
-.text-field,
-.password-field {
-    -fx-pref-width: 200px;
-    -fx-pref-height: 10px;
-    -fx-max-width: 200px;
-    -fx-border-radius: 8px;
-    -fx-border-color: #ccc;
-    -fx-border-width: 1px;
-}
 
 .button {
     -fx-background-color: #27ae60;
@@ -40,6 +37,7 @@
     -fx-font-weight: bold;
     -fx-font-family: 'FiraCode'
 }
+
 
 .button:hover {
     -fx-background-color: #2ecc71;

@@ -1,27 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
 
-<StackPane fx:id="rootPane" xmlns:fx="http://javafx.com/fxml" fx:controller="it.unina.controller.WelcomeController" prefWidth="600" prefHeight="400" style="-fx-background-color: #84fd86;">
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import io.github.palexdev.materialfx.controls.MFXTextField?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-    <VBox fx:id="loginPane" alignment="CENTER" spacing="15" visible="true" prefWidth="300">
-        <Label text="Login" styleClass="login-title" style="-fx-font-size: 24px; -fx-font-weight: bold;" />
-        <TextField fx:id="loginUser" promptText="Username" />
-        <PasswordField fx:id="loginPass" promptText="Password" />
-        <Button text="Entra" onAction="#onLogin" />
-        <Hyperlink text="Non hai un account? Registrati" onAction="#showRegister" />
-    </VBox>
-
-    <VBox fx:id="registerPane" alignment="CENTER" spacing="12" visible="false">
-        <Label text="Registrazione" style="-fx-font-size: 24px; -fx-font-weight: bold;" />
-        <TextField fx:id="regUser" promptText="Username" />
-        <PasswordField fx:id="regPass" promptText="Password"/>
-        <TextField fx:id="regEmail" promptText="Email" />
-        <Button text="Registrati" onAction="#onRegister" />
-        <Hyperlink text="Hai già un account? Entra" onAction="#showLogin" />
-    </VBox>
-
+<StackPane fx:id="rootPane" prefHeight="400" prefWidth="600" style="-fx-background-color: #84fd86;" 
+           xmlns="http://javafx.com/javafx/23.0.1" 
+           xmlns:fx="http://javafx.com/fxml/1" 
+           fx:controller="it.unina.controller.WelcomeController">
 </StackPane>
-
-
