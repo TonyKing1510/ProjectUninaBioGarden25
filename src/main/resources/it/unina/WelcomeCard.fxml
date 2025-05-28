@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<StackPane fx:id="rootPane" prefHeight="400" prefWidth="600" style="-fx-background-color: #84fd86;" 
+<StackPane fx:id="rootPane" prefHeight="400" prefWidth="600"
            xmlns="http://javafx.com/javafx/23.0.1" 
            xmlns:fx="http://javafx.com/fxml/1" 
            fx:controller="it.unina.controller.WelcomeController">

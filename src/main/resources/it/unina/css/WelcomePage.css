@@ -15,7 +15,7 @@
 }
 
 .root {
-    -fx-background-color: #12dc49;
+    -fx-background-color: linear-gradient(to bottom right, #469536, #b7d5ac );
     -fx-font-family: FiraCode;
     -fx-font-size: 14px;
 }
