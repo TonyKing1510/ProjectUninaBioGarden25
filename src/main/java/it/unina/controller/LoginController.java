@@ -24,6 +24,6 @@ public class LoginController {
 
   @FXML private void onLogin(ActionEvent event){
     System.out.println("Hello!");
-    /* rootController.goToMainApp(); */
+    rootController.goToMainApp(event);
   }
 }

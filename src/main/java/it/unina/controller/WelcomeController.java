@@ -2,11 +2,14 @@ package it.unina.controller;
 
 import javafx.animation.FadeTransition;
 import javafx.animation.TranslateTransition;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 import javafx.scene.Node;
 import io.github.palexdev.materialfx.controls.MFXTextField;
@@ -36,6 +39,7 @@ public class WelcomeController {
   private void loadLoginView() throws IOException {
     FXMLLoader loader = new FXMLLoader(getClass().getResource("/it/unina/Login.fxml"));
     loginView = loader.load();
+    /* loginView.getStylesheets().add(getClass().getResource()); */
     LoginController controller = loader.getController();
     controller.setRootController(this); 
   }
@@ -81,6 +85,24 @@ public class WelcomeController {
     }
   }
 
+  protected void goToMainApp(ActionEvent event) {
+    try {
+      FXMLLoader loader = new FXMLLoader(getClass().getResource("/it/unina/MainPage.fxml"));
+      Parent mainRoot = loader.load();
 
+      Scene scene = new Scene(mainRoot, 1000, 1000);
+      Stage stage = new Stage();
+      
+      stage.setTitle("");
+      stage.setScene(scene);
+      stage.show();
 
+      Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+      currentStage.close();
+    }catch (IOException e) {
+      e.printStackTrace();
+
+      /* Insert here logic to display what went wrong. */
+    }
+  }
 }
