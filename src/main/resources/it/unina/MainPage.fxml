@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.Insets ?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="it.unina.controller.MainPageController" stylesheets="@css/mainpage.css">
+
+    <left>
+        <VBox fx:id="sidebar" spacing="20" alignment="TOP_CENTER" styleClass="sidebar">
+            <padding>
+                <Insets top="60" right="10" bottom="30" left="10"/>
+            </padding>
+
+            <!-- Just a work around, padding doesn't work properly. Need a refactor. -->
+            <Label text="" minHeight="30"/>
+            <Button text="🌿 Colture" fx:id="plantManagementButton" styleClass="sidebar-button"/>
+            <Button text="👤 Dipendenti" fx:id="userManagementButton" styleClass="sidebar-button"/>
+            <Button text="📊 Riepilogo" fx:id="statisticsButton" styleClass="sidebar-button"/>
+        </VBox>
+    </left>
+
+    <center>
+        <VBox spacing="20" alignment="TOP_CENTER">
+            <padding>
+                <Insets top="10" right="40" bottom="40" left="40"/>
+            </padding>
+            <Label text="Riprendi da dove hai lasciato!" styleClass="title"/>
+            <StackPane fx:id="carousel" prefHeight="300" prefWidth="600" styleClass="carousel">
+                <ImageView fx:id="carouselImage" fitHeight="300" fitWidth="600" preserveRatio="false"/>
+                <HBox alignment="TOP_CENTER" styleClass="carousel-bar" StackPane.alignment="TOP_CENTER">
+                    <Label text="I TUOI LOTTI" styleClass="carousel-bar-text"/>
+                </HBox>
+            </StackPane>
+        </VBox>
+    </center>
+</BorderPane>

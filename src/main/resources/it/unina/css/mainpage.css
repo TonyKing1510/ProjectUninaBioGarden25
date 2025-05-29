@@ -1,0 +1,61 @@
+.root {
+    -fx-font-family: "Segoe UI", sans-serif;
+    -fx-background-color: #9dc183;
+}
+
+.title {
+    -fx-font-size: 28px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #4A5D23;
+}
+
+.carousel-bar {
+    -fx-background-color: #4A5D23 ;
+    -fx-background-radius: 10px;
+    -fx-padding: 6px 12px;
+    -fx-max-height: 1px;
+}
+
+.carousel-bar-text {
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-font-size: 12px;
+}
+
+.sidebar {
+    -fx-background-color: #556B2F;
+    -fx-padding: 20;
+    -fx-pref-width: 150px;
+    -fx-border-width: 0 1px 0 0;
+    -fx-border-color: #c8e6c9;
+}
+
+.sidebar-button {
+    -fx-background-color: #a5d6a7;
+    -fx-text-fill: #1b5e20;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 8;
+    -fx-padding: 10 20;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 5, 0, 0, 2);
+}
+
+.sidebar-button:hover {
+    -fx-background-color: #81c784;
+}
+
+.sidebar-button.logout {
+    -fx-background-color: #ef9a9a;
+    -fx-text-fill: #b71c1c;
+}
+
+.sidebar-button.logout:hover {
+    -fx-background-color: #e57373;
+}
+
+.carousel {
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 10;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.15), 8, 0.3, 0, 2);
+}

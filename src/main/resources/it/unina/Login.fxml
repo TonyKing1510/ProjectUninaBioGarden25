@@ -22,6 +22,6 @@
             </font>
     </Label>
     <MFXTextField fx:id="usernameField" floatMode="BORDER" floatingText="Username" graphicTextGap="40.0" prefHeight="0.0" prefWidth="200.0" />
-    <MFXButton depthLevel="LEVEL4" rippleColor="#00f539" text="ACCEDI" textFill="#218d16" />
+    <MFXButton onAction="#onLogin" depthLevel="LEVEL4" rippleColor="#00f539" text="ACCEDI" textFill="#218d16" />
     <Hyperlink onAction="#goToRegister" text="Non hai un account? Registrati" />
 </VBox>
