@@ -15,10 +15,22 @@
             </padding>
 
             <!-- Just a work around, padding doesn't work properly. Need a refactor. -->
-            <Label text="" minHeight="30"/>
+            <Label text="" minHeight="36"/>
             <Button text="🌿 Colture" fx:id="plantManagementButton" styleClass="sidebar-button"/>
             <Button text="👤 Dipendenti" fx:id="userManagementButton" styleClass="sidebar-button"/>
             <Button text="📊 Riepilogo" fx:id="statisticsButton" styleClass="sidebar-button"/>
+
+            <Pane VBox.vgrow="ALWAYS"/>
+            <VBox alignment="CENTER" spacing="10">
+                <HBox alignment="CENTER_LEFT" spacing="10" styleClass="user-box">
+                    <Button fx:id="profileButton" styleClass="profile-circle"/>
+
+                    <VBox spacing="2" alignment="CENTER_LEFT">
+                        <Label text="Mario Rossi" fx:id="usernameLabel" styleClass="username-label"/>
+                        <Button text="⇦" fx:id="logoutButton" styleClass="logout-button" alignment="BOTTOM_LEFT"/>
+                    </VBox>
+                </HBox>
+            </VBox>
         </VBox>
     </left>
 
@@ -28,8 +40,8 @@
                 <Insets top="10" right="40" bottom="40" left="40"/>
             </padding>
             <Label text="Riprendi da dove hai lasciato!" styleClass="title"/>
-            <StackPane fx:id="carousel" prefHeight="300" prefWidth="600" styleClass="carousel">
-                <ImageView fx:id="carouselImage" fitHeight="300" fitWidth="600" preserveRatio="false"/>
+            <StackPane fx:id="carousel" prefHeight="300" prefWidth="650" maxWidth="650" styleClass="carousel">
+                <ImageView fx:id="carouselImage" fitHeight="300" fitWidth="400" preserveRatio="false"/>
                 <HBox alignment="TOP_CENTER" styleClass="carousel-bar" StackPane.alignment="TOP_CENTER">
                     <Label text="I TUOI LOTTI" styleClass="carousel-bar-text"/>
                 </HBox>

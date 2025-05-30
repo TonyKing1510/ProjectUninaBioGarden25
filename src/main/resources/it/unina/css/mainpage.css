@@ -25,14 +25,21 @@
 .sidebar {
     -fx-background-color: #556B2F;
     -fx-padding: 20;
-    -fx-pref-width: 150px;
+    -fx-pref-width: 250px;
     -fx-border-width: 0 1px 0 0;
     -fx-border-color: #c8e6c9;
+}
+
+.user-box {
+    -fx-border-width: 2px 0 0 0;
+    -fx-border-color: #4A5D23;
+    -fx-padding: 10px 0 0 15px;
 }
 
 .sidebar-button {
     -fx-background-color: #a5d6a7;
     -fx-text-fill: #1b5e20;
+    -fx-pref-width: 200px;
     -fx-font-size: 14px;
     -fx-font-weight: bold;
     -fx-background-radius: 8;
@@ -43,6 +50,28 @@
 
 .sidebar-button:hover {
     -fx-background-color: #81c784;
+}
+
+.profile-circle {
+    -fx-background-color: grey;
+    -fx-shape: "M50,0 A50,50 0 1,0 50.01,0 Z";
+    -fx-min-width: 50px;
+    -fx-min-height: 50px;
+    -fx-max-width: 50px;
+    -fx-max-height: 50px;
+    -fx-cursor: hand;
+}
+
+.username-label {
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+}
+
+.logout-button {
+    -fx-background-color: TRANSPARENT;
+    -fx-text-fill: white;
+    -fx-pref-width: 60px;
+    -fx-background-radius: 10;
 }
 
 .sidebar-button.logout {
