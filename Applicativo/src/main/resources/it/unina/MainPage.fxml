@@ -1,34 +1,58 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
-<?import javafx.geometry.Insets ?>
 
-<BorderPane fx:id="borderPane" xmlns:fx="http://javafx.com/fxml" fx:controller="it.unina.controller.MainPageController" stylesheets="@css/mainpage.css">
+<BorderPane fx:id="borderPane" stylesheets="@css/mainpage.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unina.controller.MainPageController">
 
     <left>
-        <VBox fx:id="sidebar" spacing="20" alignment="TOP_CENTER" styleClass="sidebar">
+        <VBox fx:id="sidebar" alignment="TOP_CENTER" spacing="20" styleClass="sidebar">
             <padding>
-                <Insets top="60" right="10" bottom="30" left="10"/>
+                <Insets bottom="30" left="10" right="10" top="60" />
             </padding>
 
             <!-- Just a work around, padding doesn't work properly. Need a refactor. -->
-            <Label text="" minHeight="36"/>
-            <Button text="🌿 I miei lotti" fx:id="plantManagementButton" styleClass="sidebar-button" onAction="#goToPlantManagement"/>
-            <Button text="👤 Coltivatori" fx:id="userManagementButton" styleClass="sidebar-button"/>
-            <Button text="Andamento" fx:id="statisticsButton" styleClass="sidebar-button"/>
+            <Label minHeight="36" text="" />
+            <Button maxHeight="200.0" maxWidth="200.0" prefHeight="200.0" prefWidth="200.0" styleClass="logo">
+                <graphic>
+                    <ImageView fitHeight="100" fitWidth="140" preserveRatio="true" smooth="true">
+                        <image>
+                            <Image url="@images/Logo.png" />
+                        </image>
+                    </ImageView>
+                </graphic>
+            </Button>
+            <Button fx:id="userPlantManagementButton" contentDisplay="LEFT" onAction="#goToPlantManagement" styleClass="sidebar-button" text="Lotti">
+                <graphic>
+                    <ImageView fitHeight="26.0" fitWidth="34.0" preserveRatio="true" smooth="true">
+                        <image>
+                            <Image url="@images/field.png" />
+                        </image>
+                    </ImageView>
+                </graphic>
+            </Button>
+            <Button fx:id="userManagementButton" contentDisplay="LEFT" onAction="#goToCultivator" styleClass="sidebar-button" text="Coltivatori">
+                <graphic>
+                    <ImageView fitHeight="26.0" fitWidth="26.0" preserveRatio="true" smooth="true">
+                        <image>
+                            <Image url="@images/peasant.png" />
+                        </image>
+                    </ImageView>
+                </graphic>
+            </Button>
+            <Button fx:id="statisticsButton" styleClass="sidebar-button" text="Andamento" />
+            <Button fx:id="projectButton" styleClass="sidebar-button" text="Aggiungi Progetto" />
 
-
-            <Pane VBox.vgrow="ALWAYS"/>
+            <Pane VBox.vgrow="ALWAYS" />
             <VBox alignment="CENTER" spacing="10">
                 <HBox alignment="CENTER_LEFT" spacing="10" styleClass="user-box">
-                    <Button fx:id="profileButton" styleClass="profile-circle"/>
+                    <Button fx:id="profileButton" styleClass="profile-circle" />
 
-                    <VBox spacing="2" alignment="CENTER_LEFT">
-                        <Label text="Mario Rossi" fx:id="usernameLabel" styleClass="username-label"/>
-                        <Button text="⇦" fx:id="logoutButton" styleClass="logout-button" alignment="BOTTOM_LEFT"/>
+                    <VBox alignment="CENTER_LEFT" spacing="2">
+                        <Label fx:id="usernameLabel" styleClass="username-label" text="Mario Rossi" />
+                        <Button fx:id="logoutButton" alignment="BOTTOM_LEFT" styleClass="logout-button" text="⇦" />
                     </VBox>
                 </HBox>
             </VBox>
@@ -36,15 +60,15 @@
     </left>
 
     <center>
-        <VBox spacing="20" alignment="TOP_CENTER">
+        <VBox alignment="TOP_CENTER" spacing="20">
             <padding>
-                <Insets top="10" right="40" bottom="40" left="40"/>
+                <Insets bottom="40" left="40" right="40" top="10" />
             </padding>
-            <Label text="Riprendi da dove hai lasciato!" styleClass="title"/>
-            <StackPane fx:id="carousel" prefHeight="300" prefWidth="650" maxWidth="650" styleClass="carousel">
-                <ImageView fx:id="carouselImage" fitHeight="300" fitWidth="400" preserveRatio="false"/>
+            <Label styleClass="title" text="Riprendi da dove hai lasciato!" />
+            <StackPane fx:id="carousel" maxWidth="650" prefHeight="300" prefWidth="650" styleClass="carousel">
+                <ImageView fx:id="carouselImage" fitHeight="300" fitWidth="400" preserveRatio="false" />
                 <HBox alignment="TOP_CENTER" styleClass="carousel-bar" StackPane.alignment="TOP_CENTER">
-                    <Label text="I TUOI LOTTI" styleClass="carousel-bar-text"/>
+                    <Label styleClass="carousel-bar-text" text="I TUOI LOTTI" />
                 </HBox>
             </StackPane>
         </VBox>

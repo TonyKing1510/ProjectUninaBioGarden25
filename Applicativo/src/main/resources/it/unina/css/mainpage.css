@@ -9,6 +9,16 @@
     -fx-text-fill: #4A5D23;
 }
 
+.logo {
+    -fx-background-radius: 50%;
+    -fx-border-radius: 50%;
+    -fx-max-height: 150px;
+    -fx-max-width: 150px;
+    -fx-background-color: transparent;
+    -fx-alignment: center;
+    -fx-cursor: hand;
+}
+
 .carousel-bar {
     -fx-background-color: #4A5D23 ;
     -fx-background-radius: 10px;

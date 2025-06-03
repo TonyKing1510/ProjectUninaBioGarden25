@@ -11,6 +11,7 @@ import javafx.scene.paint.Color;
 import javafx.stage.StageStyle;
 import java.io.IOException;
 
+
 public class WelcomePage extends Application {
     @Override
     public void start(Stage stage) throws IOException {

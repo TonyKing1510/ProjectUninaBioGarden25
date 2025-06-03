@@ -1,0 +1,104 @@
+.section-title {
+    -fx-alignment: center;
+    -fx-padding: 10 0 10 0;
+    -fx-background-color: transparent;
+}
+
+.section-title > .label {
+    -fx-font-size: 25px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #4A5D23;
+}
+
+.scrollable-vbox {
+    -fx-background-color: #d7edd7;
+    -fx-background-radius: 7;
+    -fx-border-radius: 7;
+}
+
+.scroll-bar:horizontal .track,
+.scroll-bar:vertical .track{
+    -fx-background-color :transparent;
+    -fx-border-color :transparent;
+    -fx-background-radius : 0.0em;
+    -fx-border-radius :2.0em;
+}
+
+
+.scroll-bar:horizontal .increment-button ,
+.scroll-bar:horizontal .decrement-button {
+    -fx-background-color :transparent;
+    -fx-background-radius : 0.0em;
+    -fx-padding :0.0 0.0 10.0 0.0;
+
+}
+
+.scroll-bar:vertical .increment-button ,
+.scroll-bar:vertical .decrement-button {
+    -fx-background-color :transparent;
+    -fx-background-radius : 0.0em;
+    -fx-padding :0.0 10.0 0.0 0.0;
+
+}
+
+.scroll-bar .increment-arrow,
+.scroll-bar .decrement-arrow{
+    -fx-shape : " ";
+    -fx-padding :0.15em 0.0;
+}
+
+.scroll-bar:vertical .increment-arrow,
+.scroll-bar:vertical .decrement-arrow{
+    -fx-shape : " ";
+    -fx-padding :0.0 0.15em;
+}
+
+.scroll-bar:horizontal .thumb,
+.scroll-bar:vertical .thumb {
+    -fx-background-insets : 1.0, 0.0, 0.0;
+    -fx-background-radius : 2.0em;
+    -fx-pref-width: 3px;
+}
+
+.scroll-bar:vertical .thumb {
+    -fx-background-color: #6a8f6b;
+    -fx-pref-width: 3px;
+}
+
+.scroll-bar:horizontal .thumb:hover,
+.scroll-bar:vertical .thumb:hover {
+    -fx-background-color :derive(#6a8f6b,10.0%);
+    -fx-background-insets : 2.0, 0.0, 0.0;
+    -fx-background-radius : 2.0em;
+}
+
+
+.add-button {
+    -fx-background-color: #4caf50;
+    -fx-text-fill: white;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 5;
+    -fx-padding: 6 14;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 4, 0.2, 0, 2);
+}
+
+.delete-button {
+    -fx-background-color: #ddd157;
+    -fx-text-fill: white;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 5;
+    -fx-padding: 6 14;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 4, 0.2, 0, 2);
+}
+
+.delete-button:hover {
+    -fx-background-color: #aca65a;
+}
+
+.add-button:hover {
+    -fx-background-color: #388e3c;
+}
