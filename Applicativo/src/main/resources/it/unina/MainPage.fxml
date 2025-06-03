@@ -6,7 +6,7 @@
 <?import javafx.scene.text.*?>
 <?import javafx.geometry.Insets ?>
 
-<BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="it.unina.controller.MainPageController" stylesheets="@css/mainpage.css">
+<BorderPane fx:id="borderPane" xmlns:fx="http://javafx.com/fxml" fx:controller="it.unina.controller.MainPageController" stylesheets="@css/mainpage.css">
 
     <left>
         <VBox fx:id="sidebar" spacing="20" alignment="TOP_CENTER" styleClass="sidebar">
@@ -16,9 +16,10 @@
 
             <!-- Just a work around, padding doesn't work properly. Need a refactor. -->
             <Label text="" minHeight="36"/>
-            <Button text="🌿 Colture" fx:id="plantManagementButton" styleClass="sidebar-button"/>
-            <Button text="👤 Dipendenti" fx:id="userManagementButton" styleClass="sidebar-button"/>
-            <Button text="📊 Riepilogo" fx:id="statisticsButton" styleClass="sidebar-button"/>
+            <Button text="🌿 I miei lotti" fx:id="plantManagementButton" styleClass="sidebar-button" onAction="#goToPlantManagement"/>
+            <Button text="👤 Coltivatori" fx:id="userManagementButton" styleClass="sidebar-button"/>
+            <Button text="Andamento" fx:id="statisticsButton" styleClass="sidebar-button"/>
+
 
             <Pane VBox.vgrow="ALWAYS"/>
             <VBox alignment="CENTER" spacing="10">

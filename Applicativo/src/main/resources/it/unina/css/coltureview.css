@@ -1,0 +1,92 @@
+
+.root {
+    -fx-background-color: #9dc183;
+}
+.anchor-pane {
+    -fx-background-color: #9dc183;
+}
+
+.section-title {
+    -fx-alignment: center;
+    -fx-padding: 10 0 10 0;
+    -fx-background-color: transparent;
+}
+
+.section-title > .label {
+    -fx-font-size: 25px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #4A5D23;
+}
+
+.table-view .column-header-background {
+    -fx-background-color: #a5d6a7;
+    -fx-background-radius: 7 7 0 0;
+    -fx-border-color: transparent;
+}
+
+.table-view .column-header {
+    -fx-background-color: #a5d6a7;
+    -fx-background-radius: 12 12 0 0;
+}
+
+.table-view .column-header .label {
+    -fx-text-fill: #437045;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+}
+
+.table-view .filler {
+    -fx-background-color: #a5d6a7;
+    -fx-background-radius: 0 12 0 0;
+}
+
+.table-view {
+    -fx-background-color: #d7edd7;
+    -fx-border-color: #6a8f6b;
+    -fx-border-width: 1;
+    -fx-background-radius: 7;
+    -fx-border-radius: 7;
+}
+
+.add-button {
+    -fx-background-color: #4caf50;
+    -fx-text-fill: white;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 5;
+    -fx-padding: 6 14;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 4, 0.2, 0, 2);
+}
+
+.delete-button {
+    -fx-background-color: #F0E68C;
+    -fx-text-fill: white;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 5;
+    -fx-padding: 6 14;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 4, 0.2, 0, 2);
+}
+
+.action-button:hover {
+    -fx-background-color: #388e3c;
+}
+
+.hbox {
+    -fx-padding: 5 0 0 0;
+}
+
+.vbox {
+    -fx-padding: 0;
+    -fx-spacing: 15;
+}
+
+.label {
+    -fx-font-family: "Segoe UI", sans-serif;
+}
+
+AnchorPane {
+    -fx-background-color: #9dc183;
+}
