@@ -1,15 +1,13 @@
-package it.unina;
+package it.unina.gui;
 
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.text.Font;
 import javafx.stage.Stage;
-import javafx.scene.Parent;
-import javafx.scene.paint.Color;
-import javafx.stage.StageStyle;
+
 import java.io.IOException;
+import java.util.Objects;
 
 
 public class WelcomePage extends Application {
@@ -18,7 +16,7 @@ public class WelcomePage extends Application {
         FXMLLoader fxmlLoader = new FXMLLoader(WelcomePage.class.getResource("/it/unina/WelcomeCard.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 1540, 790);
 
-        scene.getStylesheets().add(WelcomePage.class.getResource("/it/unina/css/WelcomePage.css").toExternalForm());
+        scene.getStylesheets().add(Objects.requireNonNull(WelcomePage.class.getResource("/it/unina/css/WelcomePage.css")).toExternalForm());
         stage.setTitle("");
         stage.setScene(scene);
         stage.setResizable(false);

@@ -20,7 +20,7 @@
                 <Insets bottom="30" left="10" right="10" top="60" />
             </padding>
 
-            <!-- Just a work around, padding doesn't work properly. Need a refactor. -->
+            <!-- Just a workaround, padding doesn't work properly. Need a refactor. -->
             <Label minHeight="36" text="" />
             <Button maxHeight="163.0" maxWidth="254.0" prefHeight="150.0" prefWidth="254.0" styleClass="logo">
             <graphic>

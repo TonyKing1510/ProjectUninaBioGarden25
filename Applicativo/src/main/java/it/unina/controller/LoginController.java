@@ -6,10 +6,11 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import io.github.palexdev.materialfx.controls.MFXTextField;
+import javafx.scene.control.TextField;
 
 public class LoginController {
 
-  @FXML private MFXTextField usernameField;
+  @FXML private TextField usernameField;
 
   private WelcomeController rootController;
   

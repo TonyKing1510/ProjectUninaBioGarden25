@@ -23,9 +23,10 @@
 
 
 .login-title {
-    -fx-font-size: 24px;
+    -fx-font-size: 32px;
     -fx-font-weight: bold;
-    -fx-text-fill: #346835;
+    -fx-text-fill: #07510d;
+     -fx-font-family: 'FiraCode';
 }
 
 
@@ -44,10 +45,30 @@
 }
 
 .hyperlink {
-    -fx-text-fill: #2980b9;
+    -fx-text-fill: #ffffff;
+    -fx-font-family: 'FiraCode';
+    -fx-font-size: 14px;
 }
 
 .hyperlink:hover {
-    -fx-text-fill: #3498db;
+    -fx-text-fill: #ffffff;
     -fx-underline: true;
 }
+/* style.css */
+.mfx-text-field {
+    -fx-border-color: #27ae60;
+    -fx-text-fill: #045c11;
+    -fx-prompt-text-fill: #27ae60;
+}
+.mfx-text-field:focused {
+    -fx-border-color: #27ae60;
+    -fx-background-color: white;
+    -fx-border-width: 2px;
+}
+
+
+.mfx-text-field .floating-text {
+    -fx-text-fill: #27ae60;
+}
+
+

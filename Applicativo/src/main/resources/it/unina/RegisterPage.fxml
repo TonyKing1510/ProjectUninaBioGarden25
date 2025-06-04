@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="790.0" prefWidth="1570.0" stylesheets="@css/WelcomePage.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unina.controller.RegisterController">
+   <children>
+      <ImageView fitHeight="888.0" fitWidth="1990.0" layoutX="-308.0" layoutY="-25.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@images/Piantagioni-Pepe-Phu-Quoc-SLIDER.jpg" />
+         </image>
+      </ImageView>
+      <Pane prefHeight="800.0" prefWidth="1589.0" styleClass="darkPane" stylesheets="@css/LoginRegister.css">
+         <children>
+            <Pane layoutX="435.0" layoutY="49.0" prefHeight="650.0" prefWidth="699.0" styleClass="whitePane" stylesheets="@css/LoginRegister.css">
+               <children>
+                  <ImageView fitHeight="151.0" fitWidth="146.0" layoutX="269.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@images/logoUninaBio.png" />
+                     </image>
+                  </ImageView>
+                  <Button fx:id="registerButton" layoutX="276.0" layoutY="480.0" mnemonicParsing="false" prefHeight="44.0" prefWidth="149.0" text="Registrati" />
+                  <Hyperlink fx:id="accediLink" layoutX="225.0" layoutY="527.0" onAction="#showLogin" prefHeight="59.0" prefWidth="279.0" text="Hai già un account? Premi qui e accedi">
+                     <font>
+                        <Font size="10.0" />
+                     </font>
+                  </Hyperlink>
+                  <TextField fx:id="nomeField" layoutX="127.0" layoutY="269.0" prefHeight="44.0" prefWidth="187.0" styleClass="mfx-text-field" stylesheets="@css/WelcomePage.css" />
+               </children>
+            </Pane>
+         </children>
+      </Pane>
+      <Label layoutX="674.0" layoutY="228.0" prefHeight="47.0" prefWidth="224.0" styleClass="login-title" stylesheets="@css/WelcomePage.css" text="Registrazione">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <TextField fx:id="MailField" layoutX="817.0" layoutY="388.0" prefHeight="44.0" prefWidth="187.0" styleClass="mfx-text-field" stylesheets="@css/WelcomePage.css" />
+      <Label layoutX="564.0" layoutY="298.0" stylesheets="@css/WelcomePage.css" text="Nome" textFill="#2b4b2c">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
+      <Label layoutX="563.0" layoutY="368.0" stylesheets="@css/WelcomePage.css" text="Cognome" textFill="#2b4b2c">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
+      <Label layoutX="817.0" layoutY="369.0" stylesheets="@css/WelcomePage.css" text="Mail" textFill="#2b4b2c">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
+      <Label layoutX="817.0" layoutY="298.0" stylesheets="@css/WelcomePage.css" text="Username" textFill="#2b4b2c">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
+      <Label layoutX="818.0" layoutY="428.0" prefHeight="33.0" prefWidth="70.0" stylesheets="@css/WelcomePage.css" text="Password" textFill="#2b4b2c">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
+      <PasswordField fx:id="passwordField" layoutX="817.0" layoutY="455.0" prefHeight="44.0" prefWidth="187.0" styleClass="mfx-text-field" stylesheets="@css/WelcomePage.css" />
+      <MenuButton layoutX="563.0" layoutY="455.0" mnemonicParsing="false" prefHeight="44.0" prefWidth="187.0" styleClass="mfx-text-field" stylesheets="@css/WelcomePage.css" text="Ruolo">
+        <items>
+            <MenuItem mnemonicParsing="false" text="Proprietario" />
+            <MenuItem mnemonicParsing="false" text="Coltivatore" />
+        </items>
+      </MenuButton>
+      <TextField fx:id="CognomeField" layoutX="562.0" layoutY="388.0" prefHeight="44.0" prefWidth="187.0" styleClass="mfx-text-field" stylesheets="@css/WelcomePage.css" />
+      <TextField fx:id="usernameField" layoutX="817.0" layoutY="318.0" prefHeight="44.0" prefWidth="187.0" styleClass="mfx-text-field" stylesheets="@css/WelcomePage.css" />
+   </children>
+</Pane>

@@ -6,10 +6,12 @@ module it.unina {
     requires com.dlsc.formsfx;
     requires org.kordamp.bootstrapfx.core;
     requires MaterialFX;
+    requires java.sql;
 
 
     opens it.unina to javafx.fxml;
-    exports it.unina;
     exports it.unina.controller;
     opens it.unina.controller to javafx.fxml;
+    exports it.unina.gui;
+    opens it.unina.gui to javafx.fxml;
 }

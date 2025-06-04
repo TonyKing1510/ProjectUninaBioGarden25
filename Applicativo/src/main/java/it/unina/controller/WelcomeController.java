@@ -37,15 +37,15 @@ public class WelcomeController {
   }
 
   private void loadLoginView() throws IOException {
-    FXMLLoader loader = new FXMLLoader(getClass().getResource("/it/unina/Login.fxml"));
+    FXMLLoader loader = new FXMLLoader(getClass().getResource("/it/unina/LoginPage.fxml"));
     loginView = loader.load();
-    /* loginView.getStylesheets().add(getClass().getResource()); */
+
     LoginController controller = loader.getController();
     controller.setRootController(this); 
   }
 
   private void loadRegisterView() throws IOException {
-    FXMLLoader loader = new FXMLLoader(getClass().getResource("/it/unina/Register.fxml"));
+    FXMLLoader loader = new FXMLLoader(getClass().getResource("/it/unina/RegisterPage.fxml"));
     registerView = loader.load();
     RegisterController controller = loader.getController();
     controller.setRootController(this);
