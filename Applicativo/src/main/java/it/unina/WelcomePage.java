@@ -16,7 +16,7 @@ public class WelcomePage extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(WelcomePage.class.getResource("/it/unina/WelcomeCard.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 500, 500);
+        Scene scene = new Scene(fxmlLoader.load(), 1540, 790);
 
         scene.getStylesheets().add(WelcomePage.class.getResource("/it/unina/css/WelcomePage.css").toExternalForm());
         stage.setTitle("");

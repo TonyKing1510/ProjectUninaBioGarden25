@@ -90,7 +90,7 @@ public class WelcomeController {
       FXMLLoader loader = new FXMLLoader(getClass().getResource("/it/unina/MainPage.fxml"));
       Parent mainRoot = loader.load();
 
-      Scene scene = new Scene(mainRoot, 1000, 1300);
+      Scene scene = new Scene(mainRoot, 1540, 790);
       Stage stage = new Stage();
       
       stage.setTitle("");
