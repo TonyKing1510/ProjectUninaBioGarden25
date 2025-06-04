@@ -12,9 +12,10 @@
             styleClass="project-card"
             stylesheets="@../css/projectcard.css">
 
-    <VBox spacing="10" AnchorPane.topAnchor="0" AnchorPane.leftAnchor="0"
+    <!-- Contenuto principale -->
+    <VBox spacing="10"
+          AnchorPane.topAnchor="0" AnchorPane.leftAnchor="0"
           AnchorPane.rightAnchor="0" AnchorPane.bottomAnchor="0">
-
         <padding>
             <Insets top="10" bottom="10" right="10" left="10"/>
         </padding>
@@ -42,6 +43,13 @@
             <ProgressBar fx:id="progressBar" progress="0.4" prefWidth="270"
                          styleClass="progress-bar"/>
         </VBox>
-
     </VBox>
+
+    <!-- Etichetta in basso a destra: lotto di appartenenza -->
+    <HBox spacing="4" AnchorPane.bottomAnchor="8" AnchorPane.rightAnchor="10" alignment="CENTER_RIGHT">
+        <!-- Icona testuale -->
+        <Label text="📍" styleClass="lotto-icon"/>
+        <!-- Testo descrittivo -->
+        <Label fx:id="lotLabel" text="Lotto #001" styleClass="lotto-text"/>
+    </HBox>
 </AnchorPane>
