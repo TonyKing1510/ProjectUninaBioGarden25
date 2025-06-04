@@ -40,4 +40,17 @@ public class MainPageController {
     }
   }
 
+
+  @FXML private void goToProject() {
+    try {
+      FXMLLoader loader = new FXMLLoader(getClass().getResource("/it/unina/ProjectView.fxml"));
+      Parent node = loader.load();
+      node.getStylesheets().add(getClass().getResource("/it/unina/css/coltureview.css").toExternalForm());
+      borderPane.setCenter(node);
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+  }
+
+
 }

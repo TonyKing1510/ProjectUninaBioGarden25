@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/17"
+            prefWidth="320" prefHeight="180"
+            styleClass="lotto-card"
+            stylesheets="@../css/gardencard.css">
+
+    <VBox spacing="12" AnchorPane.topAnchor="0" AnchorPane.leftAnchor="0"
+          AnchorPane.rightAnchor="0" AnchorPane.bottomAnchor="0" >
+
+        <padding>
+            <Insets top="10" right="10" bottom="10" left="10"/>
+        </padding>
+
+        <Label text="Lotto #001" styleClass="card-title" />
+
+        <HBox spacing="8">
+            <Label text="Colture:" styleClass="card-label"/>
+            <Label text="Pomodori, Insalata" styleClass="card-value"/>
+        </HBox>
+
+        <HBox spacing="8">
+            <Label text="Stato:" styleClass="card-label"/>
+            <Label text="In lavorazione" styleClass="card-value"/>
+        </HBox>
+
+        <HBox spacing="8">
+            <Label text="Città:" styleClass="card-label"/>
+            <Label text="Gaeta" styleClass="card-value"/>
+        </HBox>
+
+        <HBox spacing="8">
+            <Label text="Via:" styleClass="card-label"/>
+            <Label text="Via Indipendenza 45" styleClass="card-value"/>
+        </HBox>
+
+    </VBox>
+</AnchorPane>

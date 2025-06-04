@@ -5,34 +5,40 @@
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.text.*?>
-<?import io.github.palexdev.materialfx.controls.MFXButton?>
-
+<?import javafx.geometry.Insets ?>
 
 <AnchorPane xmlns:fx="http://javafx.com/fxml"
-            fx:controller="it.unina.controller.ColtureController"
-            stylesheets="@css/coltureview.css"
+            fx:controller="it.unina.controller.CultivatorController"
+            stylesheets="@css/cultivator.css"
             prefWidth="800" prefHeight="600">
 
-    <VBox spacing="10" AnchorPane.topAnchor="20" AnchorPane.leftAnchor="20" AnchorPane.rightAnchor="20" AnchorPane.bottomAnchor="20">
-        <HBox alignment="TOP_CENTER" styleClass="section-title">
-            <Label text="Gestione Lotti Coltivati" styleClass="section-title"/>
-        </HBox>
-        <TableView fx:id="lottiTable" prefHeight="900">
-            <columns>
-                <TableColumn text="Lotto" fx:id="lottoColumn" prefWidth="150"/>
-                <TableColumn text="Colture" fx:id="coltureColumn" prefWidth="200"/>
-                <TableColumn text="Stato" fx:id="statoColumn" prefWidth="100"/>
-                <TableColumn text="Data semina" fx:id="seminaColumn" prefWidth="120"/>
-                <TableColumn text="Raccolta prevista" fx:id="raccoltaColumn" prefWidth="120"/>
-            </columns>
-        </TableView>
+    <VBox spacing="10" AnchorPane.topAnchor="20" AnchorPane.leftAnchor="20"
+          AnchorPane.rightAnchor="20" AnchorPane.bottomAnchor="20">
+
+
+        <VBox spacing="10">
+            <HBox alignment="TOP_CENTER" styleClass="section-title">
+                <Label text="LOTTI" styleClass="section-title"/>
+            </HBox>
+
+        </VBox>
+
+        <ScrollPane fx:id="scrollPane" fitToWidth="true" VBox.vgrow="ALWAYS" styleClass="scrollable">
+            <VBox fx:id="contentBox" spacing="10" styleClass="scrollable-vbox">
+                <padding>
+                    <Insets top="10" right="10" bottom="10" left="10" />
+                </padding>
+                <fx:include source="components/GardenCard.fxml"/>
+
+
+            </VBox>
+        </ScrollPane>
 
         <HBox spacing="10" alignment="CENTER_RIGHT">
             <Button text="➕ Aggiungi" fx:id="addButton" styleClass="add-button"/>
             <Button text="🗑️ Elimina" fx:id="deleteButton" styleClass="delete-button"/>
         </HBox>
+
 
     </VBox>
 </AnchorPane>

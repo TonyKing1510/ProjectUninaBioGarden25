@@ -3,7 +3,7 @@
     -fx-background-color: #9dc183;
 }
 .anchor-pane {
-    -fx-background-color: #9dc183;
+    -fx-background-color: transparent;
 }
 
 .section-title {
@@ -92,5 +92,5 @@
 }
 
 AnchorPane {
-    -fx-background-color: #9dc183;
+    -fx-background-color: transparent;
 }

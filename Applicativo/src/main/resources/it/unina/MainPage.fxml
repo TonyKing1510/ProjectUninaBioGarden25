@@ -59,7 +59,15 @@
                 </graphic>
             </Button>
             <Button fx:id="statisticsButton" styleClass="sidebar-button" text="Andamento" />
-            <Button fx:id="projectButton" styleClass="sidebar-button" text="Aggiungi Progetto" />
+            <Button fx:id="projectButton" contentDisplay="LEFT" styleClass="sidebar-button" text="Progetti" onAction="#goToProject">
+                <graphic>
+                    <ImageView fitHeight="26.0" fitWidth="26.0" preserveRatio="true" smooth="true">
+                        <image>
+                            <Image url="@images/project-management.png" />
+                        </image>
+                    </ImageView>
+                </graphic>
+            </Button>
 
             <Pane VBox.vgrow="ALWAYS" />
             <VBox alignment="CENTER" spacing="10">

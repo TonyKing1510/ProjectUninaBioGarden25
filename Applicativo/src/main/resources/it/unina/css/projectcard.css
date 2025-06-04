@@ -1,0 +1,32 @@
+.project-card {
+    -fx-background-color: #F5F9F5;
+    -fx-background-radius: 8;
+    -fx-border-radius: 8;
+    -fx-border-color: #A0CFA0;
+    -fx-border-width: 1;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.12), 4, 0.2, 0, 2);
+}
+
+.project-title {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #2E7D32;
+}
+
+.project-label {
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #555555;
+}
+
+.project-value {
+    -fx-font-size: 12px;
+    -fx-text-fill: #333333;
+}
+
+.progress-bar {
+    -fx-accent: #81C784;
+    -fx-control-inner-background: #E8F5E9;
+    -fx-background-insets: 0.0;
+    -fx-background-radius: 4;
+}
