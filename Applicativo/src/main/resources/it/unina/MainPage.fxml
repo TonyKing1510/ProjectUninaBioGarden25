@@ -84,17 +84,6 @@
     </left>
 
     <center>
-        <VBox alignment="TOP_CENTER" spacing="20">
-            <padding>
-                <Insets bottom="40" left="40" right="40" top="10" />
-            </padding>
-            <Label styleClass="title" text="Riprendi da dove hai lasciato!" />
-            <StackPane fx:id="carousel" maxWidth="650" prefHeight="300" prefWidth="650" styleClass="carousel">
-                <ImageView fx:id="carouselImage" fitHeight="300" fitWidth="400" preserveRatio="false" />
-                <HBox alignment="TOP_CENTER" styleClass="carousel-bar" StackPane.alignment="TOP_CENTER">
-                    <Label styleClass="carousel-bar-text" text="I TUOI LOTTI" />
-                </HBox>
-            </StackPane>
-        </VBox>
+        <fx:include source="Home.fxml"/>
     </center>
 </BorderPane>

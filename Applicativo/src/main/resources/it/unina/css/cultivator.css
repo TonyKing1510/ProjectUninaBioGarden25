@@ -1,3 +1,11 @@
+.pattern-background {
+    -fx-background-image: url("../images/background_pattern.png");
+    -fx-background-repeat: repeat;
+    -fx-background-position: top left;
+    -fx-background-size: 200px 200px;
+}
+
+
 .section-title {
     -fx-alignment: center;
     -fx-padding: 10 0 10 0;

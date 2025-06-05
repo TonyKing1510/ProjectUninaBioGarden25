@@ -12,6 +12,8 @@ module it.unina {
     opens it.unina to javafx.fxml;
     exports it.unina.controller;
     opens it.unina.controller to javafx.fxml;
+    exports it.unina.controller.components;
+    opens it.unina.controller.components to javafx.fxml;
     exports it.unina.gui;
     opens it.unina.gui to javafx.fxml;
 }

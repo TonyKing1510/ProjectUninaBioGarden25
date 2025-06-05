@@ -10,9 +10,11 @@
 <AnchorPane xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml"
             prefWidth="300" prefHeight="180"
             styleClass="project-card"
-            stylesheets="@../css/projectcard.css">
+            stylesheets="@../css/projectcard.css"
+            fx:id="cardPane"
+            fx:controller="it.unina.controller.components.ProjectCardController"
+            onMouseClicked="#onProjectClick">
 
-    <!-- Contenuto principale -->
     <VBox spacing="10"
           AnchorPane.topAnchor="0" AnchorPane.leftAnchor="0"
           AnchorPane.rightAnchor="0" AnchorPane.bottomAnchor="0">
@@ -45,11 +47,8 @@
         </VBox>
     </VBox>
 
-    <!-- Etichetta in basso a destra: lotto di appartenenza -->
-    <HBox spacing="4" AnchorPane.bottomAnchor="8" AnchorPane.rightAnchor="10" alignment="CENTER_RIGHT">
-        <!-- Icona testuale -->
+    <HBox spacing="4" AnchorPane.bottomAnchor="8" AnchorPane.rightAnchor="10" alignment="CENTER_RIGHT" styleClass="sottocard">
         <Label text="📍" styleClass="lotto-icon"/>
-        <!-- Testo descrittivo -->
         <Label fx:id="lotLabel" text="Lotto #001" styleClass="lotto-text"/>
     </HBox>
 </AnchorPane>

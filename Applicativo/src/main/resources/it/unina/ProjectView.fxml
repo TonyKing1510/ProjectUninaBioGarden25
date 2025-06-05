@@ -10,7 +10,8 @@
 <AnchorPane xmlns:fx="http://javafx.com/fxml"
             fx:controller="it.unina.controller.CultivatorController"
             stylesheets="@css/cultivator.css"
-            prefWidth="800" prefHeight="600">
+            prefWidth="800" prefHeight="600"
+            styleClass="pattern-background">
 
     <VBox spacing="10" AnchorPane.topAnchor="20" AnchorPane.leftAnchor="20"
           AnchorPane.rightAnchor="20" AnchorPane.bottomAnchor="20">
