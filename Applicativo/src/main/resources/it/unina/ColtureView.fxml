@@ -10,14 +10,12 @@
     <VBox spacing="10" AnchorPane.bottomAnchor="20" AnchorPane.leftAnchor="20" AnchorPane.rightAnchor="20" AnchorPane.topAnchor="20">
 
 
-        <VBox spacing="10">
-            <HBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="760.0" styleClass="section-title">
-                <ImageView fitHeight="120.0" fitWidth="160">
-                    <image>
-                        <Image url="@images/lotto.png" />
-                    </image>
-                </ImageView>
-            </HBox>
+        <VBox spacing="2">
+                <HBox alignment="TOP_CENTER" prefHeight="50.0" prefWidth="300.0" styleClass="section-title">
+                    <ImageView fitHeight="50.0" fitWidth="160" styleClass="lotto-sign">
+                        <Image url="@images/signlotti.png" />
+                    </ImageView>
+                </HBox>
 
         </VBox>
 

@@ -39,5 +39,12 @@
             <Label text="Via Indipendenza 45" styleClass="card-value"/>
         </HBox>
 
+
     </VBox>
+
+    <HBox spacing="4" AnchorPane.bottomAnchor="10" AnchorPane.rightAnchor="10" alignment="CENTER_RIGHT" styleClass="sottocard">
+        <Label text="👤" styleClass="lotto-icon"/>
+        <Label text="13" styleClass="lotto-text"/>
+    </HBox>
+
 </AnchorPane>

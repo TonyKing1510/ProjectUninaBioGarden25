@@ -7,6 +7,8 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.geometry.Insets ?>
 
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
 <AnchorPane xmlns:fx="http://javafx.com/fxml"
             fx:controller="it.unina.controller.CultivatorController"
             stylesheets="@css/cultivator.css"
@@ -18,8 +20,10 @@
 
 
         <VBox spacing="10">
-            <HBox alignment="TOP_CENTER" styleClass="section-title">
-                <Label text="PROGETTI" styleClass="section-title"/>
+            <HBox alignment="TOP_CENTER" prefHeight="50.0" prefWidth="300.0" styleClass="section-title">
+                <ImageView fitHeight="50.0" fitWidth="160" styleClass="lotto-sign">
+                    <Image url="@images/projectsign.png" />
+                </ImageView>
             </HBox>
 
         </VBox>

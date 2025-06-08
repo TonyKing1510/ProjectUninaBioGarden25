@@ -5,6 +5,10 @@
     -fx-background-size: 200px 200px;
 }
 
+.lotto-sign {
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 4, 0.2, 0, 2);
+}
+
 
 .section-title {
     -fx-alignment: center;

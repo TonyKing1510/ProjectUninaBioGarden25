@@ -30,3 +30,18 @@
     -fx-background-insets: 0.0;
     -fx-background-radius: 5;
 }
+
+.sottocard {
+    -fx-background-radius: 3px;
+    -fx-border-radius: 3px;
+    -fx-background-color: #6b8e6c;
+    -fx-padding: 2px;
+}
+
+.lotto-icon {
+    -fx-text-fill: #d4f6d5;
+}
+
+.lotto-text {
+    -fx-text-fill: #d4f6d5;
+}
