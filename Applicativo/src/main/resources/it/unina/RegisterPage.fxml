@@ -4,7 +4,6 @@
 <?import javafx.scene.control.Hyperlink?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.MenuButton?>
-<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
@@ -28,7 +27,7 @@
                         <Image url="@images/logoUninaBio.png" />
                      </image>
                   </ImageView>
-                  <Button fx:id="registerButton" layoutX="276.0" layoutY="480.0" mnemonicParsing="false" prefHeight="44.0" prefWidth="149.0" text="Registrati" />
+                  <Button fx:id="registerButton" layoutX="276.0" layoutY="480.0" mnemonicParsing="false" onAction="#onRegister" prefHeight="44.0" prefWidth="149.0" text="Registrati" />
                   <Hyperlink fx:id="accediLink" layoutX="225.0" layoutY="527.0" onAction="#showLogin" prefHeight="59.0" prefWidth="279.0" text="Hai già un account? Premi qui e accedi">
                      <font>
                         <Font size="10.0" />
@@ -44,7 +43,7 @@
             <Font size="14.0" />
          </font>
       </Label>
-      <TextField fx:id="MailField" layoutX="817.0" layoutY="388.0" prefHeight="44.0" prefWidth="187.0" styleClass="mfx-text-field" stylesheets="@css/WelcomePage.css" />
+      <TextField fx:id="mailField" layoutX="817.0" layoutY="388.0" prefHeight="44.0" prefWidth="187.0" styleClass="mfx-text-field" stylesheets="@css/WelcomePage.css" />
       <Label layoutX="564.0" layoutY="298.0" stylesheets="@css/WelcomePage.css" text="Nome" textFill="#2b4b2c">
          <font>
             <Font size="15.0" />
@@ -71,13 +70,8 @@
          </font>
       </Label>
       <PasswordField fx:id="passwordField" layoutX="817.0" layoutY="455.0" prefHeight="44.0" prefWidth="187.0" styleClass="mfx-text-field" stylesheets="@css/WelcomePage.css" />
-      <MenuButton layoutX="563.0" layoutY="455.0" mnemonicParsing="false" prefHeight="44.0" prefWidth="187.0" styleClass="mfx-text-field" stylesheets="@css/WelcomePage.css" text="Ruolo">
-        <items>
-            <MenuItem mnemonicParsing="false" text="Proprietario" />
-            <MenuItem mnemonicParsing="false" text="Coltivatore" />
-        </items>
-      </MenuButton>
-      <TextField fx:id="CognomeField" layoutX="562.0" layoutY="388.0" prefHeight="44.0" prefWidth="187.0" styleClass="mfx-text-field" stylesheets="@css/WelcomePage.css" />
+      <MenuButton fx:id="ruoloMenu" layoutX="563.0" layoutY="455.0" mnemonicParsing="false" prefHeight="44.0" prefWidth="187.0" styleClass="mfx-text-field" stylesheets="@css/WelcomePage.css" text="Ruolo" />
+      <TextField fx:id="cognomeField" layoutX="562.0" layoutY="388.0" prefHeight="44.0" prefWidth="187.0" styleClass="mfx-text-field" stylesheets="@css/WelcomePage.css" />
       <TextField fx:id="usernameField" layoutX="817.0" layoutY="318.0" prefHeight="44.0" prefWidth="187.0" styleClass="mfx-text-field" stylesheets="@css/WelcomePage.css" />
    </children>
 </Pane>

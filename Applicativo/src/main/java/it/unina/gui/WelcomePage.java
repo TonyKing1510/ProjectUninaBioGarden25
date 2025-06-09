@@ -9,7 +9,11 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.Objects;
 
-
+/**
+ * WelcomePage è la classe principale dell'applicazione che gestisce la visualizzazione della pagina di benvenuto.
+ * @author entn
+ * @author Sderr12
+ */
 public class WelcomePage extends Application {
     @Override
     public void start(Stage stage) throws IOException {

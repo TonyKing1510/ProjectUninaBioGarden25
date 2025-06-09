@@ -8,20 +8,23 @@ public interface UtenteDAO {
     /**
      * Inserisce un nuovo utente nel database. (serve per la registrazione)
      * @param utente L'utente da inserire.
+     * @author entn
      */
-    void addUtente(Utente utente);
+    boolean addUtente(Utente utente);
 
     /**
      * Restituisce tutti gli utenti presenti nel database.
      * @return Lista di utenti.
+     * @author entn
      */
     List<Utente> getTuttiGliUtenti();
 
     /**
      * Cerca un utente per email e password (per login).
-     * @param username L'email dell'utente.
+     * @param username L'username dell'utente.
      * @param password La password dell'utente.
      * @return L'utente trovato o null.
+     * @author entn
      */
     Utente login(String username, String password);
 
@@ -29,6 +32,7 @@ public interface UtenteDAO {
      * Controlla se esiste un utente con la mail fornita.
      * @param email Email da verificare.
      * @return true se l'utente esiste.
+     * @author entn
      */
     boolean esisteUtente(String email);
 }

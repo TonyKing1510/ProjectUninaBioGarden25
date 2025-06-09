@@ -1,30 +1,97 @@
 package it.unina.controller;
 
-
-import it.unina.controller.WelcomeController;
+import it.unina.dao.UtenteDAO;
+import it.unina.implementazionePostgreSQL.UtenteDAOImpl;
+import it.unina.model.Utente;
+import it.unina.gui.MainAppGui;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
-import io.github.palexdev.materialfx.controls.MFXTextField;
+import javafx.scene.control.Button;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
+/**
+ * Controller per la schermata di login.
+ * Gestisce l'autenticazione dell'utente e il passaggio alla schermata principale
+ * o alla schermata di registrazione.
+ *
+ * @author entn,Sderr12
+ */
 public class LoginController {
 
   @FXML private TextField usernameField;
+  @FXML private PasswordField passwordField;
+  @FXML private Button accediButton;
 
   private WelcomeController rootController;
-  
 
-  public void setRootController( WelcomeController rootController){
+  private final UtenteDAO utenteDAO = new UtenteDAOImpl();
+
+  /**
+   * Imposta il controller principale (WelcomeController)
+   * per consentire il passaggio tra le viste.
+   *
+   * @param rootController il controller principale
+   * @author Sderr12
+   */
+  public void setRootController(WelcomeController rootController) {
     this.rootController = rootController;
   }
 
-  @FXML private void goToRegister(ActionEvent event) {
+  /**
+   * Metodo chiamato quando l'utente clicca su "Registrati".
+   * Passa alla schermata di registrazione.
+   *
+   * @param event l'evento del clic sul pulsante
+   * @author Sderr12
+   */
+  @FXML
+  private void goToRegister(ActionEvent event) {
     rootController.switchToRegister();
   }
 
-  @FXML private void onLogin(ActionEvent event){
-    System.out.println("Hello!");
-    rootController.goToMainApp(event);
+  /**
+   * Gestisce il login dell'utente. Verifica le credenziali e,
+   * in caso positivo, apre la schermata principale dell'applicazione.
+   *
+   * @param event l'evento del clic sul pulsante di login
+   * @author entn
+   */
+  @FXML
+  private void onLogin(ActionEvent event) {
+    String username = usernameField.getText().trim();
+    String password = passwordField.getText();
+
+    if (username.isEmpty() || password.isEmpty()) {
+      showAlert("Errore", "Inserisci email e password.");
+      return;
+    }
+
+    Utente utente = utenteDAO.login(username, password);
+    System.out.println("Utente trovato: " + (utente != null ? utente.getNome() : "null"));
+
+    if (utente != null) {
+      System.out.println("Login riuscito per: " + utente.getNome());
+      MainAppGui.initializeMainApp((Stage) accediButton.getScene().getWindow(), utente);
+    } else {
+      showAlert("Login fallito", "Email o password non validi.");
+    }
+  }
+
+  /**
+   * Mostra un messaggio di errore all'utente tramite una finestra di dialogo.
+   *
+   * @param titolo il titolo dell'alert
+   * @param messaggio il messaggio da visualizzare all'interno dell'alert
+   * @author entn
+   */
+  private void showAlert(String titolo, String messaggio) {
+    Alert alert = new Alert(Alert.AlertType.ERROR);
+    alert.setTitle(titolo);
+    alert.setHeaderText(null);
+    alert.setContentText(messaggio);
+    alert.showAndWait();
   }
 }

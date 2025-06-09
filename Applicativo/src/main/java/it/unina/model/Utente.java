@@ -17,26 +17,49 @@ public class Utente {
     private String mail;
     private String password;
     private Ruolo ruolo;
+    private String username;
 
     /**
      * Costruttore per creare un oggetto Utente completo.
      *
      * @param idUtente identificatore univoco dell'utente
-     * @param nome nome dell'utente
-     * @param cognome cognome dell'utente
-     * @param mail indirizzo email univoco dell'utente
+     * @param nome     nome dell'utente
+     * @param cognome  cognome dell'utente
+     * @param mail     indirizzo email univoco dell'utente
      * @param password password dell'utente (preferibilmente hashata)
-     * @param ruolo ruolo assegnato all'utente (PROPRIETARIO o COLTIVATORE)
-     *
+     * @param ruolo    ruolo assegnato all'utente (PROPRIETARIO o COLTIVATORE)
+     * @param username
      * @author entn
      */
-    public Utente(int idUtente, String nome, String cognome, String mail, String password, Ruolo ruolo) {
+    public Utente(int idUtente, String nome, String cognome, String mail, String password, Ruolo ruolo, String username) {
         this.idUtente = idUtente;
         this.nome = nome;
         this.cognome = cognome;
         this.mail = mail;
         this.password = password;
         this.ruolo = ruolo;
+        this.username = username;
+    }
+
+    /**
+     * Costruttore per creare un oggetto Utente senza ID.
+     * Utilizzato per la registrazione di nuovi utenti.
+     *
+     * @param nome    nome dell'utente
+     * @param cognome cognome dell'utente
+     * @param mail    indirizzo email univoco dell'utente
+     * @param password password dell'utente (preferibilmente hashata)
+     * @param ruolo   ruolo assegnato all'utente (PROPRIETARIO o COLTIVATORE)
+     * @param username
+     * @author entn
+     */
+    public Utente(String nome, String cognome, String mail, String password, Ruolo ruolo, String username) {
+        this.nome = nome;
+        this.cognome = cognome;
+        this.mail = mail;
+        this.password = password;
+        this.ruolo = ruolo;
+        this.username = username;
     }
 
     /**
@@ -135,7 +158,7 @@ public class Utente {
      * @param password nuova password (hashata)
      * @author entn
      */
-    public void setPassword(String password) {
+    private void setPassword(String password) {
         this.password = password;
     }
 
@@ -157,5 +180,12 @@ public class Utente {
      */
     public void setRuolo(Ruolo ruolo) {
         this.ruolo = ruolo;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+    public void setUsername(String username) {
+        this.username = username;
     }
 }

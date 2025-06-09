@@ -8,7 +8,6 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
@@ -59,7 +58,7 @@
                 </graphic>
             </Button>
             <Button fx:id="statisticsButton" styleClass="sidebar-button" text="Andamento" />
-            <Button fx:id="projectButton" contentDisplay="LEFT" styleClass="sidebar-button" text="Progetti" onAction="#goToProject">
+            <Button fx:id="projectButton" contentDisplay="LEFT" onAction="#goToProject" styleClass="sidebar-button" text="Progetti">
                 <graphic>
                     <ImageView fitHeight="26.0" fitWidth="26.0" preserveRatio="true" smooth="true">
                         <image>
@@ -72,10 +71,17 @@
             <Pane VBox.vgrow="ALWAYS" />
             <VBox alignment="CENTER" spacing="10">
                 <HBox alignment="CENTER_LEFT" spacing="10" styleClass="user-box">
-                    <Button fx:id="profileButton" styleClass="profile-circle" />
+                    <Button fx:id="profileButton" minHeight="48.0" minWidth="47.0" prefHeight="48.0" prefWidth="47.0" styleClass="profile-circle">
+                  <graphic>
+                     <ImageView fitHeight="56.0" fitWidth="62.0" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                           <Image url="@images/iconAccount.png" />
+                        </image>
+                     </ImageView>
+                  </graphic></Button>
 
                     <VBox alignment="CENTER_LEFT" spacing="2">
-                        <Label fx:id="usernameLabel" styleClass="username-label" text="Mario Rossi" />
+                        <Label fx:id="nomeCognomeLabel" styleClass="username-label" text="- - -  - " />
                         <Button fx:id="logoutButton" alignment="BOTTOM_LEFT" styleClass="logout-button" text="⇦" />
                     </VBox>
                 </HBox>
@@ -84,6 +90,6 @@
     </left>
 
     <center>
-        <fx:include source="Home.fxml"/>
+        <fx:include source="Home.fxml" />
     </center>
 </BorderPane>
