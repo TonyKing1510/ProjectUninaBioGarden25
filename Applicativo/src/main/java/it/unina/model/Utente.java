@@ -1,6 +1,8 @@
 package it.unina.model;
 
 
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Rappresenta un utente registrato nella piattaforma UninaBioGarden.
@@ -18,6 +20,16 @@ public class Utente {
     private String password;
     private Ruolo ruolo;
     private String username;
+
+    private List<Progetto> progettiCreati = new ArrayList<>();
+
+    public List<Progetto> getProgettiCreati() {
+        return progettiCreati;
+    }
+
+    public void aggiungiProgettoCreato(Progetto progetto) {
+        progettiCreati.add(progetto);
+    }
 
     /**
      * Costruttore per creare un oggetto Utente completo.

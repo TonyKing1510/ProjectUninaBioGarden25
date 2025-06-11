@@ -120,7 +120,6 @@ public class RegisterController {
     }
 
     showAlert("Registrazione completata", "Utente registrato con successo!");
-    rootController.switchToLogin();
   }
 
   /**
