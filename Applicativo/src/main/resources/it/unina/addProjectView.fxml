@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="600" prefWidth="800" styleClass="pattern-background" stylesheets="@css/cultivator.css" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/23.0.1" fx:controller="it.unina.controller.ProjectController">
+
+    <VBox spacing="10" AnchorPane.bottomAnchor="20" AnchorPane.leftAnchor="20" AnchorPane.rightAnchor="20" AnchorPane.topAnchor="20">
+
+
+        <VBox spacing="10">
+            <HBox alignment="TOP_CENTER" prefHeight="50.0" prefWidth="300.0" styleClass="section-title">
+            <children>
+               <Label style="-fx-background-color: WHITE; -fx-background-radius: 5;" text="AGGIUNGI IL TUO PROGETTO" textFill="WHITE" />
+            </children>
+            </HBox>
+         <AnchorPane prefHeight="441.0" prefWidth="760.0" style="-fx-background-color: white;">
+            <children>
+               <VBox layoutX="10.0" layoutY="7.0" prefHeight="427.0" prefWidth="742.0" style="-fx-spacing: 20;">
+                  <children>
+                     <Label prefHeight="18.0" prefWidth="738.0" text="1. Inserisci un titolo per il tuo progetto" textFill="#03662b">
+                        <font>
+                           <Font size="19.0" />
+                        </font>
+                     </Label>
+                     <TextField prefHeight="38.0" prefWidth="742.0" />
+                     <Label prefHeight="18.0" prefWidth="738.0" text="2. Inserisci una data di inizio per il tuo progetto" textFill="#03662b">
+                        <font>
+                           <Font size="19.0" />
+                        </font>
+                     </Label>
+                     <DatePicker prefHeight="26.0" prefWidth="262.0" />
+                     <Label prefHeight="18.0" prefWidth="738.0" text="3. Inserisci una data di fine per il tuo progetto" textFill="#03662b">
+                        <font>
+                           <Font size="19.0" />
+                        </font>
+                     </Label>
+                     <DatePicker prefHeight="26.0" prefWidth="262.0" />
+                  </children>
+               </VBox>
+            </children>
+         </AnchorPane>
+
+        </VBox>
+
+        <HBox alignment="CENTER_RIGHT" spacing="10">
+            <Button fx:id="addButton" prefHeight="32.0" prefWidth="191.0" styleClass="add-button" text="➕ Aggiungi"  />
+        </HBox>
+
+
+    </VBox>
+</AnchorPane>

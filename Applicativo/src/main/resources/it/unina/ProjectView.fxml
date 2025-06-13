@@ -10,7 +10,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.image.Image?>
 <AnchorPane xmlns:fx="http://javafx.com/fxml"
-            fx:controller="it.unina.controller.CultivatorController"
+            fx:controller="it.unina.controller.ProjectController"
             stylesheets="@css/cultivator.css"
             prefWidth="800" prefHeight="600"
             styleClass="pattern-background">
@@ -40,7 +40,7 @@
         </ScrollPane>
 
         <HBox spacing="10" alignment="CENTER_RIGHT">
-            <Button text="➕ Aggiungi" fx:id="addButton" styleClass="add-button"/>
+            <Button text="➕ Aggiungi" fx:id="addButton" styleClass="add-button" onAction="#openAddProjectDialog"/>
             <Button text="🗑️ Elimina" fx:id="deleteButton" styleClass="delete-button"/>
         </HBox>
 

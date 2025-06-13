@@ -1,5 +1,7 @@
 package it.unina.model;
 
+import java.util.Date;
+
 /**
  * Rappresenta un Progetto creato da un utente proprietario, associato a una stagione.
  *
@@ -22,6 +24,9 @@ public class Progetto {
      */
     private Utente creatore;
 
+    private Date dataInizio;
+    private Date dataFine;
+
     /**
      * Costruttore con validazione che assicura che solo un utente con ruolo PROPRIETARIO
      * possa creare un progetto.
@@ -29,18 +34,22 @@ public class Progetto {
      * @param idProgetto identificativo univoco del progetto
      * @param stagione stagione associata al progetto
      * @param creatore utente creatore del progetto (ruolo PROPRIETARIO richiesto)
+     * @param dataInizio data di inizio del progetto
+     * @param dataFine data di fine del progetto
      *
      * @throws IllegalArgumentException se l'utente creatore non ha ruolo PROPRIETARIO
      *
      * @author entn
      */
-    public Progetto(int idProgetto, Stagione stagione, Utente creatore) {
+    public Progetto(int idProgetto, Stagione stagione, Utente creatore, Date dataInizio, Date dataFine) {
         if (creatore.getRuolo() != Ruolo.PROPRIETARIO) {
             throw new IllegalArgumentException("Solo un utente con ruolo PROPRIETARIO può creare un progetto.");
         }
         this.idProgetto = idProgetto;
         this.stagione = stagione;
         this.creatore = creatore;
+        this.dataInizio = dataInizio;
+        this.dataFine = dataFine;
     }
 
     /**
@@ -110,6 +119,47 @@ public class Progetto {
     }
 
     /**
+     * Restituisce la data di inizio del Progetto.
+     *
+     * @return data di inizio del progetto
+     *
+     * @author entn
+     */
+    public Date getDataInizio() {
+        return dataInizio;
+    }
+    /**
+     * Imposta la data di inizio del Progetto.
+     *
+     * @param dataInizio nuova data di inizio del progetto
+     *
+     * @author entn
+     */
+    public void setDataInizio(Date dataInizio) {
+        this.dataInizio = dataInizio;
+    }
+    /**
+     * Restituisce la data di fine del Progetto.
+     *
+     * @return data di fine del progetto
+     *
+     * @author entn
+     */
+    public Date getDataFine() {
+        return dataFine;
+    }
+    /**
+     * Imposta la data di fine del Progetto.
+     *
+     * @param dataFine nuova data di fine del progetto
+     *
+     * @author entn
+     */
+    public void setDataFine(Date dataFine) {
+        this.dataFine = dataFine;
+    }
+
+    /**
      * Restituisce una rappresentazione in formato stringa del Progetto.
      *
      * @return stringa descrittiva del progetto
@@ -123,5 +173,13 @@ public class Progetto {
                 ", stagione='" + stagione + '\'' +
                 ", creatore=" + (creatore != null ? creatore.getUsername() : "null") +
                 '}';
+    }
+
+    public int getIdUtenteCreatore() {
+        if (creatore != null) {
+            return creatore.getIdUtente();
+        } else {
+            throw new IllegalStateException("Il creatore del progetto non è stato impostato.");
+        }
     }
 }

@@ -7,48 +7,33 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml"
-            prefWidth="300" prefHeight="180"
-            styleClass="project-card"
-            stylesheets="@../css/projectcard.css"
-            fx:id="cardPane"
-            fx:controller="it.unina.controller.components.ProjectCardController"
-            onMouseClicked="#onProjectClick">
+<AnchorPane fx:id="cardPane" onMouseClicked="#onProjectClick" prefHeight="180" prefWidth="300" styleClass="project-card" stylesheets="@../css/projectcard.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unina.controller.components.ProjectCardController">
 
-    <VBox spacing="10"
-          AnchorPane.topAnchor="0" AnchorPane.leftAnchor="0"
-          AnchorPane.rightAnchor="0" AnchorPane.bottomAnchor="0">
+    <VBox spacing="10" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0">
         <padding>
-            <Insets top="10" bottom="10" right="10" left="10"/>
+            <Insets bottom="10" left="10" right="10" top="10" />
         </padding>
 
-        <Label fx:id="titleLabel" text="Progetto: Semina Fragole"
-               styleClass="project-title" />
+        <Label fx:id="nomeProgetto" styleClass="project-title" />
 
         <HBox spacing="8">
-            <Label text="Tipo Attività:" styleClass="project-label"/>
-            <Label fx:id="typeLabel" text="Semina" styleClass="project-value"/>
+            <Label styleClass="project-label" text="Stagione:" />
+            <Label fx:id="stagioneLabel" styleClass="project-value" />
         </HBox>
 
         <HBox spacing="8">
-            <Label text="Data Inizio:" styleClass="project-label"/>
-            <Label fx:id="startDateLabel" text="01/04/2025" styleClass="project-value"/>
+            <Label styleClass="project-label" text="Data Inizio:" />
+            <Label fx:id="dataInizioLabel" styleClass="project-value" />
         </HBox>
 
         <HBox spacing="8">
-            <Label text="Data Fine:" styleClass="project-label"/>
-            <Label fx:id="endDateLabel" text="15/04/2025" styleClass="project-value"/>
+            <Label styleClass="project-label" text="Data Fine:" />
+            <Label fx:id="dataFineLabel" styleClass="project-value" />
         </HBox>
 
         <VBox spacing="5">
-            <Label text="Avanzamento:" styleClass="project-label"/>
-            <ProgressBar fx:id="progressBar" progress="0.4" prefWidth="270"
-                         styleClass="progress-bar"/>
+            <Label styleClass="project-label" text="Avanzamento:" />
+            <ProgressBar fx:id="progresBar" prefWidth="270" progress="0.4" styleClass="progress-bar" />
         </VBox>
     </VBox>
-
-    <HBox spacing="4" AnchorPane.bottomAnchor="8" AnchorPane.rightAnchor="10" alignment="CENTER_RIGHT" styleClass="sottocard">
-        <Label text="📍" styleClass="lotto-icon"/>
-        <Label fx:id="lotLabel" text="Lotto #001" styleClass="lotto-text"/>
-    </HBox>
 </AnchorPane>

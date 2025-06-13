@@ -5,6 +5,7 @@ import it.unina.gui.CultivatorGUI;
 import it.unina.gui.ProjectGUI;
 import it.unina.model.Utente;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
@@ -25,6 +26,8 @@ public class MainPageController {
    */
   @FXML
   private Label nomeCognomeLabel;
+
+
 
   /**
    * Pannello principale dove vengono caricate dinamicamente le viste delle sezioni.

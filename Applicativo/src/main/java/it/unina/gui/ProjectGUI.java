@@ -2,7 +2,10 @@ package it.unina.gui;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.Stage;
+import javafx.stage.Window;
 
 import java.io.IOException;
 
@@ -29,6 +32,19 @@ public class ProjectGUI {
         Parent node = loader.load();
         node.getStylesheets().add(ProjectGUI.class.getResource("/it/unina/css/coltureview.css").toExternalForm());
         borderPane.setCenter(node);
+
+    }
+
+    public static void openAddProjectView(Window window) throws IOException {
+        FXMLLoader loader = new FXMLLoader(ProjectGUI.class.getResource("/it/unina/AddProjectView.fxml"));
+        Parent node = loader.load();
+        node.getStylesheets().add(ProjectGUI.class.getResource
+                ("/it/unina/css/coltureview.css").toExternalForm());
+        Stage stage = new Stage();
+        stage.setTitle("Aggiungi Progetto");
+        stage.setScene(new Scene(node, 800, 600));
+        stage.setResizable(false);
+        stage.show();
 
     }
 }
