@@ -7,7 +7,6 @@ import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.AnchorPane;
 
 import java.time.LocalDate;
-import java.time.ZoneId;
 import java.time.temporal.ChronoUnit;
 
 public class ProjectCardController {
@@ -26,7 +25,7 @@ public class ProjectCardController {
     @FXML
     private Label dataFineLabel;
     @FXML
-    private ProgressBar progresBar;
+    private ProgressBar progressBar;
 
     public void setProgetto(Progetto progetto) {
         nomeProgetto.setText(progetto.getTitolo());
@@ -35,7 +34,9 @@ public class ProjectCardController {
         dataFineLabel.setText(progetto.getDataFine().toString());
 
         double progresso = calcolaAvanzamento(progetto);
-        progresBar.setProgress(progresso);
+
+        progressBar.setProgress(progresso);
+
     }
 
     // Questo è un esempio, puoi basarlo sulla data odierna
@@ -44,11 +45,23 @@ public class ProjectCardController {
         LocalDate inizio = progetto.getDataInizio().toLocalDate();
         LocalDate fine = progetto.getDataFine().toLocalDate();
 
-        if (oggi.isBefore(inizio)) return 0.0;
-        if (oggi.isAfter(fine)) return 1.0;
+        System.out.println("Oggi: " + oggi);
+        System.out.println("Inizio: " + inizio);
+        System.out.println("Fine: " + fine);
+        if (oggi.isBefore(inizio)) {
+            System.out.println("Il progetto non è ancora iniziato.");
+            return 0.0; // Il progetto non è ancora iniziato
+        } else if (oggi.isAfter(fine)) {
+            System.out.println("Il progetto è già terminato.");
+            return 1.0; // Il progetto è già terminato
+        }
+
 
         long totale = ChronoUnit.DAYS.between(inizio, fine);
         long trascorsi = ChronoUnit.DAYS.between(inizio, oggi);
+
+        System.out.println("Totale giorni: " + totale);
+        System.out.println("Giorni trascorsi: " + trascorsi);
 
         return totale == 0 ? 1.0 : (double) trascorsi / totale;
     }

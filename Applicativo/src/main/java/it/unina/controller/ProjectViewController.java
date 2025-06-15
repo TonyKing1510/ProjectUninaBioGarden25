@@ -51,24 +51,13 @@ public class ProjectViewController {
     @FXML
     private void initialize() {
 
-        Platform.runLater(() -> {
-            // Carica i progetti dell'utente loggato
-            loadProjects();
-            // Imposta il testo del pulsante di aggiunta progetto
-            stagioneMenu.setText("Seleziona stagione");
-            // Inizializza il menu a tendina delle stagioni
-            setStagioniMenu();
-            // Imposta il titolo del progetto
-            titleProject.setPromptText("Inserisci il titolo del progetto");
-
-            // Imposta le date iniziali e finali
-            dateInit.setPromptText("Data inizio");
-            dateFine.setPromptText("Data fine");
-        });
+        // Carica i progetti dell'utente loggato
+        Platform.runLater(this::loadProjects);
 
 
 
     }
+
 
     public void setStagioniMenu() {
         List<String> voci = List.of("Primavera", "Estate", "Autunno", "Inverno");
@@ -91,7 +80,7 @@ public class ProjectViewController {
      */
     @FXML
     public void openAddProjectDialog() throws IOException {
-        ProjectGUI.openAddProjectView(addButton.getScene().getWindow(), utenteLoggato);
+        ProjectGUI.openAddProjectView( utenteLoggato);
     }
 
     @FXML
@@ -134,18 +123,24 @@ public class ProjectViewController {
         List<Progetto> progetti = progettoDAO.getProgettiByIdUtente(utenteLoggato.getIdUtente());
         for (Progetto progetto : progetti) {
             try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/it/unina/components/ProjectCard.fxml"));
-                AnchorPane card = loader.load();
-
-                // Ottieni il controller della card e setta i dati
-                ProjectCardController controller = loader.getController();
-                controller.setProgetto(progetto); // Metodo che scriverai tu
-
-                contentBox.getChildren().add(card);
+                ProjectGUI.initProjectCard(progetto, contentBox);
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
 
+    }
+
+    public void setViewAddProject() {
+        // Imposta il testo del pulsante di aggiunta progetto
+        stagioneMenu.setText("Seleziona stagione");
+        // Inizializza il menu a tendina delle stagioni
+        setStagioniMenu();
+        // Imposta il titolo del progetto
+        titleProject.setPromptText("Inserisci il titolo del progetto");
+
+        // Imposta le date iniziali e finali
+        dateInit.setPromptText("Data inizio");
+        dateFine.setPromptText("Data fine");
     }
 }

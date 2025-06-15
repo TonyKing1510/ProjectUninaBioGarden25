@@ -1,11 +1,15 @@
 package it.unina.gui;
 
 import it.unina.controller.ProjectViewController;
+import it.unina.controller.components.ProjectCardController;
+import it.unina.model.Progetto;
 import it.unina.model.Utente;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 
@@ -40,18 +44,30 @@ public class ProjectGUI {
 
     }
 
-    public static void openAddProjectView(Window window, Utente utente) throws IOException {
+    public static void openAddProjectView( Utente utente) throws IOException {
         FXMLLoader loader = new FXMLLoader(ProjectGUI.class.getResource("/it/unina/AddProjectView.fxml"));
         Parent node = loader.load();
         node.getStylesheets().add(ProjectGUI.class.getResource
                 ("/it/unina/css/coltureview.css").toExternalForm());
         ProjectViewController controller = loader.getController();
         controller.setUtenteLoggato(utente);
+        controller.setViewAddProject();
         Stage stage = new Stage();
         stage.setTitle("Aggiungi Progetto");
         stage.setScene(new Scene(node, 800, 600));
         stage.setResizable(false);
         stage.show();
 
+    }
+
+    public static void initProjectCard(Progetto progetto, VBox contentBox) throws IOException {
+        FXMLLoader loader = new FXMLLoader(ProjectGUI.class.getResource("/it/unina/components/ProjectCard.fxml"));
+        AnchorPane card = loader.load();
+
+        // Ottieni il controller della card e setta i dati
+        ProjectCardController controller = loader.getController();
+        controller.setProgetto(progetto); // Metodo che scriverai tu
+
+        contentBox.getChildren().add(card);
     }
 }

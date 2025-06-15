@@ -4,7 +4,6 @@
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.MenuButton?>
-<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
@@ -37,12 +36,7 @@
                            <Font size="19.0" />
                         </font>
                      </Label>
-                     <MenuButton fx:id="stagioneMenu" mnemonicParsing="false" prefHeight="25.0" prefWidth="198.0" stylesheets="@css/mainpage.css">
-                       <items>
-                         <MenuItem mnemonicParsing="false" text="Action 1" />
-                         <MenuItem mnemonicParsing="false" text="Action 2" />
-                       </items>
-                     </MenuButton>
+                     <MenuButton fx:id="stagioneMenu" mnemonicParsing="false" prefHeight="25.0" prefWidth="198.0" stylesheets="@css/mainpage.css" />
                      <Label prefHeight="18.0" prefWidth="738.0" text="3. Inserisci una data di inizio per il tuo progetto" textFill="#03662b">
                         <font>
                            <Font size="19.0" />
