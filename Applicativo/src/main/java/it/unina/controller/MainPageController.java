@@ -96,7 +96,7 @@ public class MainPageController {
    */
   @FXML
   private void goToProject() throws IOException {
-    ProjectGUI.initializeProjectView(borderPane);
+    ProjectGUI.initializeProjectView(borderPane, utenteLoggato);
   }
 
   /**

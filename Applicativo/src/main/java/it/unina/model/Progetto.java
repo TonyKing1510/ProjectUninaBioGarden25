@@ -1,6 +1,6 @@
 package it.unina.model;
 
-import java.util.Date;
+import java.sql.Date;
 
 /**
  * Rappresenta un Progetto creato da un utente proprietario, associato a una stagione.
@@ -26,12 +26,13 @@ public class Progetto {
 
     private Date dataInizio;
     private Date dataFine;
+    private String titolo;
 
     /**
      * Costruttore con validazione che assicura che solo un utente con ruolo PROPRIETARIO
      * possa creare un progetto.
      *
-     * @param idProgetto identificativo univoco del progetto
+     *
      * @param stagione stagione associata al progetto
      * @param creatore utente creatore del progetto (ruolo PROPRIETARIO richiesto)
      * @param dataInizio data di inizio del progetto
@@ -41,15 +42,25 @@ public class Progetto {
      *
      * @author entn
      */
-    public Progetto(int idProgetto, Stagione stagione, Utente creatore, Date dataInizio, Date dataFine) {
+    public Progetto(String titolo, Stagione stagione, Utente creatore, Date dataInizio, Date dataFine) {
         if (creatore.getRuolo() != Ruolo.PROPRIETARIO) {
             throw new IllegalArgumentException("Solo un utente con ruolo PROPRIETARIO può creare un progetto.");
         }
-        this.idProgetto = idProgetto;
+        this.titolo = titolo;
         this.stagione = stagione;
         this.creatore = creatore;
         this.dataInizio = dataInizio;
         this.dataFine = dataFine;
+    }
+
+    /**
+     * Costruttore di default per Progetto.
+     * Utilizzato principalmente per la serializzazione/deserializzazione.
+     *
+     * @author entn
+     */
+    public Progetto() {
+        // Costruttore vuoto per serializzazione
     }
 
     /**
@@ -181,5 +192,12 @@ public class Progetto {
         } else {
             throw new IllegalStateException("Il creatore del progetto non è stato impostato.");
         }
+    }
+
+    public String getTitolo() {
+        return titolo;
+    }
+    public void setTitolo(String titolo) {
+        this.titolo = titolo;
     }
 }

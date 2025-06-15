@@ -3,13 +3,15 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="600" prefWidth="800" styleClass="pattern-background" stylesheets="@css/cultivator.css" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/23.0.1" fx:controller="it.unina.controller.ProjectController">
+<AnchorPane prefHeight="600" prefWidth="800" styleClass="pattern-background" stylesheets="@css/cultivator.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unina.controller.ProjectViewController">
 
     <VBox spacing="10" AnchorPane.bottomAnchor="20" AnchorPane.leftAnchor="20" AnchorPane.rightAnchor="20" AnchorPane.topAnchor="20">
 
@@ -29,19 +31,30 @@
                            <Font size="19.0" />
                         </font>
                      </Label>
-                     <TextField prefHeight="38.0" prefWidth="742.0" />
-                     <Label prefHeight="18.0" prefWidth="738.0" text="2. Inserisci una data di inizio per il tuo progetto" textFill="#03662b">
+                     <TextField fx:id="titleProject" prefHeight="28.0" prefWidth="742.0" />
+                     <Label prefHeight="18.0" prefWidth="738.0" text="2. Inserisci la stagione in cui si svolge il progetto" textFill="#03662b">
                         <font>
                            <Font size="19.0" />
                         </font>
                      </Label>
-                     <DatePicker prefHeight="26.0" prefWidth="262.0" />
-                     <Label prefHeight="18.0" prefWidth="738.0" text="3. Inserisci una data di fine per il tuo progetto" textFill="#03662b">
+                     <MenuButton fx:id="stagioneMenu" mnemonicParsing="false" prefHeight="25.0" prefWidth="198.0" stylesheets="@css/mainpage.css">
+                       <items>
+                         <MenuItem mnemonicParsing="false" text="Action 1" />
+                         <MenuItem mnemonicParsing="false" text="Action 2" />
+                       </items>
+                     </MenuButton>
+                     <Label prefHeight="18.0" prefWidth="738.0" text="3. Inserisci una data di inizio per il tuo progetto" textFill="#03662b">
                         <font>
                            <Font size="19.0" />
                         </font>
                      </Label>
-                     <DatePicker prefHeight="26.0" prefWidth="262.0" />
+                     <DatePicker fx:id="dateInit" prefHeight="26.0" prefWidth="262.0" />
+                     <Label prefHeight="18.0" prefWidth="738.0" text="4. Inserisci una data di fine per il tuo progetto" textFill="#03662b">
+                        <font>
+                           <Font size="19.0" />
+                        </font>
+                     </Label>
+                     <DatePicker fx:id="dateFine" prefHeight="26.0" prefWidth="262.0" />
                   </children>
                </VBox>
             </children>
@@ -50,7 +63,7 @@
         </VBox>
 
         <HBox alignment="CENTER_RIGHT" spacing="10">
-            <Button fx:id="addButton" prefHeight="32.0" prefWidth="191.0" styleClass="add-button" text="➕ Aggiungi"  />
+            <Button fx:id="addButtonProject" onAction="#addProject" prefHeight="32.0" prefWidth="191.0" styleClass="add-button" text="➕ Aggiungi" />
         </HBox>
 
 

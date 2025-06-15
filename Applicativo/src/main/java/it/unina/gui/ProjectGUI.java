@@ -1,5 +1,7 @@
 package it.unina.gui;
 
+import it.unina.controller.ProjectViewController;
+import it.unina.model.Utente;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -27,19 +29,24 @@ public class ProjectGUI {
      * @throws IOException Se si verifica un errore durante il caricamento del file FXML.
      * @author entn
      */
-    public static void initializeProjectView(BorderPane borderPane) throws IOException {
+    public static void initializeProjectView(BorderPane borderPane, Utente utente) throws IOException {
         FXMLLoader loader = new FXMLLoader(ProjectGUI.class.getResource("/it/unina/ProjectView.fxml"));
         Parent node = loader.load();
+        ProjectViewController controller = loader.getController();
+        controller.setUtenteLoggato(utente);
         node.getStylesheets().add(ProjectGUI.class.getResource("/it/unina/css/coltureview.css").toExternalForm());
         borderPane.setCenter(node);
 
+
     }
 
-    public static void openAddProjectView(Window window) throws IOException {
+    public static void openAddProjectView(Window window, Utente utente) throws IOException {
         FXMLLoader loader = new FXMLLoader(ProjectGUI.class.getResource("/it/unina/AddProjectView.fxml"));
         Parent node = loader.load();
         node.getStylesheets().add(ProjectGUI.class.getResource
                 ("/it/unina/css/coltureview.css").toExternalForm());
+        ProjectViewController controller = loader.getController();
+        controller.setUtenteLoggato(utente);
         Stage stage = new Stage();
         stage.setTitle("Aggiungi Progetto");
         stage.setScene(new Scene(node, 800, 600));

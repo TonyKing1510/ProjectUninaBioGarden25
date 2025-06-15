@@ -1,22 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.geometry.Insets ?>
-
-<?import javafx.scene.image.ImageView?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.image.Image?>
-<AnchorPane xmlns:fx="http://javafx.com/fxml"
-            fx:controller="it.unina.controller.ProjectController"
-            stylesheets="@css/cultivator.css"
-            prefWidth="800" prefHeight="600"
-            styleClass="pattern-background">
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 
-    <VBox spacing="10" AnchorPane.topAnchor="20" AnchorPane.leftAnchor="20"
-          AnchorPane.rightAnchor="20" AnchorPane.bottomAnchor="20">
+<AnchorPane prefHeight="600" prefWidth="800" styleClass="pattern-background" stylesheets="@css/cultivator.css" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/23.0.1" fx:controller="it.unina.controller.ProjectViewController">
+
+    <VBox spacing="10" AnchorPane.bottomAnchor="20" AnchorPane.leftAnchor="20" AnchorPane.rightAnchor="20" AnchorPane.topAnchor="20">
 
 
         <VBox spacing="10">
@@ -28,20 +23,19 @@
 
         </VBox>
 
-        <ScrollPane fx:id="scrollPane" fitToWidth="true" VBox.vgrow="ALWAYS" styleClass="scrollable">
+        <ScrollPane fx:id="scrollPane" fitToWidth="true" styleClass="scrollable" VBox.vgrow="ALWAYS">
             <VBox fx:id="contentBox" spacing="10" styleClass="scrollable-vbox">
                 <padding>
-                    <Insets top="10" right="10" bottom="10" left="10" />
+                    <Insets bottom="10" left="10" right="10" top="10" />
                 </padding>
-                <fx:include source="components/ProjectCard.fxml"/>
+                <fx:include source="components/ProjectCard.fxml" />
 
 
             </VBox>
         </ScrollPane>
 
-        <HBox spacing="10" alignment="CENTER_RIGHT">
-            <Button text="➕ Aggiungi" fx:id="addButton" styleClass="add-button" onAction="#openAddProjectDialog"/>
-            <Button text="🗑️ Elimina" fx:id="deleteButton" styleClass="delete-button"/>
+        <HBox alignment="CENTER_RIGHT" spacing="10">
+            <Button fx:id="addButton" onAction="#openAddProjectDialog" styleClass="add-button" text="➕ Aggiungi" />
         </HBox>
 
 
