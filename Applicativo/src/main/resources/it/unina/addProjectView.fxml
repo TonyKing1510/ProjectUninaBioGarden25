@@ -37,13 +37,19 @@
                         </font>
                      </Label>
                      <MenuButton fx:id="stagioneMenu" mnemonicParsing="false" prefHeight="25.0" prefWidth="198.0" stylesheets="@css/mainpage.css" />
-                     <Label prefHeight="18.0" prefWidth="738.0" text="3. Inserisci una data di inizio per il tuo progetto" textFill="#03662b">
+                     <Label prefHeight="18.0" prefWidth="738.0" text="3.Inserisci il lotto a cui farà riferimento" textFill="#03662b">
+                        <font>
+                           <Font size="19.0" />
+                        </font>
+                     </Label>
+                     <MenuButton fx:id="lottoMenu" mnemonicParsing="false" prefHeight="25.0" prefWidth="198.0" stylesheets="@css/mainpage.css" />
+                     <Label prefHeight="18.0" prefWidth="738.0" text="4. Inserisci una data di inizio per il tuo progetto" textFill="#03662b">
                         <font>
                            <Font size="19.0" />
                         </font>
                      </Label>
                      <DatePicker fx:id="dateInit" prefHeight="26.0" prefWidth="262.0" />
-                     <Label prefHeight="18.0" prefWidth="738.0" text="4. Inserisci una data di fine per il tuo progetto" textFill="#03662b">
+                     <Label prefHeight="18.0" prefWidth="738.0" text="5. Inserisci una data di fine per il tuo progetto" textFill="#03662b">
                         <font>
                            <Font size="19.0" />
                         </font>

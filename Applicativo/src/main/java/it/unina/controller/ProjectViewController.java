@@ -1,9 +1,12 @@
 package it.unina.controller;
 
 import it.unina.controller.components.ProjectCardController;
+import it.unina.dao.LottoDAO;
 import it.unina.dao.ProgettoDAO;
 import it.unina.gui.ProjectGUI;
+import it.unina.implementazionePostgreSQL.LottoDAOImpl;
 import it.unina.implementazionePostgreSQL.ProgettoDAOImpl;
+import it.unina.model.Lotto;
 import it.unina.model.Progetto;
 import it.unina.model.Stagione;
 import it.unina.model.Utente;
@@ -39,10 +42,13 @@ public class ProjectViewController {
     private Button addButtonProject;
     @FXML
     private MenuButton stagioneMenu;
+    @FXML
+    private MenuButton lottoMenu;
 
     private Utente utenteLoggato;
     private Progetto progettoAdd;
     private final ProgettoDAO progettoDAO = new ProgettoDAOImpl();
+    private final LottoDAO lottoDAO = new LottoDAOImpl();
 
     public void setUtenteLoggato(Utente utente) {
         this.utenteLoggato = utente;
@@ -73,6 +79,25 @@ public class ProjectViewController {
         }
     }
 
+    public void setLottiMenu() {
+        List<Lotto> lotti = lottoDAO.getLottiDisponibili();
+        lottoMenu.setText("Seleziona lotto");
+
+        for (Lotto opzione : lotti) {
+            MenuItem item = new MenuItem();
+            item.setText("Lotto numero : " + opzione.getIdLotto());
+
+            item.setOnAction(event -> {
+                lottoMenu.setText(String.valueOf(opzione.getIdLotto()));
+                System.out.println("Hai selezionato: " + opzione);
+            });
+
+            lottoMenu.getItems().add(item);
+        }
+    }
+
+
+
 
     /**
      * Apre un dialogo per l'aggiunta di un nuovo progetto.
@@ -92,13 +117,12 @@ public class ProjectViewController {
                           stagioneMenu.getText().equals("Estate") ? Stagione.ESTATE :
                           stagioneMenu.getText().equals("Autunno") ? Stagione.AUTUNNO :
                           Stagione.INVERNO;
+        Lotto lotto = lottoMenu.getText().equals("Seleziona lotto") ? null :
+                      lottoDAO.getLottoById(Integer.parseInt(lottoMenu.getText()));
 
-        // Logica per aggiungere il progetto
-        // Ad esempio, chiamare un metodo DAO per salvare il progetto nel database
-        System.out.println(utenteLoggato.getRuolo());
 
-        progettoAdd = new Progetto(title,stagione ,utenteLoggato,startDate, endDate);
-        boolean progetto = progettoDAO.addProgetto(progettoAdd);
+        progettoAdd = new Progetto(title,stagione ,utenteLoggato,startDate, endDate,lotto);
+        boolean progetto = progettoDAO.addProgettoAndUpdateLotto(progettoAdd,lotto);
         if (progetto) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Progetto Aggiunto");

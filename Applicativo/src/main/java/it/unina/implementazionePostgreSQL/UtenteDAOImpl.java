@@ -126,4 +126,32 @@ public class UtenteDAOImpl implements UtenteDAO {
 
         return false;
     }
+
+    @Override
+    public List<Utente> getUtenteColtivatore(int idColtivatore) {
+        String sql = "SELECT * FROM Utente WHERE id_utente = ? AND ruolo = 'coltivatore'";
+        try (Connection conn = ConnessioneDatabase.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setInt(1, idColtivatore);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    return List.of(new Utente(
+                            rs.getInt("id_utente"),
+                            rs.getString("nome"),
+                            rs.getString("cognome"),
+                            rs.getString("mail"),
+                            rs.getString("password"),
+                            Ruolo.valueOf(rs.getString("ruolo").toUpperCase()),
+                            rs.getString("username")
+                    ));
+                }
+            }
+
+        } catch (SQLException e) {
+            System.err.println("Errore nel recupero utente coltivatore:");
+            e.printStackTrace();
+        }
+        return List.of();
+    }
 }

@@ -25,10 +25,17 @@ public class ColtureGUI {
      * @author entn
      */
     public static void initializeColtureView(BorderPane borderPane) throws IOException {
-        FXMLLoader loader = new FXMLLoader(ColtureGUI.class.getResource("/it/unina/ColtureView.fxml"));
+        FXMLLoader loader = new FXMLLoader(ColtureGUI.class.getResource("/it/unina/LottiView.fxml"));
         Parent node = loader.load();
         node.getStylesheets().add(ColtureGUI.class.getResource("/it/unina/css/coltureview.css").toExternalForm());
         borderPane.setCenter(node);
 
+    }
+
+    public static void addColtureView(BorderPane borderPane) throws IOException {
+        FXMLLoader loader = new FXMLLoader(ColtureGUI.class.getResource("/it/unina/components.fxml"));
+        Parent node = loader.load();
+        node.getStylesheets().add(ColtureGUI.class.getResource("/it/unina/css/coltureview.css").toExternalForm());
+        borderPane.setCenter(node);
     }
 }

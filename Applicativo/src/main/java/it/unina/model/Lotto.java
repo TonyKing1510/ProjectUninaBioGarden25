@@ -44,6 +44,11 @@ public class Lotto {
     private Progetto progetto;
 
     /**
+     * Coltivatori associati al Lotto.
+     */
+    private Utente coltivatori;
+
+    /**
      * Costruttore di default.
      *
      * @author entn
@@ -53,24 +58,34 @@ public class Lotto {
     /**
      * Costruttore con parametri per inizializzare tutte le proprietà del Lotto.
      *
-     * @param idLotto     identificativo univoco del Lotto
+     *
      * @param nome        nome del Lotto
      * @param superficie  superficie del Lotto in metri quadrati
      * @param via         via del Lotto
      * @param indirizzo   indirizzo completo del Lotto
      * @param cap         codice di avviamento postale del Lotto
      * @param progetto    riferimento all'oggetto Progetto associato
+     * @param coltivatori coltivatori associati al Lotto
      *
      * @author entn
      */
-    public Lotto(int idLotto, String nome, double superficie, String via, String indirizzo, String cap, Progetto progetto) {
-        this.idLotto = idLotto;
+    public Lotto( String nome, double superficie, String via, String indirizzo, String cap, Progetto progetto, Utente coltivatori) {
         this.nome = nome;
         this.superficie = superficie;
         this.via = via;
         this.indirizzo = indirizzo;
         this.cap = cap;
         this.progetto = progetto;
+        this.coltivatori = coltivatori;
+    }
+
+    public Lotto(int idLotto,String nome, double superficie, String via, String indirizzo, String cap) {
+        this.idLotto = idLotto;
+        this.nome = nome;
+        this.superficie = superficie;
+        this.via = via;
+        this.indirizzo = indirizzo;
+        this.cap = cap;
     }
 
     /**
@@ -197,5 +212,14 @@ public class Lotto {
      */
     public void setProgetto(Progetto progetto) {
         this.progetto = progetto;
+    }
+
+    /**
+     * Restituisce i coltivatori associati al Lotto.
+     * @return oggetto Utente rappresentante i coltivatori
+     * @author entn
+     */
+    public Utente getColtivatori() {
+        return coltivatori;
     }
 }

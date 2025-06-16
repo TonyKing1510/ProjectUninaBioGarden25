@@ -35,7 +35,7 @@
         </ScrollPane>
 
         <HBox alignment="CENTER_RIGHT" spacing="10">
-            <Button fx:id="addButton" styleClass="add-button" text="➕ Aggiungi" />
+            <Button fx:id="addButton" styleClass="add-button" text="➕ Aggiungi" onAction="#openAddProjectDialog" />
             <Button fx:id="deleteButton" styleClass="delete-button" text="🗑️ Elimina" />
         </HBox>
 

@@ -35,5 +35,13 @@ public interface UtenteDAO {
      * @author entn
      */
     boolean esisteUtente(String email);
+
+    /**
+     * Restituisce degli utenti Coltivatori
+     * @param idColtivatore L'id utente da cercare.
+     * @return L'utente trovato o null.
+     * @author entn
+     */
+    List<Utente> getUtenteColtivatore(int idColtivatore);
 }
 

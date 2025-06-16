@@ -1,5 +1,6 @@
 package it.unina.dao;
 
+import it.unina.model.Lotto;
 import it.unina.model.Progetto;
 
 import java.util.List;
@@ -16,7 +17,7 @@ public interface ProgettoDAO {
      * @return true se il progetto è stato aggiunto con successo, false altrimenti.
      * @author entn
      */
-    boolean addProgetto(Progetto progetto);
+    boolean addProgettoAndUpdateLotto(Progetto progetto, Lotto lotto);
 
 
     List<Progetto> getProgettiByIdUtente(int idUtente);

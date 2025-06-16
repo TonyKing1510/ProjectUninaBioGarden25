@@ -52,6 +52,7 @@ public class ProjectGUI {
         ProjectViewController controller = loader.getController();
         controller.setUtenteLoggato(utente);
         controller.setViewAddProject();
+        controller.setLottiMenu();
         Stage stage = new Stage();
         stage.setTitle("Aggiungi Progetto");
         stage.setScene(new Scene(node, 800, 600));

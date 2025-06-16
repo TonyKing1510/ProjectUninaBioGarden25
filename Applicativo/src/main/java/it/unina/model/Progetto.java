@@ -27,6 +27,7 @@ public class Progetto {
     private Date dataInizio;
     private Date dataFine;
     private String titolo;
+    private Lotto lotto;
 
     /**
      * Costruttore con validazione che assicura che solo un utente con ruolo PROPRIETARIO
@@ -42,7 +43,7 @@ public class Progetto {
      *
      * @author entn
      */
-    public Progetto(String titolo, Stagione stagione, Utente creatore, Date dataInizio, Date dataFine) {
+    public Progetto(String titolo, Stagione stagione, Utente creatore, Date dataInizio, Date dataFine, Lotto lotto) {
         if (creatore.getRuolo() != Ruolo.PROPRIETARIO) {
             throw new IllegalArgumentException("Solo un utente con ruolo PROPRIETARIO può creare un progetto.");
         }
@@ -51,6 +52,7 @@ public class Progetto {
         this.creatore = creatore;
         this.dataInizio = dataInizio;
         this.dataFine = dataFine;
+        this.lotto = lotto;
     }
 
     /**
