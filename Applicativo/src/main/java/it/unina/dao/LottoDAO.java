@@ -5,9 +5,11 @@ import it.unina.model.Lotto;
 import java.util.List;
 
 public interface LottoDAO {
-    public List<Lotto> getLottiDisponibili();
+    List<Lotto> getLottiDisponibili(int id);
 
-    public Lotto getLottoById(int id);
+    Lotto getLottoById(int id);
+
+    Lotto getLottoByIdProgetto(int idProgetto);
 
 
 }

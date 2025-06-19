@@ -2,14 +2,13 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ProgressBar?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane fx:id="cardPane" onMouseClicked="#onProjectClick" prefHeight="191.0" prefWidth="300" styleClass="project-card" stylesheets="@../css/projectcard.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unina.controller.components.ProjectCardController">
+<AnchorPane fx:id="cardPane" onMouseClicked="#onProjectClick" prefHeight="165.0" prefWidth="300" styleClass="project-card" stylesheets="@../css/projectcard.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unina.controller.components.ProjectCardController">
 
-    <VBox layoutX="4.0" layoutY="4.8" prefHeight="185.0" prefWidth="293.0" spacing="10" AnchorPane.bottomAnchor="2.0" AnchorPane.leftAnchor="3.0" AnchorPane.rightAnchor="4.0" AnchorPane.topAnchor="4.0">
+    <VBox layoutX="4.8" layoutY="5.6" prefHeight="168.0" prefWidth="291.0" spacing="10" AnchorPane.bottomAnchor="18.0" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
         <padding>
             <Insets bottom="10" left="10" right="10" top="10" />
         </padding>
@@ -31,9 +30,8 @@
             <Label fx:id="dataFineLabel" styleClass="project-value" />
         </HBox>
 
-        <VBox prefHeight="51.0" prefWidth="272.0" spacing="5">
-            <Label styleClass="project-label" text="Avanzamento:" />
-            <ProgressBar fx:id="progressBar" prefHeight="25.0" prefWidth="270" progress="0.4" styleClass="progress-bar" />
+        <VBox prefHeight="24.0" prefWidth="270.0" spacing="5">
+            <Label styleClass="project-label" text="Cliccami per sapere di piu'" />
         </VBox>
     </VBox>
 </AnchorPane>

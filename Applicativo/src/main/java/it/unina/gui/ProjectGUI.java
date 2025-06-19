@@ -2,6 +2,7 @@ package it.unina.gui;
 
 import it.unina.controller.ProjectViewController;
 import it.unina.controller.components.ProjectCardController;
+import it.unina.controller.components.ProjectCardDetailsController;
 import it.unina.model.Progetto;
 import it.unina.model.Utente;
 import javafx.fxml.FXMLLoader;
@@ -10,8 +11,8 @@ import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.stage.Window;
 
 import java.io.IOException;
 
@@ -61,14 +62,38 @@ public class ProjectGUI {
 
     }
 
-    public static void initProjectCard(Progetto progetto, VBox contentBox) throws IOException {
+    public static void initProjectCard(Progetto progetto, VBox contentBox, Utente utente) throws IOException {
         FXMLLoader loader = new FXMLLoader(ProjectGUI.class.getResource("/it/unina/components/ProjectCard.fxml"));
         AnchorPane card = loader.load();
 
         // Ottieni il controller della card e setta i dati
         ProjectCardController controller = loader.getController();
-        controller.setProgetto(progetto); // Metodo che scriverai tu
+        controller.setProgetto(progetto);
+        controller.setUtente(utente);
+        controller.setProgettoDetails(progetto);
 
         contentBox.getChildren().add(card);
+    }
+
+    public static void openProjectDetailsView(Progetto progetto, Utente utente) throws IOException {
+        FXMLLoader loader = new FXMLLoader(ProjectGUI.class.getResource("/it/unina/components/ProjectDetails.fxml"));
+        Parent node = loader.load();
+
+
+        node.getStylesheets().add(ProjectGUI.class.getResource("/it/unina/css/coltureview.css").toExternalForm());
+
+
+        ProjectCardDetailsController controller = loader.getController();
+        controller.setUtente(utente);
+        controller.setProgetto(progetto);
+        controller.setProgettoDetails(progetto);
+
+
+        Stage stage = new Stage();
+        stage.setTitle("Dettagli Progetto");
+        stage.setScene(new Scene(node));
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.show();
+
     }
 }

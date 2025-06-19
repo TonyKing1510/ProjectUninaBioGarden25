@@ -80,7 +80,7 @@ public class ProjectViewController {
     }
 
     public void setLottiMenu() {
-        List<Lotto> lotti = lottoDAO.getLottiDisponibili();
+        List<Lotto> lotti = lottoDAO.getLottiDisponibili(utenteLoggato.getIdUtente());
         lottoMenu.setText("Seleziona lotto");
 
         for (Lotto opzione : lotti) {
@@ -147,7 +147,8 @@ public class ProjectViewController {
         List<Progetto> progetti = progettoDAO.getProgettiByIdUtente(utenteLoggato.getIdUtente());
         for (Progetto progetto : progetti) {
             try {
-                ProjectGUI.initProjectCard(progetto, contentBox);
+                System.out.println("Caricamento progetto: " + progetto.getIdProgetto());
+                ProjectGUI.initProjectCard(progetto, contentBox, utenteLoggato);
             } catch (IOException e) {
                 e.printStackTrace();
             }

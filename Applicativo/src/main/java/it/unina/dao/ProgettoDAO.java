@@ -21,4 +21,7 @@ public interface ProgettoDAO {
 
 
     List<Progetto> getProgettiByIdUtente(int idUtente);
+
+    int getIdProgettoByTitolo(String titolo);
+
 }

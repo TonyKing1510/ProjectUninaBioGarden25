@@ -120,11 +120,34 @@ public class ProgettoDAOImpl implements ProgettoDAO {
 
 
 
+
     private String capitalize(String input) {
         if (input == null || input.isEmpty()) {
             return input;
         }
         return input.substring(0, 1).toUpperCase() + input.substring(1).toLowerCase();
+    }
+
+
+    @Override
+    public int getIdProgettoByTitolo(String titolo) {
+        String query = "SELECT id_progetto FROM Progetto WHERE titolo = ?";
+        try (Connection conn = ConnessioneDatabase.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(query)) {
+
+            stmt.setString(1, titolo);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                return rs.getInt("id_progetto");
+            } else {
+                return -1; // Progetto non trovato
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return -1; // Errore durante l'esecuzione della query
+        }
     }
 
 }
