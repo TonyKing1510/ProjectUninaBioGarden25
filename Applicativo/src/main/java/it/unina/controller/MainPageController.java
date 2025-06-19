@@ -1,11 +1,10 @@
 package it.unina.controller;
 
-import it.unina.gui.ColtureGUI;
+import it.unina.gui.LottiGUI;
 import it.unina.gui.CultivatorGUI;
 import it.unina.gui.ProjectGUI;
 import it.unina.model.Utente;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
@@ -74,7 +73,7 @@ public class MainPageController {
    */
   @FXML
   private void goToPlantManagement() throws IOException {
-    ColtureGUI.initializeColtureView(borderPane);
+    LottiGUI.initLottiView(borderPane,utenteLoggato);
   }
 
   /**

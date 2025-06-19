@@ -2,25 +2,30 @@ package it.unina.implementazionePostgreSQL;
 
 import it.unina.connessioneDB.ConnessioneDatabase;
 import it.unina.dao.LottoDAO;
+import it.unina.dao.UtenteDAO;
 import it.unina.model.Lotto;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class LottoDAOImpl implements LottoDAO {
+
+    private UtenteDAO utenteDAO = new UtenteDAOImpl();
+
     @Override
-    public List<Lotto> getLottiDisponibili(int idUtenteColtivatore) {
-        String query = "SELECT * FROM lotto WHERE id_progetto IS NULL AND id_utentecoltivatore = ?";
+    public List<Lotto> getLottiDisponibili(int idUtenteProprietario) {
+        String query = "SELECT * FROM lotto WHERE id_progetto IS NULL AND id_proprietario = ?";
         List<Lotto> lotti = new ArrayList<>();
 
         try (var connection = ConnessioneDatabase.getConnection();
              var preparedStatement = connection.prepareStatement(query)) {
 
             // Imposta il parametro nella query
-            preparedStatement.setInt(1, idUtenteColtivatore);
+            preparedStatement.setInt(1, idUtenteProprietario);
 
             try (var resultSet = preparedStatement.executeQuery()) {
                 while (resultSet.next()) {
+
                     Lotto lotto = new Lotto();
                     lotto.setIdLotto(resultSet.getInt("id_lotto"));
                     lotto.setNome(resultSet.getString("nome"));
@@ -28,6 +33,7 @@ public class LottoDAOImpl implements LottoDAO {
                     lotto.setIndirizzo(resultSet.getString("indirizzo"));
                     lotto.setCap(resultSet.getString("cap"));
                     lotto.setSuperficie(resultSet.getDouble("superficie"));
+                    lotto.setProprietario(utenteDAO.getUtenteProprietario(resultSet.getInt("id_proprietario")));
                     lotti.add(lotto);
                 }
             }
@@ -92,5 +98,35 @@ public class LottoDAOImpl implements LottoDAO {
         }
 
         return null;
+    }
+
+    @Override
+    public List<Lotto> getLottoByIdProprietario(int idProprietario) {
+        String query = "SELECT * FROM lotto WHERE id_proprietario = ?";
+        List<Lotto> lotti = new ArrayList<>();
+
+        try (var connection = ConnessioneDatabase.getConnection();
+             var preparedStatement = connection.prepareStatement(query)) {
+
+            preparedStatement.setInt(1, idProprietario);
+
+            try (var resultSet = preparedStatement.executeQuery()) {
+                while (resultSet.next()) {
+                    Lotto lotto = new Lotto();
+                    lotto.setIdLotto(resultSet.getInt("id_lotto"));
+                    lotto.setNome(resultSet.getString("nome"));
+                    lotto.setVia(resultSet.getString("via"));
+                    lotto.setIndirizzo(resultSet.getString("indirizzo"));
+                    lotto.setCap(resultSet.getString("cap"));
+                    lotto.setSuperficie(resultSet.getDouble("superficie"));
+                    lotto.setProprietario(utenteDAO.getUtenteProprietario(idProprietario));
+                    lotti.add(lotto);
+                }
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return lotti;
     }
 }

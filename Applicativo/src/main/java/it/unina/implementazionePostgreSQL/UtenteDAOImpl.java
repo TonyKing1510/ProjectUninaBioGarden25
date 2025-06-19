@@ -154,4 +154,34 @@ public class UtenteDAOImpl implements UtenteDAO {
         }
         return List.of();
     }
+
+
+    @Override
+    public Utente getUtenteProprietario(int idProprietario) {
+        String sql = "SELECT * FROM Utente WHERE id_utente = ? AND ruolo = 'proprietario'";
+        try (Connection conn = ConnessioneDatabase.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setInt(1, idProprietario);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    return new Utente(
+                            rs.getInt("id_utente"),
+                            rs.getString("nome"),
+                            rs.getString("cognome"),
+                            rs.getString("mail"),
+                            rs.getString("password"),
+                            Ruolo.valueOf(rs.getString("ruolo").toUpperCase()),
+                            rs.getString("username")
+                    );
+                }
+            }
+
+        } catch (SQLException e) {
+            System.err.println("Errore nel recupero utente proprietario:");
+            e.printStackTrace();
+        }
+        return null;
+    }
+
 }

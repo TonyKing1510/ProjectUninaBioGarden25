@@ -5,7 +5,7 @@
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="600" prefWidth="800" styleClass="pattern-background" stylesheets="@css/cultivator.css" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/17.0.12" fx:controller="it.unina.controller.CultivatorController">
+<AnchorPane prefHeight="600" prefWidth="800" styleClass="pattern-background" stylesheets="@css/cultivator.css" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/17.0.12" fx:controller="it.unina.controller.LottiController">
 
     <VBox spacing="10" AnchorPane.bottomAnchor="20" AnchorPane.leftAnchor="20" AnchorPane.rightAnchor="20" AnchorPane.topAnchor="20">
 
@@ -24,16 +24,11 @@
                 <padding>
                     <Insets bottom="10" left="10" right="10" top="10" />
                 </padding>
-                <fx:include source="components/GardenCard.fxml" />
+                <fx:include source="components/LottiCard.fxml" />
 
 
             </VBox>
         </ScrollPane>
-
-        <HBox alignment="CENTER_RIGHT" spacing="10">
-            <Button fx:id="addButton" styleClass="add-button" text="➕ Aggiungi" />
-            <Button fx:id="deleteButton" styleClass="delete-button" text="🗑️ Elimina" />
-        </HBox>
 
 
     </VBox>

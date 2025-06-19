@@ -43,5 +43,7 @@ public interface UtenteDAO {
      * @author entn
      */
     List<Utente> getUtenteColtivatore(int idColtivatore);
+
+    Utente getUtenteProprietario(int idProprietario);
 }
 

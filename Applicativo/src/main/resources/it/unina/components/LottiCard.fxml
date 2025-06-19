@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane prefHeight="180" prefWidth="320" styleClass="lotto-card" stylesheets="@../css/gardencard.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unina.controller.components.LottoCardController">
+
+    <VBox spacing="12" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0">
+
+        <padding>
+            <Insets bottom="10" left="10" right="10" top="10" />
+        </padding>
+
+        <Label fx:id="lottoLabelTitle" styleClass="card-title" />
+
+        <HBox spacing="8">
+            <Label styleClass="card-label" text="Colture:" />
+            <Label fx:id="coltureLabel" styleClass="card-value" />
+        </HBox>
+
+        <HBox spacing="8">
+            <Label styleClass="card-label" text="Indirizzo" />
+            <Label fx:id="IndirizzoLabel" styleClass="card-value" />
+        </HBox>
+
+        <HBox spacing="8">
+            <Label styleClass="card-label" text="Superficie" />
+            <Label fx:id="superficieLabel" styleClass="card-value" />
+         <Label text="m³" />
+        </HBox>
+
+
+    </VBox>
+
+    <HBox alignment="CENTER_RIGHT" spacing="4" styleClass="sottocard" AnchorPane.bottomAnchor="10" AnchorPane.rightAnchor="10">
+        <Label styleClass="lotto-icon" text="👤" />
+        <Label fx:id="numeroColtivatoriLabel" styleClass="lotto-text" text="13" />
+    </HBox>
+
+</AnchorPane>

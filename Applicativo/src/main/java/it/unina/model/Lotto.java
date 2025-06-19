@@ -1,5 +1,7 @@
 package it.unina.model;
 
+import java.util.List;
+
 /**
  * Rappresenta un Lotto associato a un Progetto.
  * Un Lotto contiene informazioni sulla superficie, posizione e il riferimento al Progetto a cui appartiene.
@@ -46,7 +48,15 @@ public class Lotto {
     /**
      * Coltivatori associati al Lotto.
      */
-    private Utente coltivatori;
+    private List<Utente> coltivatori;
+
+    private Utente proprietario;
+
+    public List<Colture> getColture() {
+        return colture;
+    }
+
+    private List<Colture> colture;
 
     /**
      * Costruttore di default.
@@ -65,18 +75,18 @@ public class Lotto {
      * @param indirizzo   indirizzo completo del Lotto
      * @param cap         codice di avviamento postale del Lotto
      * @param progetto    riferimento all'oggetto Progetto associato
-     * @param coltivatori coltivatori associati al Lotto
+     * @param proprietario coltivatori associati al Lotto
      *
      * @author entn
      */
-    public Lotto( String nome, double superficie, String via, String indirizzo, String cap, Progetto progetto, Utente coltivatori) {
+    public Lotto( String nome, double superficie, String via, String indirizzo, String cap, Progetto progetto, Utente proprietario) {
         this.nome = nome;
         this.superficie = superficie;
         this.via = via;
         this.indirizzo = indirizzo;
         this.cap = cap;
         this.progetto = progetto;
-        this.coltivatori = coltivatori;
+        this.proprietario = proprietario;
     }
 
     public Lotto(int idLotto,String nome, double superficie, String via, String indirizzo, String cap) {
@@ -219,7 +229,21 @@ public class Lotto {
      * @return oggetto Utente rappresentante i coltivatori
      * @author entn
      */
-    public Utente getColtivatori() {
+    public List<Utente> getColtivatori() {
         return coltivatori;
     }
+
+    public void setColtivatori(List<Utente> coltivatori) {
+        this.coltivatori = coltivatori;
+    }
+
+    public Utente getProprietario() {
+        return proprietario;
+    }
+
+    public void setProprietario(Utente proprietario) {
+        this.proprietario = proprietario;
+    }
+
+
 }
