@@ -55,7 +55,7 @@ public class LottoDAOImpl implements LottoDAO {
             preparedStatement.setInt(1, idLotto);
             try (var resultSet = preparedStatement.executeQuery()) {
                 if (resultSet.next()) {
-                    return new Lotto(
+                    Lotto lotto = new Lotto(
                             resultSet.getInt("id_lotto"),
                             resultSet.getString("nome"),
                             resultSet.getDouble("superficie"),
@@ -63,6 +63,12 @@ public class LottoDAOImpl implements LottoDAO {
                             resultSet.getString("indirizzo"),
                             resultSet.getString("cap")
                     );
+                    // Set proprietario
+                    lotto.setProprietario(utenteDAO.getUtenteProprietario(resultSet.getInt("id_proprietario")));
+                    // Set lista coltivatori
+                    lotto.setColtivatori(utenteDAO.getColtivatoriByLottoId(idLotto));
+                    return lotto;
+
                 }
             }
         } catch (Exception e) {
@@ -83,7 +89,7 @@ public class LottoDAOImpl implements LottoDAO {
             preparedStatement.setInt(1, idProgetto);
             try (var resultSet = preparedStatement.executeQuery()) {
                 if (resultSet.next()) {
-                    return new Lotto(
+                    Lotto lotto = new Lotto(
                             resultSet.getInt("id_lotto"),
                             resultSet.getString("nome"),
                             resultSet.getDouble("superficie"),
@@ -91,6 +97,11 @@ public class LottoDAOImpl implements LottoDAO {
                             resultSet.getString("indirizzo"),
                             resultSet.getString("cap")
                     );
+                    // Set proprietario
+                    lotto.setProprietario(utenteDAO.getUtenteProprietario(resultSet.getInt("id_proprietario")));
+                    // Set lista coltivatori
+                    lotto.setColtivatori(utenteDAO.getColtivatoriByLottoId(lotto.getIdLotto()));
+                    return lotto;
                 }
             }
         } catch (Exception e) {
@@ -120,6 +131,8 @@ public class LottoDAOImpl implements LottoDAO {
                     lotto.setCap(resultSet.getString("cap"));
                     lotto.setSuperficie(resultSet.getDouble("superficie"));
                     lotto.setProprietario(utenteDAO.getUtenteProprietario(idProprietario));
+                    // Set lista coltivatori
+                    lotto.setColtivatori(utenteDAO.getColtivatoriByLottoId(lotto.getIdLotto()));
                     lotti.add(lotto);
                 }
             }

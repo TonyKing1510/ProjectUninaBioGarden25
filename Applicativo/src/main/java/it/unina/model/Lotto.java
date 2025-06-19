@@ -52,7 +52,7 @@ public class Lotto {
 
     private Utente proprietario;
 
-    public List<Colture> getColture() {
+    public List<Colture>  getColture() {
         return colture;
     }
 
@@ -79,7 +79,7 @@ public class Lotto {
      *
      * @author entn
      */
-    public Lotto( String nome, double superficie, String via, String indirizzo, String cap, Progetto progetto, Utente proprietario) {
+    public Lotto( String nome, double superficie, String via, String indirizzo, String cap, Progetto progetto, Utente proprietario, List<Utente> coltivatori) {
         this.nome = nome;
         this.superficie = superficie;
         this.via = via;
@@ -87,6 +87,7 @@ public class Lotto {
         this.cap = cap;
         this.progetto = progetto;
         this.proprietario = proprietario;
+        this.coltivatori = coltivatori;
     }
 
     public Lotto(int idLotto,String nome, double superficie, String via, String indirizzo, String cap) {
@@ -244,6 +245,13 @@ public class Lotto {
     public void setProprietario(Utente proprietario) {
         this.proprietario = proprietario;
     }
+    public void setColture(List<Colture> colture) {
+        this.colture = colture;}
+
+    public int getNumeroColtivatori() {
+        return coltivatori != null ? coltivatori.size() : 0;
+    }
+
 
 
 }

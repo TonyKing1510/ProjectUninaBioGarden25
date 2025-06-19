@@ -9,6 +9,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -128,15 +129,23 @@ public class UtenteDAOImpl implements UtenteDAO {
     }
 
     @Override
-    public List<Utente> getUtenteColtivatore(int idColtivatore) {
-        String sql = "SELECT * FROM Utente WHERE id_utente = ? AND ruolo = 'coltivatore'";
+    public List<Utente> getColtivatoriByLottoId(int idLotto) {
+        String sql = """
+        SELECT u.*
+        FROM utente u
+        JOIN coltivatori_lotti cl ON u.id_utente = cl.id_utente
+        WHERE cl.id_lotto = ?
+    """;
+
+        List<Utente> coltivatori = new ArrayList<>();
+
         try (Connection conn = ConnessioneDatabase.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
-            stmt.setInt(1, idColtivatore);
+            stmt.setInt(1, idLotto);
             try (ResultSet rs = stmt.executeQuery()) {
-                if (rs.next()) {
-                    return List.of(new Utente(
+                while (rs.next()) {
+                    coltivatori.add(new Utente(
                             rs.getInt("id_utente"),
                             rs.getString("nome"),
                             rs.getString("cognome"),
@@ -149,11 +158,13 @@ public class UtenteDAOImpl implements UtenteDAO {
             }
 
         } catch (SQLException e) {
-            System.err.println("Errore nel recupero utente coltivatore:");
+            System.err.println("Errore nel recupero dei coltivatori:");
             e.printStackTrace();
         }
-        return List.of();
+
+        return coltivatori;
     }
+
 
 
     @Override

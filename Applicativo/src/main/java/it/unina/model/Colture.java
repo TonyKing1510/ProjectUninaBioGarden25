@@ -54,4 +54,17 @@ public class Colture {
                 ", tempoMaturazione=" + tempoMaturazione +
                 '}';
     }
+
+    public String getTitolo() {
+        return titolo;
+    }
+    public void setTitolo(String titolo) {
+        this.titolo = titolo;
+    }
+    public Lotto getLotto() {
+        return lotto;
+    }
+    public void setLotto(Lotto lotto) {
+        this.lotto = lotto;
+    }
 }

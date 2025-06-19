@@ -42,7 +42,7 @@ public interface UtenteDAO {
      * @return L'utente trovato o null.
      * @author entn
      */
-    List<Utente> getUtenteColtivatore(int idColtivatore);
+    List<Utente> getColtivatoriByLottoId(int idColtivatore);
 
     Utente getUtenteProprietario(int idProprietario);
 }

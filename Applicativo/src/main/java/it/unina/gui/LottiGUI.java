@@ -48,7 +48,9 @@ public class LottiGUI {
         // Ottieni il controller della card e setta i dati
         LottoCardController controller = loader.getController();
         controller.setUtente(utente);
+
         controller.setLotti(lotti);
+
 
         contentBox.getChildren().add(card);
     }

@@ -6,6 +6,7 @@ import java.util.List;
 
 public interface ColtureDAO {
 
+    List<Colture> getColtureByIdLotto(int idLotto);
 
 
 }
