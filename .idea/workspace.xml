@@ -39,7 +39,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
     "git-widget-placeholder": "main",
-    "last_opened_file_path": "/home/sder/oo-basi/UninaBioGarden25/Applicativo/src",
+    "last_opened_file_path": "/home/sder/oo-basi/ProjectUninaBioGarden25/Applicativo",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -91,6 +91,7 @@
       <workItem from="1748548397874" duration="13438000" />
       <workItem from="1748594909798" duration="8017000" />
       <workItem from="1748607667345" duration="31000" />
+      <workItem from="1749491594814" duration="55000" />
     </task>
     <servers />
   </component>

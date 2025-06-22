@@ -12,6 +12,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
+
 /**
  * Controller per la schermata di login.
  * Gestisce l'autenticazione dell'utente e il passaggio alla schermata principale
@@ -28,6 +29,17 @@ public class LoginController {
   private WelcomeController rootController;
 
   private final UtenteDAO utenteDAO = new UtenteDAOImpl();
+
+  /**
+   * Initilize Gui for the login view and set
+   * button to accept Enter as a valid input
+   * when fields are correctly filled.
+   *
+   * @author Sderr12
+   */
+  public void initialize() {
+    accediButton.setDefaultButton(true);
+  }
 
   /**
    * Imposta il controller principale (WelcomeController)

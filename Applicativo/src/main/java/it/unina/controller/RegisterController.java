@@ -52,10 +52,13 @@ public class RegisterController {
    * Inizializza la GUI al caricamento.
    * Imposta il menu dei ruoli e i listener dei pulsanti.
    * @author entn
+   * @author Sderr12
    */
   @FXML
   private void initialize() {
     ruoloMenu.setText("Seleziona ruolo");
+
+    registerButton.setDefaultButton(true);
 
     Platform.runLater(() -> {
       ruoloMenu.setText("Seleziona ruolo");
