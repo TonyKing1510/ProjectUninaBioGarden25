@@ -31,6 +31,8 @@ public class Utente {
         progettiCreati.add(progetto);
     }
 
+    private List<Attivita> attivitaColtivatore = new ArrayList<>();
+
     /**
      * Costruttore per creare un oggetto Utente completo.
      *
@@ -72,6 +74,20 @@ public class Utente {
         this.password = password;
         this.ruolo = ruolo;
         this.username = username;
+    }
+
+    public Utente(String nome,String cognome, String mail, String password,Ruolo ruolo,String username,List<Attivita> attivitaColtivatore) {
+        this.nome = nome;
+        this.cognome = cognome;
+        this.mail = mail;
+        this.password = password;
+        this.ruolo = ruolo;
+        this.username = username;
+        if(ruolo == Ruolo.COLTIVATORE) {
+            this.attivitaColtivatore = attivitaColtivatore;
+        } else {
+            System.out.println("L'utente non è un coltivatore, non sono previste attività.");
+        }
     }
 
     /**

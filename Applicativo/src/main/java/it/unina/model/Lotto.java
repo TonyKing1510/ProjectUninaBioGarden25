@@ -1,6 +1,8 @@
 package it.unina.model;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.function.LongToDoubleFunction;
 
 /**
  * Rappresenta un Lotto associato a un Progetto.
@@ -45,25 +47,22 @@ public class Lotto {
      */
     private Progetto progetto;
 
-    /**
-     * Coltivatori associati al Lotto.
-     */
-    private List<Utente> coltivatori;
-
-    private Utente proprietario;
-
     public List<Colture>  getColture() {
         return colture;
     }
 
     private List<Colture> colture;
 
+    private Utente proprietario;
+
     /**
      * Costruttore di default.
      *
      * @author entn
      */
-    public Lotto() {}
+    public Lotto() {
+        this.colture = new ArrayList<>();
+    }
 
     /**
      * Costruttore con parametri per inizializzare tutte le proprietà del Lotto.
@@ -75,11 +74,11 @@ public class Lotto {
      * @param indirizzo   indirizzo completo del Lotto
      * @param cap         codice di avviamento postale del Lotto
      * @param progetto    riferimento all'oggetto Progetto associato
-     * @param proprietario coltivatori associati al Lotto
+     * @param proprietario  utente proprietario del Lotto
      *
      * @author entn
      */
-    public Lotto( String nome, double superficie, String via, String indirizzo, String cap, Progetto progetto, Utente proprietario, List<Utente> coltivatori) {
+    public Lotto( String nome, double superficie, String via, String indirizzo, String cap, Progetto progetto , Utente proprietario) {
         this.nome = nome;
         this.superficie = superficie;
         this.via = via;
@@ -87,7 +86,6 @@ public class Lotto {
         this.cap = cap;
         this.progetto = progetto;
         this.proprietario = proprietario;
-        this.coltivatori = coltivatori;
     }
 
     public Lotto(int idLotto,String nome, double superficie, String via, String indirizzo, String cap) {
@@ -97,6 +95,16 @@ public class Lotto {
         this.via = via;
         this.indirizzo = indirizzo;
         this.cap = cap;
+    }
+    public Lotto(int idLotto, String nome, double superficie, String via, String indirizzo, String cap, Progetto progetto, List<Colture> colture) {
+        this.idLotto = idLotto;
+        this.nome = nome;
+        this.superficie = superficie;
+        this.via = via;
+        this.indirizzo = indirizzo;
+        this.cap = cap;
+        this.progetto = progetto;
+        this.colture = colture;
     }
 
     /**
@@ -225,33 +233,21 @@ public class Lotto {
         this.progetto = progetto;
     }
 
-    /**
-     * Restituisce i coltivatori associati al Lotto.
-     * @return oggetto Utente rappresentante i coltivatori
-     * @author entn
-     */
-    public List<Utente> getColtivatori() {
-        return coltivatori;
+
+
+    public void setColture(List<Colture> colture) {
+        this.colture = colture;
     }
 
-    public void setColtivatori(List<Utente> coltivatori) {
-        this.coltivatori = coltivatori;
-    }
+    public void addColtura(Colture coltura) {
+        this.colture.add(coltura);}
 
     public Utente getProprietario() {
         return proprietario;
     }
-
     public void setProprietario(Utente proprietario) {
         this.proprietario = proprietario;
     }
-    public void setColture(List<Colture> colture) {
-        this.colture = colture;}
-
-    public int getNumeroColtivatori() {
-        return coltivatori != null ? coltivatori.size() : 0;
-    }
-
 
 
 }

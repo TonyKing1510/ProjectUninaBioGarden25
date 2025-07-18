@@ -1,6 +1,8 @@
 package it.unina.model;
 
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Rappresenta un Progetto creato da un utente proprietario, associato a una stagione.
@@ -27,7 +29,7 @@ public class Progetto {
     private Date dataInizio;
     private Date dataFine;
     private String titolo;
-    private Lotto lotto;
+    private List<Lotto> lottiOspitati = new ArrayList<>();
 
     /**
      * Costruttore con validazione che assicura che solo un utente con ruolo PROPRIETARIO
@@ -43,7 +45,7 @@ public class Progetto {
      *
      * @author entn
      */
-    public Progetto(String titolo, Stagione stagione, Utente creatore, Date dataInizio, Date dataFine, Lotto lotto) {
+    public Progetto(String titolo, Stagione stagione, Utente creatore, Date dataInizio, Date dataFine, List<Lotto> lotto) {
         if (creatore.getRuolo() != Ruolo.PROPRIETARIO) {
             throw new IllegalArgumentException("Solo un utente con ruolo PROPRIETARIO può creare un progetto.");
         }
@@ -52,7 +54,21 @@ public class Progetto {
         this.creatore = creatore;
         this.dataInizio = dataInizio;
         this.dataFine = dataFine;
-        this.lotto = lotto;
+        this.lottiOspitati = lotto;
+    }
+
+    public Progetto(String titolo, Stagione stagione, Utente creatore, Date dataInizio, Date dataFine, Lotto lotto) {
+        this.titolo = titolo;
+        this.stagione = stagione;
+        this.creatore = creatore;
+        this.dataInizio = dataInizio;
+        this.dataFine = dataFine;
+        this.lottiOspitati = new ArrayList<>();
+        if (lotto != null) {
+            this.lottiOspitati.add(lotto);
+        } else {
+            throw new IllegalArgumentException("Il lotto non può essere null.");
+        }
     }
 
     /**
@@ -201,5 +217,19 @@ public class Progetto {
     }
     public void setTitolo(String titolo) {
         this.titolo = titolo;
+    }
+
+    public List<Lotto> getLottiOspitati() {
+        return lottiOspitati;
+    }
+    public void setLottiOspitati(List<Lotto> lottiOspitati) {
+        this.lottiOspitati = lottiOspitati;
+    }
+    public void addLotto(Lotto lotto) {
+        if (lotto != null) {
+            this.lottiOspitati.add(lotto);
+        } else {
+            throw new IllegalArgumentException("Il lotto non può essere null.");
+        }
     }
 }

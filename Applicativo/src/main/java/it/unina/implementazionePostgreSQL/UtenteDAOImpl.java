@@ -133,8 +133,8 @@ public class UtenteDAOImpl implements UtenteDAO {
         String sql = """
         SELECT u.*
         FROM utente u
-        JOIN coltivatori_lotti cl ON u.id_utente = cl.id_utente
-        WHERE cl.id_lotto = ?
+        JOIN utente_coltura uc ON u.id_utente = uc.id_coltivatore JOIN colture c ON uc.id_coltura = c.id_colture JOIN lotto l ON c.id_lotto = l.id_lotto
+        WHERE l.id_lotto = ? AND u.ruolo = 'coltivatore'
     """;
 
         List<Utente> coltivatori = new ArrayList<>();

@@ -1,5 +1,6 @@
 package it.unina.model;
 
+import java.sql.Date;
 import java.time.Duration;
 
 public class Colture {
@@ -7,6 +8,7 @@ public class Colture {
     private int id_colture;
     private Stagione stagionalita;
     private Duration tempoMaturazione;
+    private Date dataInizioColtura;
 
     private Lotto lotto;
 

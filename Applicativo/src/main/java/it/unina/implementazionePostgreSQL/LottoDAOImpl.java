@@ -65,8 +65,6 @@ public class LottoDAOImpl implements LottoDAO {
                     );
                     // Set proprietario
                     lotto.setProprietario(utenteDAO.getUtenteProprietario(resultSet.getInt("id_proprietario")));
-                    // Set lista coltivatori
-                    lotto.setColtivatori(utenteDAO.getColtivatoriByLottoId(idLotto));
                     return lotto;
 
                 }
@@ -99,8 +97,6 @@ public class LottoDAOImpl implements LottoDAO {
                     );
                     // Set proprietario
                     lotto.setProprietario(utenteDAO.getUtenteProprietario(resultSet.getInt("id_proprietario")));
-                    // Set lista coltivatori
-                    lotto.setColtivatori(utenteDAO.getColtivatoriByLottoId(lotto.getIdLotto()));
                     return lotto;
                 }
             }
@@ -131,8 +127,6 @@ public class LottoDAOImpl implements LottoDAO {
                     lotto.setCap(resultSet.getString("cap"));
                     lotto.setSuperficie(resultSet.getDouble("superficie"));
                     lotto.setProprietario(utenteDAO.getUtenteProprietario(idProprietario));
-                    // Set lista coltivatori
-                    lotto.setColtivatori(utenteDAO.getColtivatoriByLottoId(lotto.getIdLotto()));
                     lotti.add(lotto);
                 }
             }

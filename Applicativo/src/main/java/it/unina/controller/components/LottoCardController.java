@@ -41,7 +41,6 @@ public class LottoCardController {
         lottoLabelTitle.setText("Lotto : #" + lotto.getIdLotto());
         superficieLabel.setText(String.valueOf(lotto.getSuperficie()));
         IndirizzoLabel.setText(lotto.getIndirizzo());
-        numeroColtivatoriLabel.setText(String.valueOf(lotto.getNumeroColtivatori()));
 
         setColtureInLotti(lotto);
     }
