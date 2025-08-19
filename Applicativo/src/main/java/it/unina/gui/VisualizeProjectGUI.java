@@ -21,8 +21,8 @@ import java.io.IOException;
  * * Questa classe si occupa di caricare il file FXML corrispondente e impostare gli stili CSS necessari.
  * @author entn
  */
-public class ProjectGUI {
-    ProjectGUI() {
+public class VisualizeProjectGUI {
+    VisualizeProjectGUI() {
         // Constructor logic can be added here if needed
     }
 
@@ -35,35 +35,18 @@ public class ProjectGUI {
      * @author entn
      */
     public static void initializeProjectView(BorderPane borderPane, Utente utente) throws IOException {
-        FXMLLoader loader = new FXMLLoader(ProjectGUI.class.getResource("/it/unina/ProjectView.fxml"));
+        FXMLLoader loader = new FXMLLoader(VisualizeProjectGUI.class.getResource("/it/unina/ProjectView.fxml"));
         Parent node = loader.load();
         ProjectViewController controller = loader.getController();
         controller.setUtenteLoggato(utente);
-        node.getStylesheets().add(ProjectGUI.class.getResource("/it/unina/css/coltureview.css").toExternalForm());
+        node.getStylesheets().add(VisualizeProjectGUI.class.getResource("/it/unina/css/coltureview.css").toExternalForm());
         borderPane.setCenter(node);
 
 
     }
 
-    public static void openAddProjectView( Utente utente) throws IOException {
-        FXMLLoader loader = new FXMLLoader(ProjectGUI.class.getResource("/it/unina/AddProjectView.fxml"));
-        Parent node = loader.load();
-        node.getStylesheets().add(ProjectGUI.class.getResource
-                ("/it/unina/css/coltureview.css").toExternalForm());
-        ProjectViewController controller = loader.getController();
-        controller.setUtenteLoggato(utente);
-        controller.setViewAddProject();
-        controller.setLottiMenu();
-        Stage stage = new Stage();
-        stage.setTitle("Aggiungi Progetto");
-        stage.setScene(new Scene(node, 800, 600));
-        stage.setResizable(false);
-        stage.show();
-
-    }
-
     public static void initProjectCard(Progetto progetto, VBox contentBox, Utente utente) throws IOException {
-        FXMLLoader loader = new FXMLLoader(ProjectGUI.class.getResource("/it/unina/components/ProjectCard.fxml"));
+        FXMLLoader loader = new FXMLLoader(VisualizeProjectGUI.class.getResource("/it/unina/components/ProjectCard.fxml"));
         AnchorPane card = loader.load();
 
         // Ottieni il controller della card e setta i dati
@@ -76,11 +59,11 @@ public class ProjectGUI {
     }
 
     public static void openProjectDetailsView(Progetto progetto, Utente utente) throws IOException {
-        FXMLLoader loader = new FXMLLoader(ProjectGUI.class.getResource("/it/unina/components/ProjectDetails.fxml"));
+        FXMLLoader loader = new FXMLLoader(VisualizeProjectGUI.class.getResource("/it/unina/components/ProjectDetails.fxml"));
         Parent node = loader.load();
 
 
-        node.getStylesheets().add(ProjectGUI.class.getResource("/it/unina/css/coltureview.css").toExternalForm());
+        node.getStylesheets().add(VisualizeProjectGUI.class.getResource("/it/unina/css/coltureview.css").toExternalForm());
 
 
         ProjectCardDetailsController controller = loader.getController();

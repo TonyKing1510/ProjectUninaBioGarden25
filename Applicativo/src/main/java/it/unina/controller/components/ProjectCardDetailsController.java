@@ -2,7 +2,6 @@ package it.unina.controller.components;
 
 import it.unina.dao.LottoDAO;
 import it.unina.dao.ProgettoDAO;
-import it.unina.gui.ProjectGUI;
 import it.unina.implementazionePostgreSQL.LottoDAOImpl;
 import it.unina.implementazionePostgreSQL.ProgettoDAOImpl;
 import it.unina.model.Lotto;
@@ -12,7 +11,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 
-import java.io.IOException;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 

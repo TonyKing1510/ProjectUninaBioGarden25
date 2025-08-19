@@ -1,0 +1,6 @@
+.pattern-background {
+    -fx-background-image: url("../images/backgroundCreate.png");
+    -fx-background-repeat: repeat;
+    -fx-background-position: top left;
+    -fx-background-size: 200px 200px;
+}

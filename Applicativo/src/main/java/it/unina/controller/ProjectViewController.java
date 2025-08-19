@@ -1,9 +1,8 @@
 package it.unina.controller;
 
-import it.unina.controller.components.ProjectCardController;
 import it.unina.dao.LottoDAO;
 import it.unina.dao.ProgettoDAO;
-import it.unina.gui.ProjectGUI;
+import it.unina.gui.VisualizeProjectGUI;
 import it.unina.implementazionePostgreSQL.LottoDAOImpl;
 import it.unina.implementazionePostgreSQL.ProgettoDAOImpl;
 import it.unina.model.Lotto;
@@ -12,9 +11,7 @@ import it.unina.model.Stagione;
 import it.unina.model.Utente;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
 import java.io.IOException;
@@ -97,17 +94,6 @@ public class ProjectViewController {
     }
 
 
-
-
-    /**
-     * Apre un dialogo per l'aggiunta di un nuovo progetto.
-     * @author entn
-     */
-    @FXML
-    public void openAddProjectDialog() throws IOException {
-        ProjectGUI.openAddProjectView( utenteLoggato);
-    }
-
     @FXML
     private void addProject() {
         String title = titleProject.getText();
@@ -148,7 +134,7 @@ public class ProjectViewController {
         for (Progetto progetto : progetti) {
             try {
                 System.out.println("Caricamento progetto: " + progetto.getIdProgetto());
-                ProjectGUI.initProjectCard(progetto, contentBox, utenteLoggato);
+                VisualizeProjectGUI.initProjectCard(progetto, contentBox, utenteLoggato);
             } catch (IOException e) {
                 e.printStackTrace();
             }

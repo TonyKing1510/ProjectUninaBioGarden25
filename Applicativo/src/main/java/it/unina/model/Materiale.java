@@ -4,12 +4,16 @@ public class Materiale {
     private String nome;
     private TipoMateriale tipo;
     private int quantita;
+    private Magazzino magazzino; // Associazione con Magazzino
+
+
 
     // Costruttore
-    public Materiale(String nome, TipoMateriale tipo, int quantita) {
+    public Materiale(String nome, TipoMateriale tipo, int quantita, Magazzino magazzino) {
         this.nome = nome;
         this.tipo = tipo;
         this.quantita = quantita;
+        this.magazzino = magazzino;
     }
 
     public Materiale() {
@@ -46,6 +50,16 @@ public class Materiale {
     public void setQuantita(int quantita) {
         this.quantita = quantita;
     }
+
+    // Getter per magazzino
+    public Magazzino getMagazzino() {
+        return magazzino;
+    }
+    // Setter per magazzino
+    public void setMagazzino(Magazzino magazzino) {
+        this.magazzino = magazzino;
+    }
+
 
     // Possibile toString per la rappresentazione della classe
     @Override

@@ -2,7 +2,6 @@ package it.unina.gui;
 
 import it.unina.controller.LottiController;
 import it.unina.controller.components.LottoCardController;
-import it.unina.controller.components.ProjectCardController;
 import it.unina.model.Lotto;
 import it.unina.model.Utente;
 import javafx.fxml.FXMLLoader;
@@ -42,7 +41,7 @@ public class LottiGUI {
     }
 
     public static void initLottiCard(VBox contentBox, Utente utente, Lotto lotti) throws IOException {
-        FXMLLoader loader = new FXMLLoader(ProjectGUI.class.getResource("/it/unina/components/LottiCard.fxml"));
+        FXMLLoader loader = new FXMLLoader(VisualizeProjectGUI.class.getResource("/it/unina/components/LottiCard.fxml"));
         AnchorPane card = loader.load();
 
         // Ottieni il controller della card e setta i dati

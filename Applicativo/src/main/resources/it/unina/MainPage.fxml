@@ -48,7 +48,7 @@
                     </ImageView>
                 </graphic>
             </Button>
-            <Button fx:id="userManagementButton" contentDisplay="LEFT" onAction="#goToCultivator" styleClass="sidebar-button" text="Coltivatori">
+            <Button fx:id="visualizerProject" contentDisplay="LEFT" onAction="#goToVisualizeProject" styleClass="sidebar-button" text="Visualizza progetti">
                 <graphic>
                     <ImageView fitHeight="26.0" fitWidth="26.0" preserveRatio="true" smooth="true">
                         <image>
@@ -57,8 +57,7 @@
                     </ImageView>
                 </graphic>
             </Button>
-            <Button fx:id="statisticsButton" styleClass="sidebar-button" text="Andamento" />
-            <Button fx:id="projectButton" contentDisplay="LEFT" onAction="#goToProject" styleClass="sidebar-button" text="Progetti">
+            <Button fx:id="CreateProjectButton" contentDisplay="LEFT" onAction="#goToCreateProject" styleClass="sidebar-button" text="Crea progetti">
                 <graphic>
                     <ImageView fitHeight="26.0" fitWidth="26.0" preserveRatio="true" smooth="true">
                         <image>

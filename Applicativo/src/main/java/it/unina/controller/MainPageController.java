@@ -1,8 +1,7 @@
 package it.unina.controller;
 
 import it.unina.gui.LottiGUI;
-import it.unina.gui.CultivatorGUI;
-import it.unina.gui.ProjectGUI;
+import it.unina.gui.VisualizeProjectGUI;
 import it.unina.model.Utente;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -76,15 +75,9 @@ public class MainPageController {
     LottiGUI.initLottiView(borderPane,utenteLoggato);
   }
 
-  /**
-   * Carica la vista dei coltivatori all'interno del pannello principale.
-   *
-   * @throws IOException se il caricamento della vista fallisce
-   * @author entn
-   */
   @FXML
-  private void goToCultivator() throws IOException {
-    CultivatorGUI.initializeCultivatorView(borderPane);
+  private void goToVisualizeProject() throws IOException {
+    VisualizeProjectGUI.initializeProjectView(borderPane, utenteLoggato);
   }
 
   /**
@@ -94,8 +87,8 @@ public class MainPageController {
    * @author entn
    */
   @FXML
-  private void goToProject() throws IOException {
-    ProjectGUI.initializeProjectView(borderPane, utenteLoggato);
+  private void goToCreateProject() throws IOException {
+
   }
 
   /**
