@@ -2,6 +2,7 @@ package it.unina.controller;
 
 import it.unina.gui.LottiGUI;
 import it.unina.gui.VisualizeProjectGUI;
+import it.unina.gui.CreateProjectGUI;
 import it.unina.model.Utente;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -43,6 +44,9 @@ public class MainPageController {
    *@author entn
    */
   private Stage previousStage;
+
+
+
 
   /**
    * Imposta lo stage precedente (es. finestra di login).
@@ -89,6 +93,7 @@ public class MainPageController {
   @FXML
   private void goToCreateProject() throws IOException {
 
+    CreateProjectGUI.openPageCreateProject(utenteLoggato);
   }
 
   /**
