@@ -45,5 +45,7 @@ public interface UtenteDAO {
     List<Utente> getColtivatoriByLottoId(int idColtivatore);
 
     Utente getUtenteProprietario(int idProprietario);
+
+    List<Utente> getColtivatoriDisponibili();
 }
 

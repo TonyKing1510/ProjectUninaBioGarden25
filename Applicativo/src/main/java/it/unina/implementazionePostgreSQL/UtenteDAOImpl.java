@@ -195,4 +195,32 @@ public class UtenteDAOImpl implements UtenteDAO {
         return null;
     }
 
+    @Override
+    public List<Utente> getColtivatoriDisponibili() {
+        List<Utente> coltivatori = new ArrayList<>();
+        String sql = "SELECT * FROM Utente u LEFT JOIN utente_coltura uc ON u.id_utente = uc.id_coltivatore WHERE u.ruolo = 'coltivatore' AND uc.id_coltivatore IS NULL";
+        try (Connection conn = ConnessioneDatabase.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql);
+             ResultSet rs = stmt.executeQuery()) {
+
+            while (rs.next()) {
+                coltivatori.add(new Utente(
+                        rs.getInt("id_utente"),
+                        rs.getString("nome"),
+                        rs.getString("cognome"),
+                        rs.getString("mail"),
+                        rs.getString("password"),
+                        Ruolo.valueOf(rs.getString("ruolo").toUpperCase()),
+                        rs.getString("username")
+                ));
+            }
+
+        } catch (SQLException e) {
+            System.err.println("Errore nel recupero dei coltivatori disponibili:");
+            e.printStackTrace();
+        }return coltivatori;
+    }
+
+    }
+
 }

@@ -1,0 +1,30 @@
+.check-box {
+    -fx-font-size: 14px;
+    -fx-text-color: white;
+    -fx-text-fill: white;
+    -fx-font-style: italic;
+}
+
+/* la "scatola" del check */
+.check-box .box {
+    -fx-background-color: transparent;
+    -fx-border-color: white;
+    -fx-border-radius: 10px;
+    -fx-background-radius: 10px;
+    -fx-padding: 5px;
+    -fx-font-color: white;
+}
+
+/* check quando selezionato */
+.check-box:selected .box {
+    -fx-background-color: #2ecc71; /* verde dentro */
+    -fx-border-color: white;
+    -fx-font-color: white;
+}
+
+/* colore del check mark */
+.check-box:selected .mark {
+    -fx-background-color: white;   /* il "segno di spunta" bianco */
+    -fx-font-color: white; /* il testo del check */
+}
+

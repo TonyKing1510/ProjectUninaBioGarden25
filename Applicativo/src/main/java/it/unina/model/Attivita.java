@@ -35,6 +35,11 @@ public class Attivita {
         this.dataFine = dataFine;
         this.utente = utente;
     }
+
+    public Attivita() {
+
+    }
+
     public StatoAttivita getStato() {
         return stato;
     }

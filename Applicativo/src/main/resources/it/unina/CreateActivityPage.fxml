@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="730.0" prefWidth="951.0" styleClass="pattern-background" stylesheets="@css/CreateProjectBackGround.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unina.controller.CreateProjectController">
+   <children>
+      <Label layoutX="385.0" layoutY="65.0" prefHeight="30.0" prefWidth="210.0" text="Creazione attività" textFill="WHITE">
+         <font>
+            <Font name="System Bold Italic" size="20.0" />
+         </font>
+      </Label>
+      <ImageView fitHeight="105.0" fitWidth="159.0" layoutX="118.0" layoutY="14.0">
+         <image>
+            <Image url="@images/logo-removebg-preview%20(4).png" />
+         </image>
+      </ImageView>
+      <Line endX="-152.00003051757812" endY="-7.62939453125E-6" layoutX="500.0" layoutY="81.0" startX="-201.60000610351562" startY="7.62939453125E-6" stroke="WHITE" strokeWidth="3.0" />
+      <Line endX="-107.73333740234375" endY="7.62939453125E-6" layoutX="191.0" layoutY="82.0" startX="-175.40000915527344" startY="7.62939453125E-6" stroke="WHITE" strokeWidth="3.0" />
+      <Line endX="45.0" endY="-2.288818359375E-5" layoutX="863.0" layoutY="79.0" startX="-252.5999755859375" startY="-7.62939453125E-6" stroke="WHITE" strokeWidth="3.0" />
+      <Pane fx:id="infoProgettoPane" layoutX="334.0" layoutY="180.0" prefHeight="515.0" prefWidth="990.0" style="-fx-background-color: rgba(36, 104, 0,0.6); -fx-background-radius: 10; -fx-border-color: white; -fx-border-radius: 10;" visible="false">
+         <children>
+            <Label layoutX="14.0" layoutY="10.0" prefHeight="30.0" prefWidth="210.0" text="Info sul progetto" textFill="WHITE">
+               <font>
+                  <Font name="System Bold Italic" size="20.0" />
+               </font>
+            </Label>
+            <Label layoutX="14.0" layoutY="48.0" prefHeight="30.0" prefWidth="210.0" text="1. Inserisci il nome del progetto" textFill="WHITE">
+               <font>
+                  <Font name="System Italic" size="14.0" />
+               </font>
+            </Label>
+            <TextField fx:id="titleProject" layoutX="20.0" layoutY="78.0" prefHeight="25.0" prefWidth="343.0" style="-fx-background-color: rgba(255,255,255,0.8); -fx-background-radius: 10; -fx-border-radius: 10; -fx-border-color: green;" />
+            <Label layoutX="15.0" layoutY="130.0" prefHeight="30.0" prefWidth="210.0" text="2. Inserisci la stagione" textFill="WHITE">
+               <font>
+                  <Font name="System Italic" size="14.0" />
+               </font>
+            </Label>
+            <MenuButton fx:id="stagioneMenu" layoutX="21.0" layoutY="159.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="239.0" stylesheets="@css/mainpage.css" />
+            <Label layoutX="21.0" layoutY="216.0" prefHeight="30.0" prefWidth="291.0" text="3.Inserisci la data di inizio progetto" textFill="WHITE">
+               <font>
+                  <Font name="System Italic" size="14.0" />
+               </font>
+            </Label>
+            <DatePicker fx:id="dateInit" layoutX="21.0" layoutY="245.0" prefHeight="26.0" prefWidth="239.0" />
+            <Label layoutX="21.0" layoutY="296.0" prefHeight="30.0" prefWidth="291.0" text="4.Inserisci la data di fine progetto" textFill="WHITE">
+               <font>
+                  <Font name="System Italic" size="14.0" />
+               </font>
+            </Label>
+            <DatePicker fx:id="dateFine" layoutX="21.0" layoutY="326.0" prefHeight="26.0" prefWidth="239.0" />
+         </children>
+      </Pane>
+      <Pane fx:id="selectionLottoPane" layoutX="334.0" layoutY="180.0" prefHeight="515.0" prefWidth="990.0" style="-fx-background-color: rgba(36, 104, 0,0.6); -fx-background-radius: 10; -fx-border-color: white; -fx-border-radius: 10;" visible="false">
+         <children>
+            <Label layoutX="13.0" layoutY="9.0" prefHeight="30.0" prefWidth="210.0" text="Selezione del lotto" textFill="WHITE">
+               <font>
+                  <Font name="System Bold Italic" size="20.0" />
+               </font>
+            </Label>
+            <Label layoutX="14.0" layoutY="52.0" prefHeight="30.0" prefWidth="371.0" text="Seleziona il lotto disponibile da abbinare al progetto" textFill="WHITE">
+               <font>
+                  <Font name="System Italic" size="16.0" />
+               </font>
+            </Label>
+            <MenuButton fx:id="lottoMenu" layoutX="19.0" layoutY="82.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="416.0" stylesheets="@css/mainpage.css" />
+         </children>
+      </Pane>
+      <Pane fx:id="selectionColturePane" layoutX="334.0" layoutY="180.0" prefHeight="515.0" prefWidth="990.0" style="-fx-background-color: rgba(36, 104, 0,0.6); -fx-background-radius: 10; -fx-border-color: white; -fx-border-radius: 10;" visible="false">
+         <children>
+            <Label layoutX="14.0" layoutY="14.0" prefHeight="30.0" prefWidth="229.0" text="Selezione delle colture" textFill="WHITE">
+               <font>
+                  <Font name="System Bold Italic" size="20.0" />
+               </font>
+            </Label>
+            <VBox fx:id="vBoxColture" layoutX="14.0" layoutY="82.0" prefHeight="210.0" prefWidth="534.0" spacing="5.0" />
+            <Label layoutX="14.0" layoutY="44.0" prefHeight="30.0" prefWidth="399.0" text="1. Seleziona le colture da associare" textFill="WHITE">
+               <font>
+                  <Font name="System Italic" size="16.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+      <Pane fx:id="coltivatoriAttivitaPane" layoutX="82.0" layoutY="180.0" prefHeight="515.0" prefWidth="772.0" style="-fx-background-color: rgba(36, 104, 0,0.6); -fx-background-radius: 10; -fx-border-color: white; -fx-border-radius: 10;">
+         <children>
+            <Label layoutX="9.0" layoutY="6.0" prefHeight="30.0" prefWidth="210.0" text="Crea la tua attività" textFill="WHITE">
+               <font>
+                  <Font name="System Bold Italic" size="20.0" />
+               </font>
+            </Label>
+            <Label layoutX="14.0" layoutY="43.0" prefHeight="30.0" prefWidth="452.0" text="1. Seleziona il coltivatore impiegato nell'attività" textFill="WHITE">
+               <font>
+                  <Font name="System Italic" size="15.0" />
+               </font>
+            </Label>
+            <MenuButton fx:id="coltivatoreMenu" layoutX="26.0" layoutY="73.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="333.0" />
+            <Label layoutX="14.0" layoutY="203.0" prefHeight="30.0" prefWidth="452.0" text="3.Seleziona il tipo di attività da effettuare" textFill="WHITE">
+               <font>
+                  <Font name="System Italic" size="15.0" />
+               </font>
+            </Label>
+            <MenuButton fx:id="tipoAttivitaMenu" layoutX="26.0" layoutY="233.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="333.0" />
+            <Label layoutX="14.0" layoutY="268.0" prefHeight="30.0" prefWidth="452.0" text="4. Inserisci data inizio e data fine" textFill="WHITE">
+               <font>
+                  <Font name="System Italic" size="15.0" />
+               </font>
+            </Label>
+            <DatePicker fx:id="dataInizio" layoutX="27.0" layoutY="298.0" promptText="Data Inizio" />
+            <DatePicker fx:id="dataFine" layoutX="225.0" layoutY="298.0" promptText="Data fine" />
+            <Label layoutX="14.0" layoutY="342.0" prefHeight="30.0" prefWidth="452.0" text="5. Inserisci la quantità a seconda del tipo di attività" textFill="WHITE">
+               <font>
+                  <Font name="System Italic" size="15.0" />
+               </font>
+            </Label>
+            <TextField fx:id="textQuantitaRaccolta" layoutX="27.0" layoutY="372.0" prefHeight="25.0" prefWidth="175.0" />
+            <Label layoutX="219.0" layoutY="369.0" prefHeight="30.0" prefWidth="128.0" text="quantita raccolta" textFill="WHITE">
+               <font>
+                  <Font name="System Italic" size="15.0" />
+               </font>
+            </Label>
+            <TextField fx:id="textQuantitaUsata" layoutX="27.0" layoutY="399.0" prefHeight="25.0" prefWidth="175.0" />
+            <Label layoutX="219.0" layoutY="396.0" prefHeight="30.0" prefWidth="128.0" text="quantita usata" textFill="WHITE">
+               <font>
+                  <Font name="System Italic" size="15.0" />
+               </font>
+            </Label>
+            <Button fx:id="creaAttivitaButton" layoutX="665.0" layoutY="471.0" mnemonicParsing="false" style="-fx-background-color: rgba(255,255,255,255,0.7); -fx-background-radius: 10;" text="Crea attività">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Button>
+            <Label layoutX="14.0" layoutY="123.0" prefHeight="30.0" prefWidth="452.0" text="2.Seleziona la coltura su cui effettuare l'attività" textFill="WHITE">
+               <font>
+                  <Font name="System Italic" size="15.0" />
+               </font>
+            </Label>
+            <MenuButton fx:id="colturaMenu" layoutX="26.0" layoutY="153.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="333.0">
+               <items>
+                  <MenuItem mnemonicParsing="false" text="Action 1" />
+                  <MenuItem mnemonicParsing="false" text="Action 2" />
+               </items>
+            </MenuButton>
+         </children></Pane>
+   </children>
+</Pane>

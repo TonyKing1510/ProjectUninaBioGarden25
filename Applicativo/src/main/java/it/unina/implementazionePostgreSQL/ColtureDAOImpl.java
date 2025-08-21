@@ -70,4 +70,36 @@ public class ColtureDAOImpl implements ColtureDAO {
         return Duration.ZERO; // fallback
     }
 
+    @Override
+    public List<Colture> getColtureDisponibili() {
+        List<Colture> coltureList = new ArrayList<>();
+        String query = "SELECT * FROM Colture WHERE id_lotto IS NULL";
+        try (var connection = ConnessioneDatabase.getConnection();
+             var preparedStatement = connection.prepareStatement(query);
+             var resultSet = preparedStatement.executeQuery()) {
+
+            while (resultSet.next()) {
+                Colture coltura = new Colture();
+                coltura.setIdColture(resultSet.getInt("id_colture"));
+                coltura.setTitolo(resultSet.getString("titolo"));
+
+                // Conversione enum con controllo null/sicurezza
+                String stagStr = resultSet.getString("stagionalita").toUpperCase();
+                if (stagStr != null) {
+                    coltura.setStagionalita(Stagione.valueOf(stagStr));
+                }
+
+                String intervallo = resultSet.getString("tempo_maturazione");
+                Duration durata = parsePostgresInterval(intervallo); // metodo sotto
+                coltura.setTempoMaturazione(durata);
+
+                coltureList.add(coltura);
+            }
+
+        } catch (Exception e) {
+            System.err.println("Errore durante il recupero delle colture disponibili");
+            e.printStackTrace();
+        }
+        return coltureList;
+    }
 }

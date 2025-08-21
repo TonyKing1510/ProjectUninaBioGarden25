@@ -1,14 +1,13 @@
 package it.unina.controller;
 
+import it.unina.dao.ColtureDAO;
 import it.unina.dao.LottoDAO;
 import it.unina.dao.ProgettoDAO;
 import it.unina.gui.VisualizeProjectGUI;
+import it.unina.implementazionePostgreSQL.ColtureDAOImpl;
 import it.unina.implementazionePostgreSQL.LottoDAOImpl;
 import it.unina.implementazionePostgreSQL.ProgettoDAOImpl;
-import it.unina.model.Lotto;
-import it.unina.model.Progetto;
-import it.unina.model.Stagione;
-import it.unina.model.Utente;
+import it.unina.model.*;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -47,6 +46,7 @@ public class ProjectViewController {
     private final ProgettoDAO progettoDAO = new ProgettoDAOImpl();
     private final LottoDAO lottoDAO = new LottoDAOImpl();
 
+
     public void setUtenteLoggato(Utente utente) {
         this.utenteLoggato = utente;
     }
@@ -75,6 +75,7 @@ public class ProjectViewController {
             stagioneMenu.getItems().add(item);
         }
     }
+
 
     public void setLottiMenu() {
         List<Lotto> lotti = lottoDAO.getLottiDisponibili(utenteLoggato.getIdUtente());

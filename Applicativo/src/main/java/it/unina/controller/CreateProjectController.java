@@ -1,14 +1,19 @@
 package it.unina.controller;
 
+import it.unina.dao.ColtureDAO;
 import it.unina.dao.LottoDAO;
+import it.unina.implementazionePostgreSQL.ColtureDAOImpl;
 import it.unina.implementazionePostgreSQL.LottoDAOImpl;
+import it.unina.model.Colture;
 import it.unina.model.Lotto;
 import it.unina.model.Utente;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 
 import javax.sound.midi.SysexMessage;
+import java.util.ArrayList;
 import java.util.List;
 
 public class CreateProjectController {
@@ -35,12 +40,17 @@ public class CreateProjectController {
     private MenuButton lottoMenu;
 
 
+    @FXML
+    private VBox vBoxColture;
 
 
 
 
+
+    private List<CheckBox> coltureCheckBoxes = new ArrayList<>();
     private Utente utenteLoggato;
     private final LottoDAO lottoDAO = new LottoDAOImpl();
+    private final ColtureDAO coltureDAO = new ColtureDAOImpl();
 
 
     public void setUtenteLoggato(Utente utente) {
@@ -49,6 +59,7 @@ public class CreateProjectController {
 
     public void initialize() {
         setStagioniMenu();
+        setColtureMenu();
     }
 
     public void setLottiMenu() {
@@ -113,5 +124,52 @@ public class CreateProjectController {
         selectionLottoPane.setVisible(false);
         selectionColturePane.setVisible(false);
         coltivatoriAttivitaPane.setVisible(false);
+    }
+
+
+
+    public void setColtureMenu(){
+        List<Colture> coltureDisponibili = coltureDAO.getColtureDisponibili();
+        for (Colture coltura : coltureDisponibili) {
+            CheckBox colturaCheckBox = new CheckBox(coltura.getIdColture() + " - " + coltura.getTitolo());
+            vBoxColture.getChildren().add(colturaCheckBox);
+            coltureCheckBoxes.add(colturaCheckBox);
+            colturaCheckBox.setOnAction(event -> {
+                if (colturaCheckBox.isSelected()) {
+                    System.out.println("Coltura selezionata: " + coltura.getTitolo());
+                } else {
+                    System.out.println("Coltura deselezionata: " + coltura.getTitolo());
+                }
+            });
+            colturaCheckBox.setStyle(
+                    "-fx-font-size: 14px; " +
+                            "-fx-text-fill: #2c3e50; " +
+                            "-fx-padding: 5px;"
+            );
+        }
+    }
+
+    public void setVisibleSelectionColturePane() {
+        boolean isLottoSelected = !lottoMenu.getText().equals("Seleziona lotto");
+        boolean isTitleEmpty = titleProject.getText().isEmpty();
+        boolean isStagioneEmpty = stagioneMenu.getText().equals("Primavera") ||
+                stagioneMenu.getText().equals("Estate") ||
+                stagioneMenu.getText().equals("Autunno") ||
+                stagioneMenu.getText().equals("Inverno");
+        boolean isDateInitEmpty = dateInit.getValue() == null;
+        boolean isDateFineEmpty = dateFine.getValue() == null;
+
+
+        if (isLottoSelected || isTitleEmpty || !isStagioneEmpty || isDateInitEmpty || isDateFineEmpty) {
+            infoProgettoPane.setVisible(false);
+            coltivatoriAttivitaPane.setVisible(false);
+            selectionLottoPane.setVisible(false);
+            selectionColturePane.setVisible(true);
+        } else {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Attenzione");
+            alert.setHeaderText("Per procedere, compila i campi obbligatori.");
+            showAlert(alert);
+        }
     }
 }

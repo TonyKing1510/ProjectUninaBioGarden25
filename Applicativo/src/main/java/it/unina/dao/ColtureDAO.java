@@ -8,5 +8,6 @@ public interface ColtureDAO {
 
     List<Colture> getColtureByIdLotto(int idLotto);
 
+    List<Colture> getColtureDisponibili();
 
 }

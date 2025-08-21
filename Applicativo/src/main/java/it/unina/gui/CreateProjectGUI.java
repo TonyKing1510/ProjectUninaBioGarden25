@@ -27,11 +27,21 @@ public class CreateProjectGUI {
         System.out.println("Utente caricato: " + utenteLoggato);
         controller.setUtenteLoggato(utenteLoggato);
         controller.setLottiMenu();
+
         // Imposta la scena e mostra la finestra
         Stage stage = new Stage();
         stage.setTitle("Crea Nuovo Progetto");
-        stage.setScene(new Scene(root));
+
+        Scene scene = new Scene(root);
+
+        // 🔥 Aggancio del CSS
+        scene.getStylesheets().add(
+                CreateProjectGUI.class.getResource("/it/unina/css/style.css").toExternalForm()
+        );
+
+        stage.setScene(scene);
         stage.setMaximized(true);
         stage.show();
     }
+
 }
