@@ -10,7 +10,24 @@ import java.util.List;
 public class AttivitaDAOImpl implements AttivitaDAO {
     @Override
     public void addAttivita(Attivita attivita) {
-        // Implementazione per aggiungere un'attività al database
+        String insertQuery = "INSERT INTO Attivita (stato, tipo, quantita_raccolta, quantita_usata, data_inizio, data_fine) VALUES (?, ?, ?, ?, ?, ?)";
+        try (var connection = ConnessioneDatabase.getConnection();
+             var preparedStatement = connection.prepareStatement(insertQuery)) {
+
+            // Conversione enum a stringa
+            preparedStatement.setString(1, attivita.getStato().name());
+            preparedStatement.setString(2, attivita.getTipo().name());
+            preparedStatement.setInt(3, attivita.getQuantitaRaccolta());
+            preparedStatement.setInt(4, attivita.getQuantitaUsata());
+            preparedStatement.setDate(5, attivita.getDataInizio());
+            preparedStatement.setDate(6, attivita.getDataFine());
+
+            preparedStatement.executeUpdate();
+
+        } catch (Exception e) {
+            System.err.println("Errore durante l'inserimento dell'attività");
+            e.printStackTrace();
+        }
     }
 
     @Override

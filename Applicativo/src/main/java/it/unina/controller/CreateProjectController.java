@@ -2,6 +2,7 @@ package it.unina.controller;
 
 import it.unina.dao.ColtureDAO;
 import it.unina.dao.LottoDAO;
+import it.unina.gui.CreateActivityGUI;
 import it.unina.implementazionePostgreSQL.ColtureDAOImpl;
 import it.unina.implementazionePostgreSQL.LottoDAOImpl;
 import it.unina.model.Colture;
@@ -94,38 +95,6 @@ public class CreateProjectController {
         }
     }
 
-    public void setVisibleSelectionLottoPane() {
-        boolean isTitleEmpty = titleProject.getText().isEmpty();
-        boolean isStagioneEmpty = stagioneMenu.getText().equals("Primavera") ||
-                                  stagioneMenu.getText().equals("Estate") ||
-                                  stagioneMenu.getText().equals("Autunno") ||
-                                  stagioneMenu.getText().equals("Inverno");
-        boolean isDateInitEmpty = dateInit.getValue() == null;
-        boolean isDateFineEmpty = dateFine.getValue() == null;
-
-        if (isTitleEmpty || !isStagioneEmpty || isDateInitEmpty || isDateFineEmpty) {
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("Attenzione");
-            alert.setHeaderText("Compila i campi obbligatori");
-            showAlert(alert);
-        } else {
-            infoProgettoPane.setVisible(false);
-            selectionLottoPane.setVisible(true);
-        }
-    }
-
-    private void showAlert(Alert alert) {
-        alert.setContentText("Per procedere, compila i campi obbligatori.");
-        alert.showAndWait();
-    }
-
-    public void setVisibleInfoProgettoPane() {
-        infoProgettoPane.setVisible(true);
-        selectionLottoPane.setVisible(false);
-        selectionColturePane.setVisible(false);
-        coltivatoriAttivitaPane.setVisible(false);
-    }
-
 
 
     public void setColtureMenu(){
@@ -149,8 +118,14 @@ public class CreateProjectController {
         }
     }
 
-    public void setVisibleSelectionColturePane() {
-        boolean isLottoSelected = !lottoMenu.getText().equals("Seleziona lotto");
+    public void setVisibleInfoProgettoPane() {
+        infoProgettoPane.setVisible(true);
+        selectionLottoPane.setVisible(false);
+        selectionColturePane.setVisible(false);
+        coltivatoriAttivitaPane.setVisible(false);
+    }
+
+    public void setVisibleSelectionLottoPane() {
         boolean isTitleEmpty = titleProject.getText().isEmpty();
         boolean isStagioneEmpty = stagioneMenu.getText().equals("Primavera") ||
                 stagioneMenu.getText().equals("Estate") ||
@@ -159,17 +134,80 @@ public class CreateProjectController {
         boolean isDateInitEmpty = dateInit.getValue() == null;
         boolean isDateFineEmpty = dateFine.getValue() == null;
 
+        if (isTitleEmpty || !isStagioneEmpty || isDateInitEmpty || isDateFineEmpty) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Attenzione");
+            alert.setHeaderText("Compila i campi obbligatori");
+            showAlert(alert);
+        } else {
+            infoProgettoPane.setVisible(false);
+            selectionLottoPane.setVisible(true);
+        }
+    }
+
+    public void setVisibleSelectionColturePane() {
+        boolean isLottoSelected = !lottoMenu.getText().equals("Seleziona lotto");
+        boolean isTitleEmpty = titleProject.getText().isEmpty();
+        boolean isStagioneEmpty = !(stagioneMenu.getText().equals("Primavera") ||
+                stagioneMenu.getText().equals("Estate") ||
+                stagioneMenu.getText().equals("Autunno") ||
+                stagioneMenu.getText().equals("Inverno"));
+        boolean isDateInitEmpty = dateInit.getValue() == null;
+        boolean isDateFineEmpty = dateFine.getValue() == null;
+
+        System.out.println("isLottoSelected: " + isLottoSelected);
+        System.out.println("ciao" + lottoMenu.getText());bb
+
+
 
         if (isLottoSelected || isTitleEmpty || !isStagioneEmpty || isDateInitEmpty || isDateFineEmpty) {
-            infoProgettoPane.setVisible(false);
-            coltivatoriAttivitaPane.setVisible(false);
-            selectionLottoPane.setVisible(false);
-            selectionColturePane.setVisible(true);
-        } else {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Attenzione");
             alert.setHeaderText("Per procedere, compila i campi obbligatori.");
             showAlert(alert);
+
+        } else {
+            infoProgettoPane.setVisible(false);
+            coltivatoriAttivitaPane.setVisible(false);
+            selectionLottoPane.setVisible(false);
+            selectionColturePane.setVisible(true);
         }
     }
+
+    public void setVisibleColtivatoriAttivitaPane() {
+        boolean isAnyColturaSelected = coltureCheckBoxes.stream().noneMatch(CheckBox::isSelected);
+        boolean isLottoSelected = !lottoMenu.getText().equals("Seleziona lotto");
+        boolean isTitleEmpty = titleProject.getText().isEmpty();
+        boolean isStagioneEmpty = !(stagioneMenu.getText().equals("Primavera") ||
+                stagioneMenu.getText().equals("Estate") ||
+                stagioneMenu.getText().equals("Autunno") ||
+                stagioneMenu.getText().equals("Inverno"));
+        boolean isDateInitEmpty = dateInit.getValue() == null;
+        boolean isDateFineEmpty = dateFine.getValue() == null;
+
+        if (isAnyColturaSelected || isLottoSelected || isTitleEmpty || !isStagioneEmpty || isDateInitEmpty || isDateFineEmpty) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Attenzione");
+            alert.setHeaderText("Seleziona almeno una coltura per procedere.");
+            showAlert(alert);
+        } else {
+            infoProgettoPane.setVisible(false);
+            selectionLottoPane.setVisible(false);
+            selectionColturePane.setVisible(false);
+            coltivatoriAttivitaPane.setVisible(true);
+        }
+    }
+
+    @FXML
+    public void openColtivatoriAttivita() throws Exception {
+        CreateActivityGUI.openCreateActivity(utenteLoggato, coltureCheckBoxes);
+    }
+
+
+    private void showAlert(Alert alert) {
+        alert.setContentText("Per procedere, compila i campi obbligatori.");
+        alert.showAndWait();
+    }
+
+
 }

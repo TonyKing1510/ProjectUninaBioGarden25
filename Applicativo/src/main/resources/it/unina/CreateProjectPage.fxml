@@ -67,7 +67,7 @@
                         <Font name="System Italic" size="14.0" />
                      </font>
                   </Button>
-                  <Button fx:id="coltivatoriAttivitaButton" mnemonicParsing="false" prefHeight="100.0" prefWidth="224.0" style="-fx-background-color: RGBA(0,0,0,0);" text="Crea la tua attività" textAlignment="CENTER" textFill="WHITE" textOverrun="CLIP" wrapText="true">
+                  <Button fx:id="coltivatoriAttivitaButton" mnemonicParsing="false" onAction="#setVisibleColtivatoriAttivitaPane" prefHeight="100.0" prefWidth="224.0" style="-fx-background-color: RGBA(0,0,0,0);" text="Crea la tua attività" textAlignment="CENTER" textFill="WHITE" textOverrun="CLIP" wrapText="true">
                      <graphic>
                         <ImageView fitHeight="37.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -144,7 +144,7 @@
             </Label>
          </children>
       </Pane>
-      <Pane fx:id="coltivatoriAttivitaPane" layoutX="334.0" layoutY="180.0" prefHeight="515.0" prefWidth="990.0" style="-fx-background-color: rgba(36, 104, 0,0.6); -fx-background-radius: 10; -fx-border-color: white; -fx-border-radius: 10;">
+      <Pane fx:id="coltivatoriAttivitaPane" layoutX="334.0" layoutY="180.0" prefHeight="515.0" prefWidth="990.0" style="-fx-background-color: rgba(36, 104, 0,0.6); -fx-background-radius: 10; -fx-border-color: white; -fx-border-radius: 10;" visible="false">
          <children>
             <Label layoutX="9.0" layoutY="6.0" prefHeight="30.0" prefWidth="210.0" text="Crea la tua attività" textFill="WHITE">
                <font>
@@ -156,7 +156,7 @@
                   <Font name="System Italic" size="14.0" />
                </font>
             </Label>
-            <Button fx:id="creaAttivitaButton" layoutX="14.0" layoutY="73.0" mnemonicParsing="false" style="-fx-background-color: rgba(255,255,255,255,0.7); -fx-background-radius: 10;" text="Crea">
+            <Button fx:id="creaAttivitaButton" layoutX="14.0" layoutY="73.0" mnemonicParsing="false" onAction="#openColtivatoriAttivita" style="-fx-background-color: rgba(255,255,255,255,0.7); -fx-background-radius: 10;" text="Crea">
                <font>
                   <Font size="14.0" />
                </font>
