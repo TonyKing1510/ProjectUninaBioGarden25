@@ -12,9 +12,6 @@ public class Attivita {
     private Date dataInizio;
     private Date dataFine;
 
-    private Utente utente;
-    private List<Materiale> materialiUsati = new ArrayList<>();
-
     /**
      * Costruttore per creare un'attività completa.
      *
@@ -24,16 +21,14 @@ public class Attivita {
      * @param quantitaUsata quantità di materiale usato (se applicabile)
      * @param dataInizio    data di inizio dell'attività
      * @param dataFine      data di fine dell'attività
-     * @param utente        utente che ha eseguito l'attività
      */
-    public Attivita(StatoAttivita stato, TipoAttivita tipo, int quantitaRaccolta, int quantitaUsata, Date dataInizio, Date dataFine, Utente utente) {
+    public Attivita(StatoAttivita stato, TipoAttivita tipo, int quantitaRaccolta, int quantitaUsata, Date dataInizio, Date dataFine) {
         this.stato = stato;
         this.tipo = tipo;
         this.quantitaRaccolta = quantitaRaccolta;
         this.quantitaUsata = quantitaUsata;
         this.dataInizio = dataInizio;
         this.dataFine = dataFine;
-        this.utente = utente;
     }
 
     public Attivita() {
@@ -76,21 +71,6 @@ public class Attivita {
     public void setDataFine(Date dataFine) {
         this.dataFine = dataFine;
     }
-    public Utente getUtente() {
-        return utente;
-    }
-    public void setUtente(Utente utente) {
-        this.utente = utente;
-    }
-    public List<Materiale> getMaterialiUsati() {
-        return materialiUsati;
-    }
-    public void setMaterialiUsati(List<Materiale> materialiUsati) {
-        this.materialiUsati = materialiUsati;
-    }
-    public void addMaterialeUsato(Materiale materiale) {
-        this.materialiUsati.add(materiale);
-    }
     @Override
     public String toString() {
         return "Attivita{" +
@@ -100,8 +80,6 @@ public class Attivita {
                 ", quantitaUsata=" + quantitaUsata +
                 ", dataInizio=" + dataInizio +
                 ", dataFine=" + dataFine +
-                ", utente=" + utente.getNome() + " " + utente.getCognome() +
-                ", materialiUsati=" + materialiUsati +
                 '}';
     }
 }

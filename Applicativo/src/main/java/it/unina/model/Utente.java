@@ -23,6 +23,10 @@ public class Utente {
 
     private List<Progetto> progettiCreati = new ArrayList<>();
 
+    public Utente() {
+
+    }
+
     public List<Progetto> getProgettiCreati() {
         return progettiCreati;
     }

@@ -8,6 +8,6 @@ import java.sql.Date;
 import java.util.List;
 
 public interface AttivitaDAO {
-    void addAttivita(Attivita attivita);
+    boolean addAttivita(Attivita attivita,int idColtura, int idColtivatore,int idProprietario);
     List<Attivita> getAttivitaCreate();
 }

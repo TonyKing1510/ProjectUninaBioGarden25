@@ -54,6 +54,7 @@ public class CreateProjectController {
     private final ColtureDAO coltureDAO = new ColtureDAOImpl();
 
 
+
     public void setUtenteLoggato(Utente utente) {
         this.utenteLoggato = utente;
     }
@@ -102,10 +103,10 @@ public class CreateProjectController {
         for (Colture coltura : coltureDisponibili) {
             CheckBox colturaCheckBox = new CheckBox(coltura.getIdColture() + " - " + coltura.getTitolo());
             vBoxColture.getChildren().add(colturaCheckBox);
-            coltureCheckBoxes.add(colturaCheckBox);
             colturaCheckBox.setOnAction(event -> {
                 if (colturaCheckBox.isSelected()) {
                     System.out.println("Coltura selezionata: " + coltura.getTitolo());
+                    coltureCheckBoxes.add(colturaCheckBox);
                 } else {
                     System.out.println("Coltura deselezionata: " + coltura.getTitolo());
                 }
@@ -141,31 +142,27 @@ public class CreateProjectController {
             showAlert(alert);
         } else {
             infoProgettoPane.setVisible(false);
+            coltivatoriAttivitaPane.setVisible(false);
+            selectionColturePane.setVisible(false);
             selectionLottoPane.setVisible(true);
         }
     }
 
     public void setVisibleSelectionColturePane() {
-        boolean isLottoSelected = !lottoMenu.getText().equals("Seleziona lotto");
+        boolean isLottoSelected = lottoMenu.getText().equals("Seleziona lotto");
         boolean isTitleEmpty = titleProject.getText().isEmpty();
-        boolean isStagioneEmpty = !(stagioneMenu.getText().equals("Primavera") ||
+        boolean isStagioneEmpty = stagioneMenu.getText().equals("Primavera") ||
                 stagioneMenu.getText().equals("Estate") ||
                 stagioneMenu.getText().equals("Autunno") ||
-                stagioneMenu.getText().equals("Inverno"));
+                stagioneMenu.getText().equals("Inverno");
         boolean isDateInitEmpty = dateInit.getValue() == null;
         boolean isDateFineEmpty = dateFine.getValue() == null;
-
-        System.out.println("isLottoSelected: " + isLottoSelected);
-        System.out.println("ciao" + lottoMenu.getText());bb
-
-
 
         if (isLottoSelected || isTitleEmpty || !isStagioneEmpty || isDateInitEmpty || isDateFineEmpty) {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Attenzione");
             alert.setHeaderText("Per procedere, compila i campi obbligatori.");
             showAlert(alert);
-
         } else {
             infoProgettoPane.setVisible(false);
             coltivatoriAttivitaPane.setVisible(false);
@@ -175,13 +172,13 @@ public class CreateProjectController {
     }
 
     public void setVisibleColtivatoriAttivitaPane() {
-        boolean isAnyColturaSelected = coltureCheckBoxes.stream().noneMatch(CheckBox::isSelected);
-        boolean isLottoSelected = !lottoMenu.getText().equals("Seleziona lotto");
+        boolean isAnyColturaSelected = coltureCheckBoxes.isEmpty();
+        boolean isLottoSelected = lottoMenu.getText().equals("Seleziona lotto");
         boolean isTitleEmpty = titleProject.getText().isEmpty();
-        boolean isStagioneEmpty = !(stagioneMenu.getText().equals("Primavera") ||
+        boolean isStagioneEmpty = stagioneMenu.getText().equals("Primavera") ||
                 stagioneMenu.getText().equals("Estate") ||
                 stagioneMenu.getText().equals("Autunno") ||
-                stagioneMenu.getText().equals("Inverno"));
+                stagioneMenu.getText().equals("Inverno");
         boolean isDateInitEmpty = dateInit.getValue() == null;
         boolean isDateFineEmpty = dateFine.getValue() == null;
 
@@ -208,6 +205,7 @@ public class CreateProjectController {
         alert.setContentText("Per procedere, compila i campi obbligatori.");
         alert.showAndWait();
     }
+
 
 
 }

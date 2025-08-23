@@ -24,4 +24,6 @@ public interface ProgettoDAO {
 
     int getIdProgettoByTitolo(String titolo);
 
+    boolean addProgetto(Progetto progetto, int idProprietario);
+
 }

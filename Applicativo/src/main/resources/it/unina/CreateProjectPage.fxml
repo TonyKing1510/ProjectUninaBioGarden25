@@ -4,12 +4,9 @@
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.MenuButton?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Line?>
@@ -80,6 +77,11 @@
                   </Button>
                </children>
             </VBox>
+            <Button fx:id="creaAttivitaButton1" layoutX="78.0" layoutY="461.0" mnemonicParsing="false" onAction="#openColtivatoriAttivita" style="-fx-background-color: rgba(255,255,255,255,0.7); -fx-background-radius: 10;" text="Crea Progetto">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Button>
          </children></Pane>
       <Pane fx:id="infoProgettoPane" layoutX="334.0" layoutY="180.0" prefHeight="515.0" prefWidth="990.0" style="-fx-background-color: rgba(36, 104, 0,0.6); -fx-background-radius: 10; -fx-border-color: white; -fx-border-radius: 10;" visible="false">
          <children>
@@ -144,7 +146,7 @@
             </Label>
          </children>
       </Pane>
-      <Pane fx:id="coltivatoriAttivitaPane" layoutX="334.0" layoutY="180.0" prefHeight="515.0" prefWidth="990.0" style="-fx-background-color: rgba(36, 104, 0,0.6); -fx-background-radius: 10; -fx-border-color: white; -fx-border-radius: 10;" visible="false">
+      <Pane fx:id="coltivatoriAttivitaPane" layoutX="334.0" layoutY="180.0" prefHeight="161.0" prefWidth="509.0" style="-fx-background-color: rgba(36, 104, 0,0.6); -fx-background-radius: 10; -fx-border-color: white; -fx-border-radius: 10;" visible="false">
          <children>
             <Label layoutX="9.0" layoutY="6.0" prefHeight="30.0" prefWidth="210.0" text="Crea la tua attività" textFill="WHITE">
                <font>
@@ -161,83 +163,6 @@
                   <Font size="14.0" />
                </font>
             </Button>
-            <Label layoutX="14.0" layoutY="125.0" prefHeight="30.0" prefWidth="229.0" text="Riepilogo attività appena create " textFill="WHITE">
-               <font>
-                  <Font name="System Italic" size="14.0" />
-               </font>
-            </Label>
-            <Pane layoutX="14.0" layoutY="155.0" prefHeight="25.0" prefWidth="952.0" style="-fx-background-color: rgba(255,255,255,0.5); -fx-background-radius: 10; -fx-border-color: green; -fx-border-radius: 10;">
-               <children>
-                  <HBox layoutX="12.0" layoutY="-1.0" prefHeight="25.0" prefWidth="930.0" spacing="7.0">
-                     <children>
-                        <Label alignment="CENTER" prefHeight="26.0" prefWidth="103.0" text="Coltivatore" textFill="#094b00">
-                           <font>
-                              <Font name="System Italic" size="14.0" />
-                           </font>
-                        </Label>
-                        <Label alignment="CENTER" prefHeight="26.0" prefWidth="103.0" text="Coltura" textFill="#094b00">
-                           <font>
-                              <Font name="System Italic" size="14.0" />
-                           </font>
-                        </Label>
-                        <Label alignment="CENTER" prefHeight="26.0" prefWidth="103.0" text="Tipo Attività" textFill="#094b00">
-                           <font>
-                              <Font name="System Italic" size="14.0" />
-                           </font>
-                        </Label>
-                        <Label alignment="CENTER" prefHeight="26.0" prefWidth="103.0" text="Stato" textAlignment="JUSTIFY" textFill="#094b00">
-                           <font>
-                              <Font name="System Italic" size="14.0" />
-                           </font>
-                        </Label>
-                        <Label alignment="CENTER" prefHeight="26.0" prefWidth="103.0" text="Data inizio" textFill="#094b00">
-                           <font>
-                              <Font name="System Italic" size="14.0" />
-                           </font>
-                        </Label>
-                        <Label alignment="CENTER" prefHeight="26.0" prefWidth="103.0" text="Data Fine" textFill="#094b00">
-                           <font>
-                              <Font name="System Italic" size="14.0" />
-                           </font>
-                        </Label>
-                        <Label alignment="CENTER" prefHeight="26.0" prefWidth="103.0" text="Quantita usata" textFill="#094b00">
-                           <font>
-                              <Font name="System Italic" size="14.0" />
-                           </font>
-                        </Label>
-                        <Label alignment="CENTER" prefHeight="26.0" prefWidth="138.0" text="Quantita raccolta" textFill="#094b00">
-                           <font>
-                              <Font name="System Italic" size="14.0" />
-                           </font>
-                        </Label>
-                     </children>
-                  </HBox>
-               </children>
-            </Pane>
-            <Button fx:id="aggiornaTabellaButton" layoutX="927.0" layoutY="119.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="28.0" style="-fx-background-color: rgba(255,255,255,255,0.7); -fx-background-radius: 10;">
-               <font>
-                  <Font size="14.0" />
-               </font>
-               <graphic>
-                  <ImageView fitHeight="20.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@images/icons8-aggiorna-50.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-            </Button>
-            <TableView layoutX="21.0" layoutY="196.0" prefHeight="304.0" prefWidth="941.0" style="-fx-background-color: rgba(255,255,255,0.5); -fx-background-radius: 10; -fx-border-color: green; -fx-border-radius: 10;">
-              <columns>
-                <TableColumn fx:id="ColtivatoreColumn" prefWidth="104.79998779296875" text="Coltivatore" />
-                <TableColumn prefWidth="103.99996948242188" text="Coltura" />
-                  <TableColumn prefWidth="104.0" text="Tipo Attività" />
-                  <TableColumn minWidth="8.800048828125" prefWidth="86.4000244140625" text="Stato" />
-                  <TableColumn minWidth="8.800048828125" prefWidth="104.79998779296875" text="Data inizio" />
-                  <TableColumn minWidth="8.800048828125" prefWidth="115.2000732421875" text="Data fine" />
-                  <TableColumn minWidth="8.800048828125" prefWidth="121.5999755859375" text="Quantità usata" />
-                  <TableColumn minWidth="8.800048828125" prefWidth="196.7999267578125" text="Quantita raccolta" />
-              </columns>
-            </TableView>
          </children></Pane>
    </children>
 </Pane>
