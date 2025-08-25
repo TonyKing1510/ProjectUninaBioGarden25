@@ -249,5 +249,10 @@ public class Lotto {
         this.proprietario = proprietario;
     }
 
+    @Override
+    public String toString() {
+        return idLotto + " - " + nome; // oppure qualsiasi attributo tu voglia mostrare
+    }
+
 
 }

@@ -3,6 +3,7 @@ package it.unina.implementazionePostgreSQL;
 
 import it.unina.connessioneDB.ConnessioneDatabase;
 import it.unina.dao.ProgettoDAO;
+import it.unina.model.Colture;
 import it.unina.model.Lotto;
 import it.unina.model.Progetto;
 import it.unina.model.Stagione;
@@ -24,11 +25,10 @@ public class ProgettoDAOImpl implements ProgettoDAO {
      * atomicamente: se una fallisce, entrambe vengono annullate.
      *
      * @param progetto Il progetto da inserire (senza id, con tutti i dati necessari)
-     * @param lottoSelezionato Il lotto che deve essere aggiornato con il nuovo progetto
+     * @param lottiSelezionato I lotti che devono essere aggiornati con il nuovo progetto
      * @return true se operazioni riuscite, false in caso di errore o nessuna riga aggiornata
      */
-    public boolean addProgettoAndUpdateLotto(Progetto progetto, Lotto lottoSelezionato) {
-        System.out.println("Aggiungo progetto: " + progetto.getTitolo() + " per il lotto con id: " + lottoSelezionato.getIdLotto());
+    public boolean addProgettoAndUpdateLotto(Progetto progetto, List<Lotto> lottiSelezionato) {
         String insertQuery = """
         INSERT INTO progetto (stagione, id_utentecreatore, "dataInizio", "dataFine", titolo)
         VALUES (?::stagione, ?, ?, ?, ?)
@@ -62,19 +62,19 @@ public class ProgettoDAOImpl implements ProgettoDAO {
             }
 
             // Aggiorna lotto con il nuovo progetto
-            try (PreparedStatement updateStmt = conn.prepareStatement(updateQuery)) {
-                System.out.println("Aggiorno lotto con id: " + lottoSelezionato.getIdLotto());
-
-                updateStmt.setInt(1, progettoId);
-                updateStmt.setInt(2, lottoSelezionato.getIdLotto());
-
-                int affectedRows = updateStmt.executeUpdate();
-                if (affectedRows == 0) {
-                    conn.rollback();
-                    System.err.println("Aggiornamento lotto fallito: nessuna riga aggiornata.");
-                    return false;
+            try( PreparedStatement updateStmt = conn.prepareStatement(updateQuery)) {
+                for (Lotto lotto : lottiSelezionato) {
+                    updateStmt.setInt(1, progettoId);
+                    updateStmt.setInt(2, lotto.getIdLotto());
+                    int affectedRows = updateStmt.executeUpdate();
+                    if (affectedRows == 0) {
+                        conn.rollback();
+                        System.err.println("Aggiornamento lotto fallito per id: " + lotto.getIdLotto());
+                        return false;
+                    }
                 }
             }
+
 
             conn.commit();  // Commit transazione
             return true;
@@ -148,6 +148,11 @@ public class ProgettoDAOImpl implements ProgettoDAO {
             e.printStackTrace();
             return -1; // Errore durante l'esecuzione della query
         }
+    }
+
+    @Override
+    public boolean addProgetto(Progetto progetto, int idProprietario) {
+         return false;
     }
 
 }

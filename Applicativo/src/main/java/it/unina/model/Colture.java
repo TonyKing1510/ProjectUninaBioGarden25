@@ -69,4 +69,10 @@ public class Colture {
     public void setLotto(Lotto lotto) {
         this.lotto = lotto;
     }
+    public Date getDataInizioColtura() {
+        return dataInizioColtura;
+    }
+    public void setDataInizioColtura(Date dataInizioColtura) {
+        this.dataInizioColtura = dataInizioColtura;
+    }
 }

@@ -95,7 +95,7 @@ public class ProjectViewController {
     }
 
 
-    @FXML
+    /*@FXML
     private void addProject() {
         String title = titleProject.getText();
         Date startDate = java.sql.Date.valueOf(dateInit.getValue());
@@ -127,7 +127,7 @@ public class ProjectViewController {
         }
 
 
-    }
+    }*/
 
 
     public void loadProjects() {

@@ -77,7 +77,7 @@
                   </Button>
                </children>
             </VBox>
-            <Button fx:id="creaAttivitaButton1" layoutX="78.0" layoutY="461.0" mnemonicParsing="false" onAction="#openColtivatoriAttivita" style="-fx-background-color: rgba(255,255,255,255,0.7); -fx-background-radius: 10;" text="Crea Progetto">
+            <Button fx:id="creaProgettoButton" onAction="#addProgetto" layoutX="78.0" layoutY="461.0" mnemonicParsing="false" style="-fx-background-color: rgba(255,255,255,255,0.7); -fx-background-radius: 10;" text="Crea Progetto">
                <font>
                   <Font size="14.0" />
                </font>
@@ -123,12 +123,12 @@
                   <Font name="System Bold Italic" size="20.0" />
                </font>
             </Label>
-            <Label layoutX="14.0" layoutY="52.0" prefHeight="30.0" prefWidth="371.0" text="Seleziona il lotto disponibile da abbinare al progetto" textFill="WHITE">
+            <Label layoutX="14.0" layoutY="52.0" prefHeight="30.0" prefWidth="371.0" text="Seleziona i lotti disponibili da abbinare al progetto" textFill="WHITE">
                <font>
                   <Font name="System Italic" size="16.0" />
                </font>
             </Label>
-            <MenuButton fx:id="lottoMenu" layoutX="19.0" layoutY="82.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="416.0" stylesheets="@css/mainpage.css" />
+            <VBox fx:id="vBoxLotto" layoutX="16.0" layoutY="82.0" prefHeight="200.0" prefWidth="427.0" />
          </children>
       </Pane>
       <Pane fx:id="selectionColturePane" layoutX="334.0" layoutY="180.0" prefHeight="515.0" prefWidth="990.0" style="-fx-background-color: rgba(36, 104, 0,0.6); -fx-background-radius: 10; -fx-border-color: white; -fx-border-radius: 10;" visible="false">
@@ -144,6 +144,11 @@
                   <Font name="System Italic" size="16.0" />
                </font>
             </Label>
+            <Button fx:id="associaColtureButton" onAction="#salvaAssociazioni" layoutX="849.0" layoutY="471.0" mnemonicParsing="false" style="-fx-background-color: rgba(255,255,255,255,0.7); -fx-background-radius: 10;" text="Associa le colture">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Button>
          </children>
       </Pane>
       <Pane fx:id="coltivatoriAttivitaPane" layoutX="334.0" layoutY="180.0" prefHeight="161.0" prefWidth="509.0" style="-fx-background-color: rgba(36, 104, 0,0.6); -fx-background-radius: 10; -fx-border-color: white; -fx-border-radius: 10;" visible="false">
