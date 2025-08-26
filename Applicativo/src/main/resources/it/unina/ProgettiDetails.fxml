@@ -1,0 +1,356 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="730.0" prefWidth="951.0" styleClass="pattern-background" stylesheets="@css/CreateProjectBackGround.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unina.controller.CreateActivityController">
+   <children>
+      <Label layoutX="385.0" layoutY="65.0" prefHeight="30.0" prefWidth="210.0" text="Dettagli del progetto" textFill="WHITE">
+         <font>
+            <Font name="System Bold Italic" size="20.0" />
+         </font>
+      </Label>
+      <ImageView fitHeight="105.0" fitWidth="159.0" layoutX="118.0" layoutY="14.0">
+         <image>
+            <Image url="@images/logo-removebg-preview%20(4).png" />
+         </image>
+      </ImageView>
+      <Line endX="-152.00003051757812" endY="-7.62939453125E-6" layoutX="500.0" layoutY="81.0" startX="-201.60000610351562" startY="7.62939453125E-6" stroke="WHITE" strokeWidth="3.0" />
+      <Line endX="-107.73333740234375" endY="7.62939453125E-6" layoutX="191.0" layoutY="82.0" startX="-175.40000915527344" startY="7.62939453125E-6" stroke="WHITE" strokeWidth="3.0" />
+      <Line endX="45.0" endY="-2.288818359375E-5" layoutX="863.0" layoutY="79.0" startX="-252.5999755859375" startY="-7.62939453125E-6" stroke="WHITE" strokeWidth="3.0" />
+      <ScrollPane layoutX="120.0" layoutY="147.0" prefHeight="576.0" prefWidth="741.0" style="-fx-background-color: rgba(36, 104, 0,0.6); -fx-border-color: white; -fx-background-radius: 10; -fx-border-radius: 10;">
+        <content>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="940.0" prefWidth="726.0" style="-fx-background-color: rgba(36, 104, 0,1);">
+               <children>
+                  <Pane layoutX="14.0" prefHeight="937.0" prefWidth="707.0" style="-fx-background-color: rgba(0,0,0,0,0.0);">
+                     <children>
+                        <Label layoutX="14.0" layoutY="14.0" prefHeight="30.0" prefWidth="210.0" text="Dettagli del progetto" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold Italic" size="20.0" />
+                           </font>
+                        </Label>
+                        <VBox layoutX="14.0" layoutY="56.0" prefHeight="215.0" prefWidth="399.0">
+                           <children>
+                              <HBox prefHeight="34.0" prefWidth="399.0">
+                                 <children>
+                                    <Label prefHeight="30.0" prefWidth="149.0" text="Nome del progetto :" textFill="WHITE">
+                                       <font>
+                                          <Font name="System Bold Italic" size="15.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="nomeProgettoLabel" prefHeight="30.0" prefWidth="149.0" text="Nome del progetto" textFill="WHITE">
+                                       <font>
+                                          <Font name="System Italic" size="15.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </HBox>
+                              <HBox prefHeight="34.0" prefWidth="399.0">
+                                 <children>
+                                    <Label prefHeight="30.0" prefWidth="79.0" text="Stagione :" textFill="WHITE">
+                                       <font>
+                                          <Font name="System Bold Italic" size="15.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="stagioneProgettoLabel" prefHeight="30.0" prefWidth="149.0" text="Stagione" textFill="WHITE">
+                                       <font>
+                                          <Font name="System Italic" size="15.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </HBox>
+                              <HBox prefHeight="34.0" prefWidth="399.0">
+                                 <children>
+                                    <Label prefHeight="30.0" prefWidth="184.0" text="Data inizio del progetto :" textFill="WHITE">
+                                       <font>
+                                          <Font name="System Bold Italic" size="15.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="dataInizioLabel" prefHeight="30.0" prefWidth="158.0" text="DateI" textFill="WHITE">
+                                       <font>
+                                          <Font name="System Italic" size="15.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </HBox>
+                              <HBox prefHeight="34.0" prefWidth="399.0">
+                                 <children>
+                                    <Label prefHeight="30.0" prefWidth="170.0" text="Data fine del progetto :" textFill="WHITE">
+                                       <font>
+                                          <Font name="System Bold Italic" size="15.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="dataFineLabel" prefHeight="30.0" prefWidth="149.0" text="DataF" textFill="WHITE">
+                                       <font>
+                                          <Font name="System Italic" size="15.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </HBox>
+                              <HBox prefHeight="34.0" prefWidth="399.0">
+                                 <children>
+                                    <Label prefHeight="30.0" prefWidth="79.0" text="Stagione :" textFill="WHITE">
+                                       <font>
+                                          <Font name="System Bold Italic" size="15.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="stagioneProgettoLabel3" prefHeight="30.0" prefWidth="149.0" text="Stagione" textFill="WHITE">
+                                       <font>
+                                          <Font name="System Italic" size="15.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </HBox>
+                              <HBox prefHeight="34.0" prefWidth="399.0">
+                                 <children>
+                                    <Label prefHeight="30.0" prefWidth="114.0" text="Lotti associati :" textFill="WHITE">
+                                       <font>
+                                          <Font name="System Bold Italic" size="15.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="LottiAssociati" prefHeight="30.0" prefWidth="149.0" text="LottiAssociati" textFill="WHITE">
+                                       <font>
+                                          <Font name="System Italic" size="15.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </HBox>
+                           </children>
+                        </VBox>
+                        <Label layoutX="14.0" layoutY="271.0" prefHeight="30.0" prefWidth="256.0" text="Dettagli dei lotti associati" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold Italic" size="20.0" />
+                           </font>
+                        </Label>
+                        <VBox fx:id="vBoxInfoLotti" layoutX="14.0" layoutY="301.0" prefHeight="115.0" prefWidth="399.0">
+                           <children>
+                              <VBox prefHeight="112.0" prefWidth="399.0">
+                                 <children>
+                                    <HBox prefHeight="34.0" prefWidth="399.0">
+                                       <children>
+                                          <Label prefHeight="30.0" prefWidth="126.0" text="Nome del lotto :" textFill="WHITE">
+                                             <font>
+                                                <Font name="System Bold Italic" size="15.0" />
+                                             </font>
+                                          </Label>
+                                          <Label fx:id="nomeLottoLabel1" prefHeight="30.0" prefWidth="149.0" text="Nome del lotto" textFill="WHITE">
+                                             <font>
+                                                <Font name="System Italic" size="15.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                    </HBox>
+                                    <HBox prefHeight="34.0" prefWidth="399.0">
+                                       <children>
+                                          <Label prefHeight="30.0" prefWidth="87.0" text="Superficie : " textFill="WHITE">
+                                             <font>
+                                                <Font name="System Bold Italic" size="15.0" />
+                                             </font>
+                                          </Label>
+                                          <Label fx:id="superficieLottoLabel1" prefHeight="30.0" prefWidth="149.0" text="Superficie" textFill="WHITE">
+                                             <font>
+                                                <Font name="System Italic" size="15.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                    </HBox>
+                                    <HBox prefHeight="34.0" prefWidth="399.0">
+                                       <children>
+                                          <Label prefHeight="30.0" prefWidth="80.0" text="Indirizzo :" textFill="WHITE">
+                                             <font>
+                                                <Font name="System Bold Italic" size="15.0" />
+                                             </font>
+                                          </Label>
+                                          <Label fx:id="viaIndirizzoCapLabel1" prefHeight="30.0" prefWidth="158.0" text="ViaIndirizzoCap" textFill="WHITE">
+                                             <font>
+                                                <Font name="System Italic" size="15.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                    </HBox>
+                                 </children>
+                              </VBox>
+                           </children>
+                        </VBox>
+                        <Label layoutX="14.0" layoutY="410.0" prefHeight="30.0" prefWidth="302.0" text="Dettagli delle colture associate" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold Italic" size="20.0" />
+                           </font>
+                        </Label>
+                        <VBox fx:id="vBoxInfoColture" layoutX="14.0" layoutY="440.0" prefHeight="146.0" prefWidth="399.0">
+                           <children>
+                              <VBox prefHeight="146.0" prefWidth="399.0">
+                                 <children>
+                                    <HBox prefHeight="34.0" prefWidth="399.0">
+                                       <children>
+                                          <Label prefHeight="30.0" prefWidth="158.0" text="Nome della coltura : " textFill="WHITE">
+                                             <font>
+                                                <Font name="System Bold Italic" size="15.0" />
+                                             </font>
+                                          </Label>
+                                          <Label fx:id="nomeColturaLabel" prefHeight="30.0" prefWidth="149.0" text="NomeColtura" textFill="WHITE">
+                                             <font>
+                                                <Font name="System Italic" size="15.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                    </HBox>
+                                    <HBox prefHeight="34.0" prefWidth="399.0">
+                                       <children>
+                                          <Label prefHeight="30.0" prefWidth="87.0" text="Stagione :" textFill="WHITE">
+                                             <font>
+                                                <Font name="System Bold Italic" size="15.0" />
+                                             </font>
+                                          </Label>
+                                          <Label fx:id="stagionalitaLabel" prefHeight="30.0" prefWidth="149.0" text="stagionalità" textFill="WHITE">
+                                             <font>
+                                                <Font name="System Italic" size="15.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                    </HBox>
+                                    <HBox prefHeight="34.0" prefWidth="399.0">
+                                       <children>
+                                          <Label prefHeight="30.0" prefWidth="174.0" text="Tempo di Maturazione :" textFill="WHITE">
+                                             <font>
+                                                <Font name="System Bold Italic" size="15.0" />
+                                             </font>
+                                          </Label>
+                                          <Label fx:id="tempoMaturazioneLabel" prefHeight="30.0" prefWidth="158.0" text="tempoMaturazione" textFill="WHITE">
+                                             <font>
+                                                <Font name="System Italic" size="15.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                    </HBox>
+                                    <HBox prefHeight="34.0" prefWidth="399.0">
+                                       <children>
+                                          <Label prefHeight="30.0" prefWidth="174.0" text="Lotto a cui appartiene :" textFill="WHITE">
+                                             <font>
+                                                <Font name="System Bold Italic" size="15.0" />
+                                             </font>
+                                          </Label>
+                                          <Label fx:id="lottoAppartenenzaColturaLabel" prefHeight="30.0" prefWidth="158.0" text="lottoAssociato" textFill="WHITE">
+                                             <font>
+                                                <Font name="System Italic" size="15.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                    </HBox>
+                                 </children>
+                              </VBox>
+                           </children>
+                        </VBox>
+                        <Label layoutX="14.0" layoutY="586.0" prefHeight="30.0" prefWidth="302.0" text="Dettagli delle attività presenti" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold Italic" size="20.0" />
+                           </font>
+                        </Label>
+                        <VBox fx:id="vBoxInfoAttivita" layoutX="14.0" layoutY="616.0" prefHeight="200.0" prefWidth="399.0">
+                           <children>
+                              <VBox prefHeight="197.0" prefWidth="399.0">
+                                 <children>
+                                    <HBox prefHeight="34.0" prefWidth="399.0">
+                                       <children>
+                                          <Label prefHeight="30.0" prefWidth="114.0" text="Tipo attività :" textFill="WHITE">
+                                             <font>
+                                                <Font name="System Bold Italic" size="15.0" />
+                                             </font>
+                                          </Label>
+                                          <Label fx:id="tipoAttivitaLabel" prefHeight="30.0" prefWidth="149.0" text="tipoAttivita" textFill="WHITE">
+                                             <font>
+                                                <Font name="System Italic" size="15.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                    </HBox>
+                                    <HBox prefHeight="34.0" prefWidth="399.0">
+                                       <children>
+                                          <Label prefHeight="30.0" prefWidth="59.0" text="Stato :" textFill="WHITE">
+                                             <font>
+                                                <Font name="System Bold Italic" size="15.0" />
+                                             </font>
+                                          </Label>
+                                          <Label fx:id="statoAttivitaLabel" prefHeight="30.0" prefWidth="149.0" text="statoAttivita" textFill="WHITE">
+                                             <font>
+                                                <Font name="System Italic" size="15.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                    </HBox>
+                                    <HBox prefHeight="34.0" prefWidth="399.0">
+                                       <children>
+                                          <Label prefHeight="30.0" prefWidth="117.0" text="Data di inizio :" textFill="WHITE">
+                                             <font>
+                                                <Font name="System Bold Italic" size="15.0" />
+                                             </font>
+                                          </Label>
+                                          <Label fx:id="dataInizioLabel" prefHeight="30.0" prefWidth="158.0" text="dataInizioAtt" textFill="WHITE">
+                                             <font>
+                                                <Font name="System Italic" size="15.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                    </HBox>
+                                    <HBox prefHeight="34.0" prefWidth="399.0">
+                                       <children>
+                                          <Label prefHeight="30.0" prefWidth="106.0" text="Data di fine :" textFill="WHITE">
+                                             <font>
+                                                <Font name="System Bold Italic" size="15.0" />
+                                             </font>
+                                          </Label>
+                                          <Label fx:id="dataFineAttivitaLabel" prefHeight="30.0" prefWidth="158.0" text="dataFineatt" textFill="WHITE">
+                                             <font>
+                                                <Font name="System Italic" size="15.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                    </HBox>
+                                    <HBox prefHeight="34.0" prefWidth="399.0">
+                                       <children>
+                                          <Label fx:id="coltivatoriAttivitaLabel" prefHeight="30.0" prefWidth="106.0" text="Coltivatori :" textFill="WHITE">
+                                             <font>
+                                                <Font name="System Bold Italic" size="15.0" />
+                                             </font>
+                                          </Label>
+                                          <Label fx:id="dataFineAttivitaLabel1" prefHeight="30.0" prefWidth="158.0" text="coltivatori" textFill="WHITE">
+                                             <font>
+                                                <Font name="System Italic" size="15.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                    </HBox>
+                                 </children>
+                              </VBox>
+                              <HBox prefHeight="34.0" prefWidth="399.0">
+                                 <children>
+                                    <Label fx:id="coltivatoriAttivitaLabel1" prefHeight="22.0" prefWidth="146.0" text="Colture associate :" textFill="WHITE">
+                                       <font>
+                                          <Font name="System Bold Italic" size="15.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="coltureAttivitaLabel" prefHeight="30.0" prefWidth="158.0" text="colture" textFill="WHITE">
+                                       <font>
+                                          <Font name="System Italic" size="15.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </HBox>
+                           </children>
+                        </VBox>
+                     </children>
+                  </Pane>
+               </children>
+            </AnchorPane>
+        </content>
+      </ScrollPane>
+   </children>
+</Pane>
