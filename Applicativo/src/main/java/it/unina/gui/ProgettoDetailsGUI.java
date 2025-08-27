@@ -23,6 +23,8 @@ public class ProgettoDetailsGUI {
         controller.setUtente(utente);
         controller.setProgettoDetails(progetto);
         controller.setLottiDetails();
+        controller.setColtureDetails();
+        controller.setAttivitaDetails();
         // Imposta la scena e mostra la finestra
         Stage stage = new Stage();
         stage.setTitle("Dettagli Progetto");

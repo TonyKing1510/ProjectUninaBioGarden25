@@ -27,26 +27,11 @@ public class LottoCardFactory {
     public static VBox createLottoCard(Lotto lotto) {
         VBox vBoxInfoLotto = new VBox(5);
 
-        TextFlow lottoIdFlow = new TextFlow();
-        Text labelPart = new Text("Lotto ID: ");
-        labelPart.setStyle(STILE_TEXT);
-        Text valuePart = new Text(String.valueOf(lotto.getIdLotto()));
-        valuePart.setStyle(STILE_TEXT_DATI);
-        lottoIdFlow.getChildren().addAll(labelPart, valuePart);
+        TextFlow lottoIdFlow = getTextFlow("Lotto ID: ", String.valueOf(lotto.getIdLotto()));
 
-        TextFlow superficieFlow = new TextFlow();
-        Text superficieLabelPart = new Text("Superficie: ");
-        superficieLabelPart.setStyle(STILE_TEXT);
-        Text superficieValuePart = new Text(lotto.getSuperficie() + " mq");
-        superficieValuePart.setStyle(STILE_TEXT_DATI);
-        superficieFlow.getChildren().addAll(superficieLabelPart, superficieValuePart);
+        TextFlow superficieFlow = getTextFlow("Superficie: ", lotto.getSuperficie() + " mq");
 
-        TextFlow indirizzoFlow = new TextFlow();
-        Text indirizzoLabelPart = new Text("Indirizzo: ");
-        indirizzoLabelPart.setStyle(STILE_TEXT);
-        Text indirizzoValuePart = new Text(lotto.getIndirizzo() + " " + lotto.getCap());
-        indirizzoValuePart.setStyle(STILE_TEXT_DATI);
-        indirizzoFlow.getChildren().addAll(indirizzoLabelPart, indirizzoValuePart);
+        TextFlow indirizzoFlow = getTextFlow("Indirizzo: ", lotto.getIndirizzo() + " " + lotto.getCap());
 
 
         Separator separator = new Separator();
@@ -54,5 +39,15 @@ public class LottoCardFactory {
         vBoxInfoLotto.getChildren().addAll(lottoIdFlow,superficieFlow, indirizzoFlow, separator);
 
         return vBoxInfoLotto;
+    }
+
+    private static TextFlow getTextFlow(String s, String lotto) {
+        TextFlow lottoFlow = new TextFlow();
+        Text labelPart = new Text(s);
+        labelPart.setStyle(STILE_TEXT);
+        Text valuePart = new Text(lotto);
+        valuePart.setStyle(STILE_TEXT_DATI);
+        lottoFlow.getChildren().addAll(labelPart, valuePart);
+        return lottoFlow;
     }
 }

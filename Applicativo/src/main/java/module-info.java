@@ -7,6 +7,8 @@ module it.unina {
     requires org.kordamp.bootstrapfx.core;
     requires MaterialFX;
     requires java.sql;
+    requires org.jfree.jfreechart;
+    requires com.github.librepdf.openpdf;
 
 
     opens it.unina to javafx.fxml;
