@@ -1,5 +1,6 @@
 package it.unina.controller.components;
 
+import it.unina.gui.ProgettoDetailsGUI;
 import it.unina.model.Progetto;
 import it.unina.gui.VisualizeProjectGUI;
 import it.unina.model.Utente;
@@ -42,7 +43,7 @@ public class ProjectCardController {
 
 
     @FXML private void onProjectClick() throws IOException {
-        VisualizeProjectGUI.openProjectDetailsView(progetto,utente);
+        ProgettoDetailsGUI.openPageProgettoDetailsGUI(progetto, utente);
     }
 
 }

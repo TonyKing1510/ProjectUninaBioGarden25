@@ -92,7 +92,7 @@ public class ProgettoDAOImpl implements ProgettoDAO {
     @Override
     public List<Progetto> getProgettiByIdUtente(int idUtente) {
         List<Progetto> progetti = new ArrayList<>();
-        String query = "SELECT stagione, id_utentecreatore, \"dataInizio\", \"dataFine\",titolo FROM Progetto WHERE id_utentecreatore = ?";
+        String query = "SELECT id_progetto, stagione, id_utentecreatore, \"dataInizio\", \"dataFine\",titolo FROM Progetto WHERE id_utentecreatore = ?";
 
         try (Connection conn = ConnessioneDatabase.getConnection();
              PreparedStatement stmt = conn.prepareStatement(query)) {
@@ -102,6 +102,7 @@ public class ProgettoDAOImpl implements ProgettoDAO {
 
             while (rs.next()) {
                 Progetto progetto = new Progetto();
+                progetto.setIdProgetto(rs.getInt("id_progetto"));
                 progetto.setTitolo(rs.getString("titolo"));
                 progetto.setDataInizio(rs.getDate("dataInizio"));
                 progetto.setDataFine(rs.getDate("dataFine"));

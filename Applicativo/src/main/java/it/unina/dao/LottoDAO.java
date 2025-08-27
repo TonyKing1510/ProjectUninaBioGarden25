@@ -13,4 +13,6 @@ public interface LottoDAO {
 
     List<Lotto> getLottoByIdProprietario(int idProprietario);
 
+    List<Lotto> getLottiByIdProgetto(int idProgetto);
+
 }

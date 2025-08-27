@@ -136,4 +136,34 @@ public class LottoDAOImpl implements LottoDAO {
         }
         return lotti;
     }
+
+    @Override
+    public List<Lotto> getLottiByIdProgetto(int idProgetto) {
+        List<Lotto> lotti = new ArrayList<>();
+        String query = "SELECT * FROM lotto WHERE id_progetto = ?";
+        try (var connection = ConnessioneDatabase.getConnection();
+             var preparedStatement = connection.prepareStatement(query)) {
+
+            preparedStatement.setInt(1, idProgetto);
+
+            try (var resultSet = preparedStatement.executeQuery()) {
+                while (resultSet.next()) {
+                    Lotto lotto = new Lotto();
+                    lotto.setIdLotto(resultSet.getInt("id_lotto"));
+                    lotto.setNome(resultSet.getString("nome"));
+                    lotto.setVia(resultSet.getString("via"));
+                    lotto.setIndirizzo(resultSet.getString("indirizzo"));
+                    lotto.setCap(resultSet.getString("cap"));
+                    lotto.setSuperficie(resultSet.getDouble("superficie"));
+                    lotto.setProprietario(utenteDAO.getUtenteProprietario(resultSet.getInt("id_proprietario")));
+                    lotti.add(lotto);
+                }
+            }
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return lotti;
+    }
 }
