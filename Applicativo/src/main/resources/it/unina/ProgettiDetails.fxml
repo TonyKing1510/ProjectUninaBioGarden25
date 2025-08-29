@@ -27,11 +27,11 @@
       <Line endX="-152.00003051757812" endY="-7.62939453125E-6" layoutX="500.0" layoutY="81.0" startX="-201.60000610351562" startY="7.62939453125E-6" stroke="WHITE" strokeWidth="3.0" />
       <Line endX="-107.73333740234375" endY="7.62939453125E-6" layoutX="191.0" layoutY="82.0" startX="-175.40000915527344" startY="7.62939453125E-6" stroke="WHITE" strokeWidth="3.0" />
       <Line endX="-82.20001220703125" endY="7.62939453125E-6" layoutX="863.0" layoutY="79.0" startX="-252.5999755859375" startY="-7.62939453125E-6" stroke="WHITE" strokeWidth="3.0" />
-      <ScrollPane fx:id="scrollPaneDettagli" layoutX="120.0" layoutY="147.0" prefHeight="852.0" prefWidth="741.0" style="-fx-background-color: rgba(36, 104, 0,0.6); -fx-border-color: white; -fx-background-radius: 10; -fx-border-radius: 10;">
+      <ScrollPane fx:id="scrollPaneDettagli" layoutX="120.0" layoutY="147.0" prefHeight="852.0" prefWidth="741.0" style="-fx-background-color: #1B5D20; -fx-border-color: white; -fx-background-radius: 10; -fx-border-radius: 10;">
         <content>
-          <AnchorPane fx:id="anchorPaneInfo" minHeight="0.0" minWidth="0.0" prefHeight="838.0" prefWidth="726.0" style="-fx-background-color: rgba(36, 104, 0,1);">
+          <AnchorPane fx:id="anchorPaneInfo" minHeight="0.0" minWidth="0.0" prefHeight="838.0" prefWidth="726.0" style="-fx-background-color: #1B5D20;">
                <children>
-                  <Pane fx:id="paneInfoProgetto" layoutX="14.0" prefHeight="937.0" prefWidth="707.0" style="-fx-background-color: rgba(0,0,0,0,0.0);">
+                  <Pane fx:id="paneInfoProgetto" layoutX="14.0" prefHeight="937.0" prefWidth="707.0" style="-fx-background-color: #1B5D20;">
                      <children>
                         <VBox fx:id="vBoxInfoGenerali" layoutX="7.0" prefHeight="712.0" prefWidth="600.0" spacing="30.0">
                            <children>
@@ -357,7 +357,7 @@
             </AnchorPane>
         </content>
       </ScrollPane>
-      <Button fx:id="scaricaDatiButton" onAction="#onScaricaDatiClicked" layoutX="797.0" layoutY="62.0" mnemonicParsing="false" style="-fx-background-color: rgba(255,255,255,255,0.7); -fx-background-radius: 10;" text="Scarica tutti i dati">
+      <Button fx:id="scaricaDatiButton" layoutX="797.0" layoutY="62.0" mnemonicParsing="false" onAction="#onScaricaDatiClicked" style="-fx-background-color: rgba(255,255,255,255,0.7); -fx-background-radius: 10;" text="Scarica tutti i dati">
          <font>
             <Font size="14.0" />
          </font>

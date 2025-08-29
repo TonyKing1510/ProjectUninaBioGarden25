@@ -9,7 +9,6 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
 
 <BorderPane fx:id="borderPane" stylesheets="@css/mainpage.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unina.controller.MainPageController">
 
@@ -25,25 +24,20 @@
             <graphic>
                <VBox alignment="CENTER" prefHeight="142.0" prefWidth="180.0">
                   <children>
-                     <ImageView fitHeight="101.0" fitWidth="117.0" pickOnBounds="true" preserveRatio="true">
+                     <ImageView fitHeight="161.0" fitWidth="201.0" pickOnBounds="true" preserveRatio="true">
                         <image>
-                           <Image url="@images/logoUninaBio.png" />
+                           <Image url="@images/logo-removebg-preview.png" />
                         </image>
                      </ImageView>
-                     <Label alignment="CENTER" prefHeight="39.0" prefWidth="152.0" style="-fx-background-color: TRANSAPRENT;" text="UNINA BIO GARDEN 25" textAlignment="CENTER" textFill="WHITE" wrapText="true">
-                        <font>
-                           <Font name="Calibri Bold Italic" size="13.0" />
-                        </font>
-                     </Label>
                   </children>
                </VBox>
             </graphic>
             </Button>
-            <Button fx:id="userPlantManagementButton" contentDisplay="LEFT" onAction="#goToPlantManagement" styleClass="sidebar-button" text="Lotti">
+            <Button fx:id="CreateProjectButton" contentDisplay="LEFT" onAction="#goToCreateProject" styleClass="sidebar-button" text="Crea progetti">
                 <graphic>
-                    <ImageView fitHeight="26.0" fitWidth="34.0" preserveRatio="true" smooth="true">
+                    <ImageView fitHeight="26.0" fitWidth="26.0" preserveRatio="true" smooth="true">
                         <image>
-                            <Image url="@images/field.png" />
+                            <Image url="@images/icons8-creare-48.png" />
                         </image>
                     </ImageView>
                 </graphic>
@@ -52,16 +46,16 @@
                 <graphic>
                     <ImageView fitHeight="26.0" fitWidth="26.0" preserveRatio="true" smooth="true">
                         <image>
-                            <Image url="@images/peasant.png" />
+                            <Image url="@images/icons8-vision-48%20(1).png" />
                         </image>
                     </ImageView>
                 </graphic>
             </Button>
-            <Button fx:id="CreateProjectButton" contentDisplay="LEFT" onAction="#goToCreateProject" styleClass="sidebar-button" text="Crea progetti">
+            <Button fx:id="userPlantManagementButton" contentDisplay="LEFT" onAction="#goToPlantManagement" styleClass="sidebar-button" text="Attività generali">
                 <graphic>
-                    <ImageView fitHeight="26.0" fitWidth="26.0" preserveRatio="true" smooth="true">
+                    <ImageView fitHeight="26.0" fitWidth="34.0" preserveRatio="true" smooth="true">
                         <image>
-                            <Image url="@images/project-management.png" />
+                            <Image url="@images/icons8-attività-60.png" />
                         </image>
                     </ImageView>
                 </graphic>
@@ -74,7 +68,7 @@
                   <graphic>
                      <ImageView fitHeight="56.0" fitWidth="62.0" pickOnBounds="true" preserveRatio="true">
                         <image>
-                           <Image url="@images/iconAccount.png" />
+                           <Image url="@images/icons8-account-di-prova-100.png" />
                         </image>
                      </ImageView>
                   </graphic></Button>

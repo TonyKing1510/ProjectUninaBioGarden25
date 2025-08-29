@@ -6,7 +6,7 @@
 .title {
     -fx-font-size: 28px;
     -fx-font-weight: bold;
-    -fx-text-fill: #4A5D23;
+    -fx-text-fill:#A5D6A7;
 }
 
 .logo {
@@ -20,7 +20,7 @@
 }
 
 .carousel-bar {
-    -fx-background-color: #4A5D23 ;
+    -fx-background-color: white ;
     -fx-background-radius: 10px;
     -fx-padding: 6px 12px;
     -fx-max-height: 1px;
@@ -33,7 +33,7 @@
 }
 
 .sidebar {
-    -fx-background-color: #556B2F;
+    -fx-background-color: #1B5D20;
     -fx-padding: 20;
     -fx-pref-width: 250px;
     -fx-border-width: 0 1px 0 0;
@@ -42,7 +42,7 @@
 
 .user-box {
     -fx-border-width: 2px 0 0 0;
-    -fx-border-color: #4A5D23;
+    -fx-border-color: #A5D6A7;
     -fx-padding: 10px 0 0 15px;
 }
 

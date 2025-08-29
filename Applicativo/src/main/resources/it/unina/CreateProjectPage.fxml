@@ -27,7 +27,7 @@
       <Line endX="-152.00003051757812" endY="-7.62939453125E-6" layoutX="500.0" layoutY="81.0" startX="-201.60000610351562" startY="7.62939453125E-6" stroke="WHITE" strokeWidth="3.0" />
       <Line endX="-107.73333740234375" endY="7.62939453125E-6" layoutX="191.0" layoutY="82.0" startX="-175.40000915527344" startY="7.62939453125E-6" stroke="WHITE" strokeWidth="3.0" />
       <Line endX="593.800048828125" endY="7.62939453125E-6" layoutX="863.0" layoutY="79.0" startX="-252.5999755859375" startY="-7.62939453125E-6" stroke="WHITE" strokeWidth="3.0" />
-      <Pane layoutX="-5.0" layoutY="180.0" prefHeight="515.0" prefWidth="261.0" style="-fx-background-color: rgba(36, 104, 0,0.6); -fx-background-radius: 10; -fx-border-color: white; -fx-border-radius: 10;">
+      <Pane layoutX="-5.0" layoutY="180.0" prefHeight="515.0" prefWidth="261.0" style="-fx-background-color: rgba(27,93,32,0.7); -fx-background-radius: 10; -fx-border-color: white; -fx-border-radius: 10;">
          <children>
             <VBox layoutX="21.0" layoutY="43.0" prefHeight="411.0" prefWidth="221.0">
                <children>
@@ -77,13 +77,13 @@
                   </Button>
                </children>
             </VBox>
-            <Button fx:id="creaProgettoButton" onAction="#addProgetto" layoutX="78.0" layoutY="461.0" mnemonicParsing="false" style="-fx-background-color: rgba(255,255,255,255,0.7); -fx-background-radius: 10;" text="Crea Progetto">
+            <Button fx:id="creaProgettoButton" layoutX="78.0" layoutY="461.0" mnemonicParsing="false" onAction="#addProgetto" style="-fx-background-color: rgba(255,255,255,255,0.7); -fx-background-radius: 10;" text="Crea Progetto">
                <font>
                   <Font size="14.0" />
                </font>
             </Button>
          </children></Pane>
-      <Pane fx:id="infoProgettoPane" layoutX="334.0" layoutY="180.0" prefHeight="515.0" prefWidth="990.0" style="-fx-background-color: rgba(36, 104, 0,0.6); -fx-background-radius: 10; -fx-border-color: white; -fx-border-radius: 10;" visible="false">
+      <Pane fx:id="infoProgettoPane" layoutX="334.0" layoutY="180.0" prefHeight="515.0" prefWidth="990.0" style="-fx-background-color: rgba(27,93,32,0.7); -fx-background-radius: 10; -fx-border-color: white; -fx-border-radius: 10;" visible="false">
          <children>
             <Label layoutX="14.0" layoutY="10.0" prefHeight="30.0" prefWidth="210.0" text="Info sul progetto" textFill="WHITE">
                <font>
@@ -95,13 +95,13 @@
                   <Font name="System Italic" size="14.0" />
                </font>
             </Label>
-            <TextField fx:id="titleProject" layoutX="20.0" layoutY="78.0" prefHeight="25.0" prefWidth="343.0" style="-fx-background-color: rgba(255,255,255,0.8); -fx-background-radius: 10; -fx-border-radius: 10; -fx-border-color: green;" />
+            <TextField fx:id="titleProject" layoutX="20.0" layoutY="78.0" prefHeight="25.0" prefWidth="343.0" style="-fx-background-color: #A5D6A7; -fx-text-fill: #1B5D20; -fx-background-radius: 10; -fx-border-radius: 10; -fx-border-color: green;" />
             <Label layoutX="15.0" layoutY="130.0" prefHeight="30.0" prefWidth="210.0" text="2. Inserisci la stagione" textFill="WHITE">
                <font>
                   <Font name="System Italic" size="14.0" />
                </font>
             </Label>
-            <MenuButton fx:id="stagioneMenu" layoutX="21.0" layoutY="159.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="239.0" stylesheets="@css/mainpage.css" />
+            <MenuButton fx:id="stagioneMenu" layoutX="21.0" layoutY="159.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="239.0" style="-fx-background-color: #A5D6A7; -fx-text-fill: #1B5D20;" stylesheets="@css/mainpage.css" />
             <Label layoutX="21.0" layoutY="216.0" prefHeight="30.0" prefWidth="291.0" text="3.Inserisci la data di inizio progetto" textFill="WHITE">
                <font>
                   <Font name="System Italic" size="14.0" />
@@ -116,7 +116,7 @@
             <DatePicker fx:id="dateFine" layoutX="21.0" layoutY="326.0" prefHeight="26.0" prefWidth="239.0" />
          </children>
       </Pane>
-      <Pane fx:id="selectionLottoPane" layoutX="334.0" layoutY="180.0" prefHeight="515.0" prefWidth="990.0" style="-fx-background-color: rgba(36, 104, 0,0.6); -fx-background-radius: 10; -fx-border-color: white; -fx-border-radius: 10;" visible="false">
+      <Pane fx:id="selectionLottoPane" layoutX="334.0" layoutY="180.0" prefHeight="515.0" prefWidth="990.0" style="-fx-background-color: rgba(27,93,32,0.7); -fx-background-radius: 10; -fx-border-color: white; -fx-border-radius: 10;" visible="false">
          <children>
             <Label layoutX="13.0" layoutY="9.0" prefHeight="30.0" prefWidth="210.0" text="Selezione del lotto" textFill="WHITE">
                <font>
@@ -131,7 +131,7 @@
             <VBox fx:id="vBoxLotto" layoutX="16.0" layoutY="82.0" prefHeight="200.0" prefWidth="427.0" />
          </children>
       </Pane>
-      <Pane fx:id="selectionColturePane" layoutX="334.0" layoutY="180.0" prefHeight="515.0" prefWidth="990.0" style="-fx-background-color: rgba(36, 104, 0,0.6); -fx-background-radius: 10; -fx-border-color: white; -fx-border-radius: 10;" visible="false">
+      <Pane fx:id="selectionColturePane" layoutX="334.0" layoutY="180.0" prefHeight="515.0" prefWidth="990.0" style="-fx-background-color: rgba(27,93,32,0.7); -fx-background-radius: 10; -fx-border-color: white; -fx-border-radius: 10;" visible="false">
          <children>
             <Label layoutX="14.0" layoutY="14.0" prefHeight="30.0" prefWidth="229.0" text="Selezione delle colture" textFill="WHITE">
                <font>
@@ -144,14 +144,14 @@
                   <Font name="System Italic" size="16.0" />
                </font>
             </Label>
-            <Button fx:id="associaColtureButton" onAction="#salvaAssociazioni" layoutX="849.0" layoutY="471.0" mnemonicParsing="false" style="-fx-background-color: rgba(255,255,255,255,0.7); -fx-background-radius: 10;" text="Associa le colture">
+            <Button fx:id="associaColtureButton" layoutX="849.0" layoutY="471.0" mnemonicParsing="false" onAction="#salvaAssociazioni" style="-fx-background-color: rgba(255,255,255,255,0.7); -fx-background-radius: 10;" text="Associa le colture">
                <font>
                   <Font size="14.0" />
                </font>
             </Button>
          </children>
       </Pane>
-      <Pane fx:id="coltivatoriAttivitaPane" layoutX="334.0" layoutY="180.0" prefHeight="161.0" prefWidth="509.0" style="-fx-background-color: rgba(36, 104, 0,0.6); -fx-background-radius: 10; -fx-border-color: white; -fx-border-radius: 10;" visible="false">
+      <Pane fx:id="coltivatoriAttivitaPane" layoutX="334.0" layoutY="180.0" prefHeight="161.0" prefWidth="509.0" style="-fx-background-color: rgba(27,93,32,0.7); -fx-background-radius: 10; -fx-border-color: white; -fx-border-radius: 10;" visible="false">
          <children>
             <Label layoutX="9.0" layoutY="6.0" prefHeight="30.0" prefWidth="210.0" text="Crea la tua attività" textFill="WHITE">
                <font>
