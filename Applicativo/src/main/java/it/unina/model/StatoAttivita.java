@@ -1,8 +1,34 @@
 package it.unina.model;
 
+/**
+ * Rappresenta lo stato di un'attività.
+ * <p>
+ * Gli stati possibili sono:
+ * <ul>
+ *     <li>{@link #IN_CORSO} - attività attualmente in corso</li>
+ *     <li>{@link #PROGRAMMATA} - attività programmata per il futuro</li>
+ *     <li>{@link #COMPLETATA} - attività completata</li>
+ * </ul>
+ * La rappresentazione testuale è personalizzata tramite il metodo {@link #toString()}.
+ *
+ * @author entn
+ */
 public enum StatoAttivita {
-    IN_CORSO,PROGRAMMATA,COMPLETATA;
 
+    /** Attività attualmente in corso */
+    IN_CORSO,
+
+    /** Attività programmata per il futuro */
+    PROGRAMMATA,
+
+    /** Attività completata */
+    COMPLETATA;
+
+    /**
+     * Restituisce una rappresentazione testuale leggibile dello stato.
+     * @return stringa descrittiva dello stato dell'attività
+     * @author entn
+     */
     @Override
     public String toString() {
         return switch (this) {

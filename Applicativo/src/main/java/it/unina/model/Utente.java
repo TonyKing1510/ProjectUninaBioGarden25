@@ -1,6 +1,5 @@
 package it.unina.model;
 
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,46 +7,72 @@ import java.util.List;
  * Rappresenta un utente registrato nella piattaforma UninaBioGarden.
  * Ogni utente può avere il ruolo di PROPRIETARIO o COLTIVATORE.
  * Contiene le informazioni anagrafiche e le credenziali di accesso.
+ * <p>
+ * Mantiene una lista dei progetti creati dall'utente.
  *
  * @author entn
  * @version 1.0
  */
 public class Utente {
+
+    /** Identificativo univoco dell'utente */
     private int idUtente;
+
+    /** Nome dell'utente */
     private String nome;
+
+    /** Cognome dell'utente */
     private String cognome;
+
+    /** Indirizzo email dell'utente */
     private String mail;
+
+    /** Password dell'utente (preferibilmente hashata) */
     private String password;
+
+    /** Ruolo dell'utente (PROPRIETARIO o COLTIVATORE) */
     private Ruolo ruolo;
+
+    /** Username dell'utente */
     private String username;
 
+    /** Lista dei progetti creati dall'utente */
     private List<Progetto> progettiCreati = new ArrayList<>();
 
+    /**
+     * Costruttore vuoto.
+     */
     public Utente() {
-
     }
 
+    /**
+     * Restituisce la lista dei progetti creati dall'utente.
+     *
+     * @return lista di progetti creati
+     */
     public List<Progetto> getProgettiCreati() {
         return progettiCreati;
     }
 
+    /**
+     * Aggiunge un progetto alla lista dei progetti creati dall'utente.
+     *
+     * @param progetto progetto da aggiungere
+     */
     public void aggiungiProgettoCreato(Progetto progetto) {
         progettiCreati.add(progetto);
     }
 
-    private List<Attivita> attivitaColtivatore = new ArrayList<>();
-
     /**
-     * Costruttore per creare un oggetto Utente completo.
+     * Costruttore completo per creare un oggetto Utente con tutti i campi.
      *
      * @param idUtente identificatore univoco dell'utente
      * @param nome     nome dell'utente
      * @param cognome  cognome dell'utente
-     * @param mail     indirizzo email univoco dell'utente
-     * @param password password dell'utente (preferibilmente hashata)
-     * @param ruolo    ruolo assegnato all'utente (PROPRIETARIO o COLTIVATORE)
-     * @param username
-     * @author entn
+     * @param mail     indirizzo email univoco
+     * @param password password dell'utente (hashata)
+     * @param ruolo    ruolo assegnato all'utente
+     * @param username username dell'utente
      */
     public Utente(int idUtente, String nome, String cognome, String mail, String password, Ruolo ruolo, String username) {
         this.idUtente = idUtente;
@@ -63,13 +88,12 @@ public class Utente {
      * Costruttore per creare un oggetto Utente senza ID.
      * Utilizzato per la registrazione di nuovi utenti.
      *
-     * @param nome    nome dell'utente
-     * @param cognome cognome dell'utente
-     * @param mail    indirizzo email univoco dell'utente
-     * @param password password dell'utente (preferibilmente hashata)
-     * @param ruolo   ruolo assegnato all'utente (PROPRIETARIO o COLTIVATORE)
-     * @param username
-     * @author entn
+     * @param nome     nome dell'utente
+     * @param cognome  cognome dell'utente
+     * @param mail     indirizzo email univoco
+     * @param password password dell'utente (hashata)
+     * @param ruolo    ruolo assegnato all'utente
+     * @param username username dell'utente
      */
     public Utente(String nome, String cognome, String mail, String password, Ruolo ruolo, String username) {
         this.nome = nome;
@@ -80,25 +104,10 @@ public class Utente {
         this.username = username;
     }
 
-    public Utente(String nome,String cognome, String mail, String password,Ruolo ruolo,String username,List<Attivita> attivitaColtivatore) {
-        this.nome = nome;
-        this.cognome = cognome;
-        this.mail = mail;
-        this.password = password;
-        this.ruolo = ruolo;
-        this.username = username;
-        if(ruolo == Ruolo.COLTIVATORE) {
-            this.attivitaColtivatore = attivitaColtivatore;
-        } else {
-            System.out.println("L'utente non è un coltivatore, non sono previste attività.");
-        }
-    }
-
     /**
      * Restituisce l'ID dell'utente.
      *
-     * @return idUtente
-     * @author entn
+     * @return identificatore univoco dell'utente
      */
     public int getIdUtente() {
         return idUtente;
@@ -108,7 +117,6 @@ public class Utente {
      * Imposta l'ID dell'utente.
      *
      * @param idUtente nuovo ID da assegnare
-     * @author entn
      */
     public void setIdUtente(int idUtente) {
         this.idUtente = idUtente;
@@ -117,8 +125,7 @@ public class Utente {
     /**
      * Restituisce il nome dell'utente.
      *
-     * @return nome
-     * @author entn
+     * @return nome dell'utente
      */
     public String getNome() {
         return nome;
@@ -128,7 +135,6 @@ public class Utente {
      * Imposta il nome dell'utente.
      *
      * @param nome nuovo nome
-     * @author entn
      */
     public void setNome(String nome) {
         this.nome = nome;
@@ -137,8 +143,7 @@ public class Utente {
     /**
      * Restituisce il cognome dell'utente.
      *
-     * @return cognome
-     * @author entn
+     * @return cognome dell'utente
      */
     public String getCognome() {
         return cognome;
@@ -148,7 +153,6 @@ public class Utente {
      * Imposta il cognome dell'utente.
      *
      * @param cognome nuovo cognome
-     * @author entn
      */
     public void setCognome(String cognome) {
         this.cognome = cognome;
@@ -157,8 +161,7 @@ public class Utente {
     /**
      * Restituisce l'indirizzo email dell'utente.
      *
-     * @return email
-     * @author entn
+     * @return email dell'utente
      */
     public String getMail() {
         return mail;
@@ -168,7 +171,6 @@ public class Utente {
      * Imposta l'indirizzo email dell'utente.
      *
      * @param mail nuovo indirizzo email
-     * @author entn
      */
     public void setMail(String mail) {
         this.mail = mail;
@@ -177,8 +179,7 @@ public class Utente {
     /**
      * Restituisce la password dell'utente.
      *
-     * @return password
-     * @author entn
+     * @return password dell'utente
      */
     public String getPassword() {
         return password;
@@ -188,7 +189,6 @@ public class Utente {
      * Imposta la password dell'utente.
      *
      * @param password nuova password (hashata)
-     * @author entn
      */
     private void setPassword(String password) {
         this.password = password;
@@ -197,8 +197,7 @@ public class Utente {
     /**
      * Restituisce il ruolo dell'utente.
      *
-     * @return ruolo
-     * @author entn
+     * @return ruolo dell'utente
      */
     public Ruolo getRuolo() {
         return ruolo;
@@ -208,15 +207,25 @@ public class Utente {
      * Imposta il ruolo dell'utente.
      *
      * @param ruolo ruolo da assegnare (PROPRIETARIO o COLTIVATORE)
-     * @author entn
      */
     public void setRuolo(Ruolo ruolo) {
         this.ruolo = ruolo;
     }
 
+    /**
+     * Restituisce lo username dell'utente.
+     *
+     * @return username dell'utente
+     */
     public String getUsername() {
         return username;
     }
+
+    /**
+     * Imposta lo username dell'utente.
+     *
+     * @param username nuovo username
+     */
     public void setUsername(String username) {
         this.username = username;
     }
