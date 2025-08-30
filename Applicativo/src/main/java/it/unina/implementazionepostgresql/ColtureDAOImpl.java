@@ -15,6 +15,13 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ * Implementazione dell'interfaccia {@link ColtureDAO} per il database PostgreSQL.
+ * Gestisce le operazioni CRUD relative alle colture, inclusi il recupero per lotto,
+ * per ID e per disponibilità, e la gestione delle associazioni tra colture e lotti.
+ *
+ * @author entn
+ */
 public class ColtureDAOImpl implements ColtureDAO {
 
     private static final String COLONNA_ID_COLTURE = "id_colture";
@@ -22,6 +29,14 @@ public class ColtureDAOImpl implements ColtureDAO {
     private static final String COLONNA_TEMPOMATURAZIONE_COLTURE = "tempo_maturazione";
     private static final String COLONNA_TITOLO_COLTURE = "titolo";
 
+
+    /**
+     * Recupera tutte le colture associate a un lotto specifico.
+     *
+     * @param idLotto ID del lotto
+     * @return lista di colture associate al lotto
+     * @author entn
+     */
     @Override
     public List<Colture> getColtureByIdLotto(int idLotto) {
         Logger logger = Logger.getLogger(getClass().getName());
@@ -65,7 +80,13 @@ public class ColtureDAOImpl implements ColtureDAO {
         return coltureList;
     }
 
-
+    /**
+     * Converte un intervallo di tempo in formato PostgreSQL (ad es. "60 days") in {@link Duration}.
+     *
+     * @param intervallo stringa contenente l'intervallo
+     * @return {@link Duration} corrispondente
+     * @author entn
+     */
     private Duration parsePostgresInterval(String intervallo) {
         // Esempio: "60 days" → Duration.ofDays(60)
         if (intervallo.contains("day")) {
@@ -76,6 +97,13 @@ public class ColtureDAOImpl implements ColtureDAO {
         return Duration.ZERO; // fallback
     }
 
+
+    /**
+     * Recupera tutte le colture disponibili non ancora associate a nessun lotto.
+     *
+     * @return lista di colture disponibili
+     * @author entn
+     */
     @Override
     public List<Colture> getColtureDisponibili() {
         Logger logger = Logger.getLogger(getClass().getName());
@@ -107,6 +135,13 @@ public class ColtureDAOImpl implements ColtureDAO {
         return coltureList;
     }
 
+    /**
+     * Recupera la coltura corrispondente a un ID specifico.
+     *
+     * @param idColtura ID della coltura
+     * @return lista contenente la coltura con l'ID specificato (vuota se non trovata)
+     * @author entn
+     */
     @Override
     public List<Colture> getColturaById(int idColtura) {
         Logger logger = Logger.getLogger(getClass().getName());
@@ -143,6 +178,15 @@ public class ColtureDAOImpl implements ColtureDAO {
         return coltureList;
     }
 
+
+    /**
+     * Salva le associazioni tra colture e lotti aggiornando il database.
+     *
+     * @param associazioni mappa che associa ogni oggetto {@link Colture} all'ID del {@link Lotto}
+     *                     a cui deve essere assegnata
+     * @return true se tutte le associazioni sono state salvate correttamente, false altrimenti
+     * @author entn
+     */
     @Override
     public boolean salvaAssociazioni(Map<Colture, Integer> associazioni) {
         Logger logger = Logger.getLogger(getClass().getName());
