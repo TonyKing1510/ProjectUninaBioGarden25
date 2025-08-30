@@ -14,4 +14,6 @@ public interface AttivitaDAO {
     Map<Attivita, List<Utente>> getAttivitaByIdColture(int idColtura);
 
     Map<Lotto, Map<Colture, StatisticheColtura>> getStatistichePerLottiEColtureByIdProgetto(Progetto progetto);
+
+    void updateAttivita(Attivita attivita);
 }

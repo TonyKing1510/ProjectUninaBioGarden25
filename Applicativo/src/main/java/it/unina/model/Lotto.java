@@ -2,6 +2,7 @@ package it.unina.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.function.LongToDoubleFunction;
 
 /**
@@ -252,6 +253,20 @@ public class Lotto {
     @Override
     public String toString() {
         return idLotto + " - " + nome; // oppure qualsiasi attributo tu voglia mostrare
+    }
+
+    // equals & hashCode basati solo sull'ID
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Lotto lotto = (Lotto) o;
+        return idLotto == lotto.idLotto;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(idLotto);
     }
 
 

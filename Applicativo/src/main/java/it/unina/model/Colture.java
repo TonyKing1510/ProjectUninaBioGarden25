@@ -2,6 +2,7 @@ package it.unina.model;
 
 import java.sql.Date;
 import java.time.Duration;
+import java.util.Objects;
 
 public class Colture {
     private String titolo;
@@ -74,5 +75,19 @@ public class Colture {
     }
     public void setDataInizioColtura(Date dataInizioColtura) {
         this.dataInizioColtura = dataInizioColtura;
+    }
+
+    // Override di equals e hashCode basati su id_colture le ridefinisco per farsi che quando creo le statistiche non mi conti due volte la stessa coltura
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Colture colture = (Colture) o;
+        return id_colture == colture.id_colture;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id_colture);
     }
 }

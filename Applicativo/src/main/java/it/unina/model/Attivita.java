@@ -1,10 +1,9 @@
 package it.unina.model;
 
 import java.sql.Date;
-import java.util.ArrayList;
-import java.util.List;
 
 public class Attivita {
+    private int idAttivita;
     private StatoAttivita stato;
     private TipoAttivita tipo;
     private int quantitaRaccolta;
@@ -81,5 +80,11 @@ public class Attivita {
                 ", dataInizio=" + dataInizio +
                 ", dataFine=" + dataFine +
                 '}';
+    }
+    public void setIdAttivita(int idAttivita) {
+        this.idAttivita = idAttivita;
+    }
+    public int getIdAttivita() {
+        return idAttivita;
     }
 }

@@ -6,9 +6,9 @@ public enum StatoAttivita {
     @Override
     public String toString() {
         return switch (this) {
-            case IN_CORSO -> "In Corso";
-            case PROGRAMMATA -> "Programmata";
-            case COMPLETATA -> "Completata";
+            case IN_CORSO -> "in corso";
+            case PROGRAMMATA -> "programmata";
+            case COMPLETATA -> "completata";
             default -> super.toString();
         };
     }

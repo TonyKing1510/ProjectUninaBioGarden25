@@ -48,6 +48,7 @@ public class StatisticheColtura {
                 .mapToInt(Attivita::getQuantitaRaccolta)
                 .average()
                 .orElse(0);
+        System.out.println("Calcolate statistiche: totale=" + totale + ", min=" + min + ", max=" + max + ", media=" + media);
 
         return new StatisticheColtura(totale, min, max, media);
     }

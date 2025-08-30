@@ -1,18 +1,28 @@
 package it.unina.Factory;
 
+import it.unina.dao.AttivitaDAO;
+import it.unina.implementazionePostgreSQL.AttivitaDAOImpl;
 import it.unina.model.Attivita;
 import it.unina.model.Colture;
+import it.unina.model.StatoAttivita;
 import it.unina.model.Utente;
+import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceDialog;
 import javafx.scene.control.Separator;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 public class AttivitaCardFactory {
     AttivitaCardFactory() {
     }
+
+    private static final AttivitaDAO attivitaDAO = new AttivitaDAOImpl();
 
     public static final String STILE_TEXT_DATI =
             "-fx-fill: #ffffff;" +
@@ -32,23 +42,51 @@ public class AttivitaCardFactory {
 
         TextFlow tipoAttivitaFlow = getTipoAttivitaFlow(attivita);
 
+        // Stato attività + bottone "Modifica"
         TextFlow statoAttivitaFlow = getStatoAttivitaFlow("Stato Attività: ", attivita.getStato().toString());
+        Button modificaButton = new Button("Modifica");
+        modificaButton.setOnAction(e -> {
+            // elenco degli stati disponibili
+            List<String> stati = Arrays.asList("IN_CORSO", "COMPLETATA", "PROGRAMMATA");
+
+            ChoiceDialog<String> dialog = new ChoiceDialog<>(attivita.getStato().toString(), stati);
+            dialog.setTitle("Modifica Stato");
+            dialog.setHeaderText("Scegli il nuovo stato dell'attività");
+            dialog.setContentText("Nuovo stato:");
+
+            // Mostra il dialog e aspetta la scelta
+            Optional<String> result = dialog.showAndWait();
+            result.ifPresent(nuovoStato -> {
+                attivita.setStato(StatoAttivita.valueOf(nuovoStato));
+                System.out.println("Nuovo stato: " + nuovoStato);
+                // Qui puoi anche aggiornare il DB e refreshare la card
+                attivitaDAO.updateAttivita(attivita);
+            });
+        });
+
+        HBox statoBox = new HBox(5, statoAttivitaFlow, modificaButton);
 
         TextFlow dataInizioFlow = getDataInizioFlow("Data Inizio: ", attivita.getDataInizio().toString());
-
         TextFlow dataFineFlow = getDataInizioFlow("Data Fine: ", attivita.getDataFine().toString());
-
         TextFlow coltivatoriFlow = getColtivatoriFlow(coltivatori);
-
         TextFlow colturaFlow = getDataInizioFlow("Coltura: ", colture.getTitolo());
 
         Separator separator = new Separator();
-        separator.setStyle("-fx-background-color: #ffffff; -fx-pref-height: 2;"); // opzionale, per renderlo più visibile
+        separator.setStyle("-fx-background-color: #ffffff; -fx-pref-height: 2;");
 
-        vBoxInfoAttivita.getChildren().addAll(tipoAttivitaFlow, statoAttivitaFlow, dataInizioFlow, dataFineFlow, coltivatoriFlow, colturaFlow,separator);
+        vBoxInfoAttivita.getChildren().addAll(
+                tipoAttivitaFlow,
+                statoBox,            // <-- ora qui c’è il TextFlow con il bottone affiancato
+                dataInizioFlow,
+                dataFineFlow,
+                coltivatoriFlow,
+                colturaFlow,
+                separator
+        );
 
         return vBoxInfoAttivita;
     }
+
 
     private static TextFlow getColtivatoriFlow(List<Utente> coltivatori) {
         TextFlow coltivatoriFlow = new TextFlow();

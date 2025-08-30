@@ -30,7 +30,7 @@ public class ChartGenerator {
         return ChartFactory.createBarChart(
                 titolo,              // titolo grafico
                 "Colture",           // asse X
-                "Quantità",          // asse Y
+                "Quantità raccolta",          // asse Y
                 dataset
         );
     }
