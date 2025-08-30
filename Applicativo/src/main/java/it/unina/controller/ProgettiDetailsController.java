@@ -3,8 +3,8 @@ package it.unina.controller;
 import it.unina.Factory.AttivitaCardFactory;
 import it.unina.Factory.ColtureCardFactory;
 import it.unina.Factory.LottoCardFactory;
-import it.unina.ReportPDF.ReportGenerator;
-import it.unina.Stats.StatisticheColtura;
+import it.unina.reportpdf.ReportGenerator;
+import it.unina.stats.StatisticheColtura;
 import it.unina.dao.*;
 import it.unina.implementazionePostgreSQL.*;
 import it.unina.model.*;
@@ -12,7 +12,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 

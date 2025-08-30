@@ -1,9 +1,8 @@
 package it.unina.dao;
 
-import it.unina.Stats.StatisticheColtura;
+import it.unina.stats.StatisticheColtura;
 import it.unina.model.*;
 
-import java.sql.Date;
 import java.util.List;
 import java.util.Map;
 
