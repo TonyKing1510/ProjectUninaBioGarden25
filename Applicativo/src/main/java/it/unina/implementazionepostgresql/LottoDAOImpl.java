@@ -10,7 +10,7 @@ import java.util.List;
 
 public class LottoDAOImpl implements LottoDAO {
 
-    private UtenteDAO utenteDAO = new UtenteDAOImpl();
+    private final UtenteDAO utenteDAO = new UtenteDAOImpl();
 
     @Override
     public List<Lotto> getLottiDisponibili(int idUtenteProprietario) {

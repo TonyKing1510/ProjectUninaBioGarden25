@@ -12,14 +12,21 @@ import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class ColtureDAOImpl implements ColtureDAO {
 
+    private static final String COLONNA_ID_COLTURE = "id_colture";
+    private static final String COLONNA_STAGIONALITA_COLTURE = "stagionalita";
+    private static final String COLONNA_TEMPOMATURAZIONE_COLTURE = "tempo_maturazione";
+    private static final String COLONNA_TITOLO_COLTURE = "titolo";
 
     @Override
     public List<Colture> getColtureByIdLotto(int idLotto) {
+        Logger logger = Logger.getLogger(getClass().getName());
         List<Colture> coltureList = new ArrayList<>();
-        String query = "SELECT * FROM colture WHERE id_lotto = ?";
+        String query = "SELECT c.* FROM colture c WHERE c.id_lotto = ?";
 
         try (var connection = ConnessioneDatabase.getConnection();
              var preparedStatement = connection.prepareStatement(query)) {
@@ -34,16 +41,14 @@ public class ColtureDAOImpl implements ColtureDAO {
             while (resultSet.next()) {
                 Colture coltura = new Colture();
 
-                coltura.setIdColture(resultSet.getInt("id_colture"));
-                coltura.setTitolo(resultSet.getString("titolo"));
+                coltura.setIdColture(resultSet.getInt(COLONNA_ID_COLTURE));
+                coltura.setTitolo(resultSet.getString(COLONNA_TITOLO_COLTURE));
 
                 // Conversione enum con controllo null/sicurezza
-                String stagStr = resultSet.getString("stagionalita").toUpperCase();
-                if (stagStr != null) {
-                    coltura.setStagionalita(Stagione.valueOf(stagStr));
-                }
+                String stagStr = resultSet.getString(COLONNA_STAGIONALITA_COLTURE).toUpperCase();
+                coltura.setStagionalita(Stagione.valueOf(stagStr));
 
-                String intervallo = resultSet.getString("tempo_maturazione");
+                String intervallo = resultSet.getString(COLONNA_TEMPOMATURAZIONE_COLTURE);
                 Duration durata = parsePostgresInterval(intervallo); // metodo sotto
                 coltura.setTempoMaturazione(durata);
 
@@ -54,8 +59,7 @@ public class ColtureDAOImpl implements ColtureDAO {
             }
 
         } catch (Exception e) {
-            System.err.println("Errore durante il recupero delle colture per il lotto con id " + idLotto);
-            e.printStackTrace();
+            logger.log(Level.SEVERE, e , () -> "Errore durante il recupero delle colture per il lotto con id " + idLotto);
         }
 
         return coltureList;
@@ -74,24 +78,23 @@ public class ColtureDAOImpl implements ColtureDAO {
 
     @Override
     public List<Colture> getColtureDisponibili() {
+        Logger logger = Logger.getLogger(getClass().getName());
         List<Colture> coltureList = new ArrayList<>();
-        String query = "SELECT * FROM Colture WHERE id_lotto IS NULL";
+        String query = "SELECT c.* FROM Colture c WHERE c.id_lotto IS NULL";
         try (var connection = ConnessioneDatabase.getConnection();
              var preparedStatement = connection.prepareStatement(query);
              var resultSet = preparedStatement.executeQuery()) {
 
             while (resultSet.next()) {
                 Colture coltura = new Colture();
-                coltura.setIdColture(resultSet.getInt("id_colture"));
-                coltura.setTitolo(resultSet.getString("titolo"));
+                coltura.setIdColture(resultSet.getInt(COLONNA_ID_COLTURE));
+                coltura.setTitolo(resultSet.getString(COLONNA_TITOLO_COLTURE));
 
                 // Conversione enum con controllo null/sicurezza
-                String stagStr = resultSet.getString("stagionalita").toUpperCase();
-                if (stagStr != null) {
-                    coltura.setStagionalita(Stagione.valueOf(stagStr));
-                }
+                String stagStr = resultSet.getString(COLONNA_STAGIONALITA_COLTURE).toUpperCase();
+                coltura.setStagionalita(Stagione.valueOf(stagStr));
 
-                String intervallo = resultSet.getString("tempo_maturazione");
+                String intervallo = resultSet.getString(COLONNA_TEMPOMATURAZIONE_COLTURE);
                 Duration durata = parsePostgresInterval(intervallo); // metodo sotto
                 coltura.setTempoMaturazione(durata);
 
@@ -99,16 +102,16 @@ public class ColtureDAOImpl implements ColtureDAO {
             }
 
         } catch (Exception e) {
-            System.err.println("Errore durante il recupero delle colture disponibili");
-            e.printStackTrace();
+            logger.log(Level.SEVERE, e , () -> "Errore durante il recupero delle colture disponibili");
         }
         return coltureList;
     }
 
     @Override
     public List<Colture> getColturaById(int idColtura) {
+        Logger logger = Logger.getLogger(getClass().getName());
         List<Colture> coltureList = new ArrayList<>();
-        String query = "SELECT * FROM Colture WHERE id_colture = ?";
+        String query = "SELECT c.* FROM Colture c WHERE c.id_colture = ?";
         try (var connection = ConnessioneDatabase.getConnection();
              var preparedStatement = connection.prepareStatement(query)) {
 
@@ -117,16 +120,14 @@ public class ColtureDAOImpl implements ColtureDAO {
 
             while (resultSet.next()) {
                 Colture coltura = new Colture();
-                coltura.setIdColture(resultSet.getInt("id_colture"));
-                coltura.setTitolo(resultSet.getString("titolo"));
+                coltura.setIdColture(resultSet.getInt(COLONNA_ID_COLTURE));
+                coltura.setTitolo(resultSet.getString(COLONNA_TITOLO_COLTURE));
 
                 // Conversione enum con controllo null/sicurezza
-                String stagStr = resultSet.getString("stagionalita").toUpperCase();
-                if (stagStr != null) {
-                    coltura.setStagionalita(Stagione.valueOf(stagStr));
-                }
+                String stagStr = resultSet.getString(COLONNA_STAGIONALITA_COLTURE).toUpperCase();
+                coltura.setStagionalita(Stagione.valueOf(stagStr));
 
-                String intervallo = resultSet.getString("tempo_maturazione");
+                String intervallo = resultSet.getString(COLONNA_TEMPOMATURAZIONE_COLTURE);
                 Duration durata = parsePostgresInterval(intervallo); // metodo sotto
                 coltura.setTempoMaturazione(durata);
 
@@ -137,14 +138,14 @@ public class ColtureDAOImpl implements ColtureDAO {
             }
 
         } catch (Exception e) {
-            System.err.println("Errore durante il recupero delle colture per id " + idColtura);
-            e.printStackTrace();
+            logger.log(Level.SEVERE, e , () -> "Errore durante il recupero delle colture per id " + idColtura);
         }
         return coltureList;
     }
 
     @Override
     public boolean salvaAssociazioni(Map<Colture, Integer> associazioni) {
+        Logger logger = Logger.getLogger(getClass().getName());
         String sql = "UPDATE colture SET id_lotto = ? WHERE id_colture = ?";
         try (var connection = ConnessioneDatabase.getConnection();
              var preparedStatement = connection.prepareStatement(sql)) {
@@ -161,15 +162,14 @@ public class ColtureDAOImpl implements ColtureDAO {
             int[] results = preparedStatement.executeBatch();
             for (int res : results) {
                 if (res == 0) {
-                    System.err.println("Nessuna riga aggiornata per una delle associazioni.");
+                    logger.log(Level.WARNING,"Nessuna riga aggiornata per una delle associazioni.");
                     return false;
                 }
             }
             return true;
 
         } catch (Exception e) {
-            System.err.println("Errore durante il salvataggio delle associazioni colture-lotti");
-            e.printStackTrace();
+            logger.log(Level.SEVERE, e , () -> "Errore durante il salvataggio delle associazioni colture-lotti");
             return false;
         }
     }
