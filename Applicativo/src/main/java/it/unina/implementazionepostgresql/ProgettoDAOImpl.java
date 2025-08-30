@@ -1,9 +1,8 @@
-package it.unina.implementazionePostgreSQL;
+package it.unina.implementazionepostgresql;
 
 
 import it.unina.connessioneDB.ConnessioneDatabase;
 import it.unina.dao.ProgettoDAO;
-import it.unina.model.Colture;
 import it.unina.model.Lotto;
 import it.unina.model.Progetto;
 import it.unina.model.Stagione;

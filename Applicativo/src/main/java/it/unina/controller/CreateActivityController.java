@@ -2,8 +2,8 @@ package it.unina.controller;
 
 import it.unina.dao.AttivitaDAO;
 import it.unina.dao.UtenteDAO;
-import it.unina.implementazionePostgreSQL.AttivitaDAOImpl;
-import it.unina.implementazionePostgreSQL.UtenteDAOImpl;
+import it.unina.implementazionepostgresql.AttivitaDAOImpl;
+import it.unina.implementazionepostgresql.UtenteDAOImpl;
 import it.unina.model.*;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;

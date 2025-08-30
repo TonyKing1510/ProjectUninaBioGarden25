@@ -2,8 +2,8 @@ package it.unina.controller.components;
 
 import it.unina.dao.LottoDAO;
 import it.unina.dao.ProgettoDAO;
-import it.unina.implementazionePostgreSQL.LottoDAOImpl;
-import it.unina.implementazionePostgreSQL.ProgettoDAOImpl;
+import it.unina.implementazionepostgresql.LottoDAOImpl;
+import it.unina.implementazionepostgresql.ProgettoDAOImpl;
 import it.unina.model.Lotto;
 import it.unina.model.Progetto;
 import it.unina.model.Utente;

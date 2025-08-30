@@ -2,12 +2,11 @@ package it.unina.controller;
 
 import it.unina.dao.LottoDAO;
 import it.unina.gui.LottiGUI;
-import it.unina.implementazionePostgreSQL.LottoDAOImpl;
+import it.unina.implementazionepostgresql.LottoDAOImpl;
 import it.unina.model.Lotto;
 import it.unina.model.Utente;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 
 import java.io.IOException;

@@ -6,7 +6,7 @@ import it.unina.Factory.LottoCardFactory;
 import it.unina.reportpdf.ReportGenerator;
 import it.unina.stats.StatisticheColtura;
 import it.unina.dao.*;
-import it.unina.implementazionePostgreSQL.*;
+import it.unina.implementazionepostgresql.*;
 import it.unina.model.*;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -136,7 +136,7 @@ public class ProgettiDetailsController {
     }
 
     @FXML
-    private void onScaricaDatiClicked() {
+    private void onScaricaDatiClicked() throws StatisticheColtura.StatisticheException {
 
         // Recupera le statistiche per tutti i lotti
         Map<Lotto, Map<Colture, StatisticheColtura>> statistiche = attivitaDao.getStatistichePerLottiEColtureByIdProgetto(progetto);

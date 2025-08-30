@@ -1,15 +1,12 @@
 package it.unina.controller.components;
 
 import it.unina.dao.ColtureDAO;
-import it.unina.dao.LottoDAO;
-import it.unina.implementazionePostgreSQL.ColtureDAOImpl;
-import it.unina.implementazionePostgreSQL.LottoDAOImpl;
+import it.unina.implementazionepostgresql.ColtureDAOImpl;
 import it.unina.model.Colture;
 import it.unina.model.Lotto;
 import it.unina.model.Utente;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import javafx.scene.layout.VBox;
 
 import java.util.List;
 

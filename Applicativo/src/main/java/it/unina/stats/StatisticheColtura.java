@@ -106,4 +106,18 @@ public class StatisticheColtura {
 
         return new StatisticheColtura(totale, min, max, media);
     }
+
+    /**
+     * Eccezione dedicata per segnalare errori legati al calcolo delle statistiche
+     * di raccolta delle colture.
+     * @author entn
+     */
+    public static class StatisticheException extends Exception{
+        public StatisticheException(String message, Throwable cause) {
+            super(message, cause);
+        }
+
+    }
+
 }
+

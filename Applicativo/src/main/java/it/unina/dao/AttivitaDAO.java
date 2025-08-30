@@ -12,7 +12,7 @@ public interface AttivitaDAO {
 
     Map<Attivita, List<Utente>> getAttivitaByIdColture(int idColtura);
 
-    Map<Lotto, Map<Colture, StatisticheColtura>> getStatistichePerLottiEColtureByIdProgetto(Progetto progetto);
+    Map<Lotto, Map<Colture, StatisticheColtura>> getStatistichePerLottiEColtureByIdProgetto(Progetto progetto) throws StatisticheColtura.StatisticheException;
 
     void updateAttivita(Attivita attivita);
 }

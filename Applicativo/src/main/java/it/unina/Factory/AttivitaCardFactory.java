@@ -1,7 +1,7 @@
 package it.unina.Factory;
 
 import it.unina.dao.AttivitaDAO;
-import it.unina.implementazionePostgreSQL.AttivitaDAOImpl;
+import it.unina.implementazionepostgresql.AttivitaDAOImpl;
 import it.unina.model.Attivita;
 import it.unina.model.Colture;
 import it.unina.model.StatoAttivita;

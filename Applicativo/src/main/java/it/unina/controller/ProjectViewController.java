@@ -1,12 +1,10 @@
 package it.unina.controller;
 
-import it.unina.dao.ColtureDAO;
 import it.unina.dao.LottoDAO;
 import it.unina.dao.ProgettoDAO;
 import it.unina.gui.VisualizeProjectGUI;
-import it.unina.implementazionePostgreSQL.ColtureDAOImpl;
-import it.unina.implementazionePostgreSQL.LottoDAOImpl;
-import it.unina.implementazionePostgreSQL.ProgettoDAOImpl;
+import it.unina.implementazionepostgresql.LottoDAOImpl;
+import it.unina.implementazionepostgresql.ProgettoDAOImpl;
 import it.unina.model.*;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -14,7 +12,6 @@ import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 
 import java.io.IOException;
-import java.sql.Date;
 import java.util.List;
 
 /**

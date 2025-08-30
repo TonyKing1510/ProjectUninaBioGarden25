@@ -2,7 +2,7 @@ package it.unina.controller;
 
 import it.unina.dao.UtenteDAO;
 import it.unina.gui.MainAppGui;
-import it.unina.implementazionePostgreSQL.UtenteDAOImpl;
+import it.unina.implementazionepostgresql.UtenteDAOImpl;
 import it.unina.model.Ruolo;
 import it.unina.model.Utente;
 import javafx.application.Platform;
