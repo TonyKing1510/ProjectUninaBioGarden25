@@ -3,6 +3,7 @@ package it.unina.dao;
 import it.unina.model.Colture;
 import it.unina.model.Lotto;
 import it.unina.model.Progetto;
+import it.unina.model.Stagione;
 
 import java.util.List;
 
@@ -26,5 +27,8 @@ public interface ProgettoDAO {
     int getIdProgettoByTitolo(String titolo);
 
     boolean addProgetto(Progetto progetto, int idProprietario);
+
+    List<Progetto> getProgettiWithFilter(int idProprietario, Stagione stagione, Double superficie);
+
 
 }

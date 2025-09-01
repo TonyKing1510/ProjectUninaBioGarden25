@@ -19,17 +19,18 @@ public class ProgettoDAOImpl implements ProgettoDAO {
     /**
      * Inserisce un nuovo progetto nel database e aggiorna il lotto selezionato
      * associandolo al progetto appena creato.
-     *
+     * <p>
      * La transazione assicura che entrambe le operazioni vengano eseguite
      * atomicamente: se una fallisce, entrambe vengono annullate.
      *
-     * @param progetto Il progetto da inserire (senza id, con tutti i dati necessari)
+     * @param progetto         Il progetto da inserire (senza id, con tutti i dati necessari)
      * @param lottiSelezionato I lotti che devono essere aggiornati con il nuovo progetto
      * @return true se operazioni riuscite, false in caso di errore o nessuna riga aggiornata
      */
     public boolean addProgettoAndUpdateLotto(Progetto progetto, List<Lotto> lottiSelezionato) {
         String insertQuery = """
-        INSERT INTO progetto (stagione, id_utentecreatore, "dataInizio", "dataFine", titolo)
+        
+                INSERT INTO progetto (stagione, id_utentecreatore, "dataInizio", "dataFine", titolo)
         VALUES (?::stagione, ?, ?, ?, ?)
         RETURNING id_progetto
         """;
@@ -155,4 +156,70 @@ public class ProgettoDAOImpl implements ProgettoDAO {
          return false;
     }
 
+    @Override
+    public List<Progetto> getProgettiWithFilter(int idProprietario, Stagione stagione, Double superficie) {
+        List<Progetto> progetti = new ArrayList<>();
+        StringBuilder query = new StringBuilder(
+                "SELECT p.id_progetto, p.stagione, p.id_utentecreatore, p.\"dataInizio\", p.\"dataFine\", p.titolo " +
+                        "FROM Progetto p " +
+                        "JOIN Lotto l ON p.id_progetto = l.id_progetto " +
+                        "WHERE p.id_utentecreatore = ?"
+        );
+
+        List<Object> params = new ArrayList<>();
+        params.add(idProprietario); // questo c'è sempre
+
+// se stagione è valorizzata, aggiungila alla query
+        if (stagione != null ) {
+            query.append(" AND p.stagione = ?::stagione");
+            params.add(stagione);
+        }
+
+// se superficie è valorizzata, aggiungila alla query
+        if (superficie != null) {
+            query.append(" AND l.superficie >= ?");
+            params.add(superficie);
+        }
+
+        System.out.println(query.toString());
+        System.out.println(params);
+
+        try (Connection conn = ConnessioneDatabase.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(query.toString())) {
+
+            // Imposta i parametri nella PreparedStatement
+            for (int i = 0; i < params.size(); i++) {
+                Object param = params.get(i);
+                if (param instanceof Integer) {
+                    stmt.setInt(i + 1, (Integer) param);
+                } else if (param instanceof Stagione) {
+                    String stagioneStr = ((Stagione) param).name().toLowerCase(); // tutto minuscolo
+                    stagioneStr = stagioneStr.substring(0,1).toUpperCase() + stagioneStr.substring(1); // capitalizza la prima lettera
+                    stmt.setString(i + 1, stagioneStr);
+                } else if (param instanceof Double) {
+                    stmt.setDouble(i + 1, (Double) param);
+                }
+            }
+
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                Progetto progetto = new Progetto();
+                progetto.setIdProgetto(rs.getInt("id_progetto"));
+                progetto.setTitolo(rs.getString("titolo"));
+                progetto.setDataInizio(rs.getDate("dataInizio"));
+                progetto.setDataFine(rs.getDate("dataFine"));
+                progetto.setStagione(Stagione.valueOf(rs.getString("stagione").toUpperCase())); // Enum Stagione
+                progetti.add(progetto);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            // gestione errori: log, rilancio, ecc.
+        }
+        return progetti;
+
+
+
+}
 }

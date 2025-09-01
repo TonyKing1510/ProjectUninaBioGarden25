@@ -24,24 +24,14 @@ public class ProjectViewController {
     @FXML
     private VBox contentBox;
     @FXML
-    private Button addButton;
+    private Button cercaButton;
     @FXML
-    private TextField titleProject;
-    @FXML
-    private DatePicker dateInit;
-    @FXML
-    private DatePicker dateFine;
-    @FXML
-    private Button addButtonProject;
+    private TextField superficieField;
     @FXML
     private MenuButton stagioneMenu;
-    @FXML
-    private MenuButton lottoMenu;
 
     private Utente utenteLoggato;
-    private Progetto progettoAdd;
     private final ProgettoDAO progettoDAO = new ProgettoDAOImpl();
-    private final LottoDAO lottoDAO = new LottoDAOImpl();
 
 
     public void setUtenteLoggato(Utente utente) {
@@ -67,4 +57,47 @@ public class ProjectViewController {
         }
 
     }
+
+    @FXML
+    public void refreshProjects(){
+        contentBox.getChildren().clear();
+        Double superficieText = null;
+        String superficieInput = superficieField.getText();
+        if (superficieInput != null && !superficieInput.isEmpty()) {
+            superficieText = Double.valueOf(superficieInput);
+        }
+        String stagioneSelezionata = stagioneMenu.getText();
+        Stagione stagione = Stagione.valueOf(stagioneSelezionata.toUpperCase());
+        System.out.println("stagione selezionata: " + stagione);
+        List<Progetto> progetti = progettoDAO.getProgettiWithFilter(utenteLoggato.getIdUtente(),stagione,superficieText);
+        for (Progetto progetto : progetti) {
+            try {
+                System.out.println("Caricamento progetto: " + progetto.getIdProgetto());
+                VisualizeProjectGUI.initProjectCard(progetto, contentBox, utenteLoggato);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public void setStagioniMenu() {
+        stagioneMenu(stagioneMenu);
+    }
+
+    static void stagioneMenu(MenuButton stagioneMenu) {
+        List<String> voci = List.of("Primavera", "Estate", "Autunno", "Inverno");
+        stagioneMenu.setText("Seleziona Stagione");
+        for (String opzione : voci) {
+            MenuItem item = new MenuItem(opzione);
+
+            item.setOnAction(event -> {
+                stagioneMenu.setText(opzione);
+                System.out.println("Hai selezionato: " + opzione);
+            });
+
+            stagioneMenu.getItems().add(item);
+        }
+    }
+
+
 }

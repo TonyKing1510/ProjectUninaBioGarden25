@@ -1,28 +1,70 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuButton?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="600" prefWidth="800" styleClass="pattern-background" stylesheets="@css/cultivator.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unina.controller.ProjectViewController">
 
     <VBox spacing="10" AnchorPane.bottomAnchor="20" AnchorPane.leftAnchor="20" AnchorPane.rightAnchor="20" AnchorPane.topAnchor="20">
 
 
-        <VBox spacing="10">
+        <VBox prefHeight="170.0" prefWidth="760.0" spacing="10">
             <HBox alignment="TOP_CENTER" prefHeight="50.0" prefWidth="300.0" styleClass="section-title">
                 <ImageView fitHeight="50.0" fitWidth="160" styleClass="lotto-sign">
                     <Image url="@images/projectsign.png" />
                 </ImageView>
             </HBox>
+         <Pane prefHeight="62.0" prefWidth="760.0" style="-fx-background-color: rgba(27,93,32,0.9); -fx-background-radius: 10; -fx-border-radius: 10; -fx-border-color: white;">
+            <children>
+               <Button fx:id="cercaButton" onAction="#refreshProjects" layoutX="709.0" layoutY="12.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="36.0" style="-fx-background-color: rgba(255,255,255,255,0.7); -fx-background-radius: 10;">
+                  <font>
+                     <Font size="14.0" />
+                  </font>
+                  <graphic>
+                     <ImageView fitHeight="25.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                           <Image url="@images/icons8-aggiorna-50.png" />
+                        </image>
+                     </ImageView>
+                  </graphic>
+               </Button>
+               <Label layoutX="21.0" layoutY="4.0" text="Stagione del progetto" textFill="WHITE">
+                  <font>
+                     <Font name="System Italic" size="11.0" />
+                  </font>
+               </Label>
+               <MenuButton fx:id="stagioneMenu" layoutX="21.0" layoutY="22.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="119.0" style="-fx-background-color: #A5D6A7; -fx-text-fill: #1B5D20;" stylesheets="@css/mainpage.css" />
+               <Line endX="-94.4000244140625" endY="18.599998474121094" layoutX="257.0" layoutY="27.0" startX="-94.4000244140625" startY="-14.200006484985352" stroke="WHITE" />
+               <Label layoutX="183.0" layoutY="4.0" text="Superficie del lotto ( &gt;=)" textFill="WHITE">
+                  <font>
+                     <Font name="System Italic" size="11.0" />
+                  </font>
+               </Label>
+               <TextField fx:id="superficieField" layoutX="183.0" layoutY="21.0" prefHeight="27.0" prefWidth="111.0" style="-fx-background-color: #A5D6A7; -fx-text-fill: #1B5D20; -fx-background-radius: 10; -fx-border-radius: 10; -fx-border-color: green;" />
+               <Line endX="619.5" endY="43.20000457763672" startX="619.5" startY="14.399999618530273" stroke="WHITE" />
+               <Label layoutX="632.0" layoutY="10.0" prefHeight="34.0" prefWidth="64.0" text="Aggiorna la ricerca" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+                  <font>
+                     <Font name="System Italic" size="11.0" />
+                  </font>
+               </Label>
+            </children>
+         </Pane>
 
         </VBox>
 
-        <ScrollPane fx:id="scrollPane" fitToWidth="true" styleClass="scrollable" VBox.vgrow="ALWAYS">
+        <ScrollPane fx:id="scrollPane" fitToWidth="true" prefHeight="440.0" prefWidth="760.0" styleClass="scrollable" VBox.vgrow="ALWAYS">
             <VBox fx:id="contentBox" prefHeight="216.0" prefWidth="758.0" spacing="10" styleClass="scrollable-vbox">
                 <padding>
                     <Insets bottom="10" left="10" right="10" top="10" />

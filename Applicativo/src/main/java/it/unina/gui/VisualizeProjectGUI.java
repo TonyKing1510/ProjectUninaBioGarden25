@@ -38,6 +38,7 @@ public class VisualizeProjectGUI {
         FXMLLoader loader = new FXMLLoader(VisualizeProjectGUI.class.getResource("/it/unina/ProjectView.fxml"));
         Parent node = loader.load();
         ProjectViewController controller = loader.getController();
+        controller.setStagioniMenu();
         controller.setUtenteLoggato(utente);
         node.getStylesheets().add(VisualizeProjectGUI.class.getResource("/it/unina/css/coltureview.css").toExternalForm());
         borderPane.setCenter(node);

@@ -104,18 +104,7 @@ public class CreateProjectController {
 
 
     public void setStagioniMenu() {
-        List<String> voci = List.of("Primavera", "Estate", "Autunno", "Inverno");
-        stagioneMenu.setText("Seleziona Stagione");
-        for (String opzione : voci) {
-            MenuItem item = new MenuItem(opzione);
-
-            item.setOnAction(event -> {
-                stagioneMenu.setText(opzione);
-                System.out.println("Hai selezionato: " + opzione);
-            });
-
-            stagioneMenu.getItems().add(item);
-        }
+        ProjectViewController.stagioneMenu(stagioneMenu);
     }
 
 
