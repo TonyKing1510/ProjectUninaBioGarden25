@@ -1,6 +1,5 @@
 package it.unina.controller;
 
-import it.unina.gui.LottiGUI;
 import it.unina.gui.VisualizeProjectGUI;
 import it.unina.gui.CreateProjectGUI;
 import it.unina.model.Utente;
@@ -67,17 +66,7 @@ public class MainPageController {
   public void initialize() {
     // Inizializzazione futura, se necessaria
   }
-
-  /**
-   * Carica la vista di gestione delle colture all'interno del pannello principale.
-   *
-   * @throws IOException se il caricamento della vista fallisce
-   * @author entn
-   */
-  @FXML
-  private void goToPlantManagement() throws IOException {
-    LottiGUI.initLottiView(borderPane,utenteLoggato);
-  }
+  
 
   @FXML
   private void goToVisualizeProject() throws IOException {
