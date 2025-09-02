@@ -11,6 +11,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 /**
@@ -18,6 +20,15 @@ import java.util.List;
  * @author entn
  */
 public class UtenteDAOImpl implements UtenteDAO {
+
+    private static final String COLONNA_ID_UTENTE = "id_utente";
+    private static final String COLONNA_COGNOME_UTENTE = "cognome";
+    private static final String COLONNA_USERNAME_UTENTE = "username";
+    private static final String COLONNA_RUOLO_UTENTE = "ruolo";
+    private static final String COLONNA_MAIL_UTENTE = "mail";
+    private static final String COLONNA_PASSWORD_UTENTE = "password";
+    private static final String COLONNA_NOME_UTENTE = "nome";
+
 
     /**
      * Aggiunge un nuovo utente al database.
@@ -27,6 +38,7 @@ public class UtenteDAOImpl implements UtenteDAO {
      */
     @Override
     public boolean addUtente(Utente utente) {
+        Logger logger = Logger.getLogger(getClass().getName());
         String query = "INSERT INTO Utente (nome, cognome, mail, password, ruolo, username) VALUES (?, ?, ?, ?, ?::ruolo, ?)";
 
         try (Connection conn = ConnessioneDatabase.getConnection();
@@ -43,7 +55,7 @@ public class UtenteDAOImpl implements UtenteDAO {
             return affectedRows > 0;
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.log(Level.SEVERE, e, () -> "Errore nell'aggiunta dell'utente:");
             return false;
         }
     }
@@ -72,7 +84,8 @@ public class UtenteDAOImpl implements UtenteDAO {
      */
     @Override
     public Utente login(String username, String password) {
-        String sql = "SELECT * FROM Utente WHERE username = ? AND password = ?";
+        Logger logger = Logger.getLogger(getClass().getName());
+        String sql = "SELECT u.* FROM Utente u WHERE u.username = ? AND u.password = ?";
         try (Connection conn = ConnessioneDatabase.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
@@ -82,20 +95,19 @@ public class UtenteDAOImpl implements UtenteDAO {
             try (ResultSet rs = stmt.executeQuery()) {
                 if (rs.next()) {
                     return new Utente(
-                            rs.getInt("id_utente"),
-                            rs.getString("nome"),
-                            rs.getString("cognome"),
-                            rs.getString("mail"),
-                            rs.getString("password"),
-                            Ruolo.valueOf(rs.getString("ruolo").toUpperCase()),
-                            rs.getString("username")
+                            rs.getInt(COLONNA_ID_UTENTE),
+                            rs.getString(COLONNA_NOME_UTENTE),
+                            rs.getString(COLONNA_COGNOME_UTENTE),
+                            rs.getString(COLONNA_MAIL_UTENTE),
+                            rs.getString(COLONNA_PASSWORD_UTENTE),
+                            Ruolo.valueOf(rs.getString(COLONNA_RUOLO_UTENTE).toUpperCase()),
+                            rs.getString(COLONNA_USERNAME_UTENTE)
                     );
                 }
             }
 
         } catch (SQLException e) {
-            System.err.println("Errore nella login:");
-            e.printStackTrace();
+            logger.log(Level.SEVERE, e, () -> "Errore nella login:");
         }
 
         return null;
@@ -111,6 +123,7 @@ public class UtenteDAOImpl implements UtenteDAO {
 
     @Override
     public boolean esisteUtente(String email) {
+        Logger logger = Logger.getLogger(getClass().getName());
         String sql = "SELECT 1 FROM Utente WHERE mail = ?";
         try (Connection conn = ConnessioneDatabase.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -121,8 +134,7 @@ public class UtenteDAOImpl implements UtenteDAO {
             }
 
         } catch (SQLException e) {
-            System.err.println("Errore nel controllo esistenza utente:");
-            e.printStackTrace();
+            logger.log(Level.SEVERE, e, () -> "Errore nel controllo esistenza utente:");
         }
 
         return false;
@@ -130,6 +142,7 @@ public class UtenteDAOImpl implements UtenteDAO {
 
     @Override
     public List<Utente> getColtivatoriByLottoId(int idLotto) {
+        Logger logger = Logger.getLogger(getClass().getName());
         String sql = """
         SELECT u.*
         FROM utente u
@@ -146,20 +159,19 @@ public class UtenteDAOImpl implements UtenteDAO {
             try (ResultSet rs = stmt.executeQuery()) {
                 while (rs.next()) {
                     coltivatori.add(new Utente(
-                            rs.getInt("id_utente"),
-                            rs.getString("nome"),
-                            rs.getString("cognome"),
-                            rs.getString("mail"),
-                            rs.getString("password"),
-                            Ruolo.valueOf(rs.getString("ruolo").toUpperCase()),
-                            rs.getString("username")
+                            rs.getInt(COLONNA_ID_UTENTE),
+                            rs.getString(COLONNA_NOME_UTENTE),
+                            rs.getString(COLONNA_COGNOME_UTENTE),
+                            rs.getString(COLONNA_MAIL_UTENTE),
+                            rs.getString(COLONNA_PASSWORD_UTENTE),
+                            Ruolo.valueOf(rs.getString(COLONNA_RUOLO_UTENTE).toUpperCase()),
+                            rs.getString(COLONNA_USERNAME_UTENTE)
                     ));
                 }
             }
 
         } catch (SQLException e) {
-            System.err.println("Errore nel recupero dei coltivatori:");
-            e.printStackTrace();
+            logger.log(Level.SEVERE, e, () -> "Errore nel recupero dei coltivatori:");
         }
 
         return coltivatori;
@@ -169,7 +181,8 @@ public class UtenteDAOImpl implements UtenteDAO {
 
     @Override
     public Utente getUtenteProprietario(int idProprietario) {
-        String sql = "SELECT * FROM Utente WHERE id_utente = ? AND ruolo = 'proprietario'";
+        Logger logger = Logger.getLogger(getClass().getName());
+        String sql = "SELECT u.* FROM Utente u WHERE u.id_utente = ? AND u.ruolo = 'proprietario'";
         try (Connection conn = ConnessioneDatabase.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
@@ -177,47 +190,46 @@ public class UtenteDAOImpl implements UtenteDAO {
             try (ResultSet rs = stmt.executeQuery()) {
                 if (rs.next()) {
                     return new Utente(
-                            rs.getInt("id_utente"),
-                            rs.getString("nome"),
-                            rs.getString("cognome"),
-                            rs.getString("mail"),
-                            rs.getString("password"),
-                            Ruolo.valueOf(rs.getString("ruolo").toUpperCase()),
-                            rs.getString("username")
+                            rs.getInt(COLONNA_ID_UTENTE),
+                            rs.getString(COLONNA_NOME_UTENTE),
+                            rs.getString(COLONNA_COGNOME_UTENTE),
+                            rs.getString(COLONNA_MAIL_UTENTE),
+                            rs.getString(COLONNA_PASSWORD_UTENTE),
+                            Ruolo.valueOf(rs.getString(COLONNA_RUOLO_UTENTE).toUpperCase()),
+                            rs.getString(COLONNA_USERNAME_UTENTE)
                     );
                 }
             }
 
         } catch (SQLException e) {
-            System.err.println("Errore nel recupero utente proprietario:");
-            e.printStackTrace();
+            logger.log(Level.SEVERE, e, () -> "Errore nel recupero utente proprietario:");
         }
         return null;
     }
 
     @Override
     public List<Utente> getColtivatoriDisponibili() {
+        Logger logger = Logger.getLogger(getClass().getName());
         List<Utente> coltivatori = new ArrayList<>();
-        String sql = "SELECT * FROM Utente u LEFT JOIN utente_coltura uc ON u.id_utente = uc.id_coltivatore WHERE u.ruolo = 'coltivatore' AND uc.id_coltivatore IS NULL";
+        String sql = "SELECT u.* FROM Utente u LEFT JOIN utente_coltura uc ON u.id_utente = uc.id_coltivatore WHERE u.ruolo = 'coltivatore' AND uc.id_coltivatore IS NULL";
         try (Connection conn = ConnessioneDatabase.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql);
              ResultSet rs = stmt.executeQuery()) {
 
             while (rs.next()) {
                 coltivatori.add(new Utente(
-                        rs.getInt("id_utente"),
-                        rs.getString("nome"),
-                        rs.getString("cognome"),
-                        rs.getString("mail"),
-                        rs.getString("password"),
-                        Ruolo.valueOf(rs.getString("ruolo").toUpperCase()),
-                        rs.getString("username")
+                        rs.getInt(COLONNA_ID_UTENTE),
+                        rs.getString(COLONNA_NOME_UTENTE),
+                        rs.getString(COLONNA_COGNOME_UTENTE),
+                        rs.getString(COLONNA_MAIL_UTENTE),
+                        rs.getString(COLONNA_PASSWORD_UTENTE),
+                        Ruolo.valueOf(rs.getString(COLONNA_RUOLO_UTENTE).toUpperCase()),
+                        rs.getString(COLONNA_USERNAME_UTENTE)
                 ));
             }
 
         } catch (SQLException e) {
-            System.err.println("Errore nel recupero dei coltivatori disponibili:");
-            e.printStackTrace();
+            logger.log(Level.SEVERE, e, () -> "Errore nel recupero dei coltivatori disponibili:");
         }return coltivatori;
     }
 

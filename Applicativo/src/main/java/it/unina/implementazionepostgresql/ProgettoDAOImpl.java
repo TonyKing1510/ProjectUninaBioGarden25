@@ -13,9 +13,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class ProgettoDAOImpl implements ProgettoDAO {
-
+    private static final String COLONNA_ID_PROGETTO = "id_progetto";
     /**
      * Inserisce un nuovo progetto nel database e aggiorna il lotto selezionato
      * associandolo al progetto appena creato.
@@ -36,13 +38,15 @@ public class ProgettoDAOImpl implements ProgettoDAO {
         """;
 
         String updateQuery = "UPDATE lotto SET id_progetto = ? WHERE id_lotto = ?";
+        Logger logger2 = Logger.getLogger(getClass().getName());
+
 
         try (Connection conn = ConnessioneDatabase.getConnection()) {
             conn.setAutoCommit(false);  // Inizio transazione
 
             int progettoId;
 
-            // Inserimento progetto e recupero id generato
+
             try (PreparedStatement insertStmt = conn.prepareStatement(insertQuery)) {
                 insertStmt.setObject(1, capitalize(progetto.getStagione().toString()));
                 insertStmt.setInt(2, progetto.getIdUtenteCreatore());
@@ -52,24 +56,33 @@ public class ProgettoDAOImpl implements ProgettoDAO {
 
                 try (ResultSet rs = insertStmt.executeQuery()) {
                     if (rs.next()) {
-                        progettoId = rs.getInt("id_progetto");
+                        progettoId = rs.getInt(COLONNA_ID_PROGETTO);
                     } else {
                         conn.rollback();
-                        System.err.println("Inserimento progetto fallito: nessun ID restituito.");
+                        logger2.log(Level.SEVERE, "Inserimento progetto fallito: nessun ID restituito.");
                         return false;
                     }
+
                 }
             }
 
-            // Aggiorna lotto con il nuovo progetto
-            try( PreparedStatement updateStmt = conn.prepareStatement(updateQuery)) {
+
+            try (PreparedStatement updateStmt = conn.prepareStatement(updateQuery)) {
+
+                updateStmt.setInt(1, progettoId);
+
                 for (Lotto lotto : lottiSelezionato) {
-                    updateStmt.setInt(1, progettoId);
                     updateStmt.setInt(2, lotto.getIdLotto());
-                    int affectedRows = updateStmt.executeUpdate();
-                    if (affectedRows == 0) {
+                    updateStmt.addBatch();
+                }
+
+                int[] results = updateStmt.executeBatch();
+
+               Logger logger = Logger.getLogger(getClass().getName());
+                for (int i = 0; i < results.length; i++) {
+                    if (results[i] == 0) {
                         conn.rollback();
-                        System.err.println("Aggiornamento lotto fallito per id: " + lotto.getIdLotto());
+                        logger.log(Level.SEVERE, () -> "Errore nell'aggiunta dell'utente:");
                         return false;
                     }
                 }
@@ -102,7 +115,7 @@ public class ProgettoDAOImpl implements ProgettoDAO {
 
             while (rs.next()) {
                 Progetto progetto = new Progetto();
-                progetto.setIdProgetto(rs.getInt("id_progetto"));
+                progetto.setIdProgetto(rs.getInt(COLONNA_ID_PROGETTO));
                 progetto.setTitolo(rs.getString("titolo"));
                 progetto.setDataInizio(rs.getDate("dataInizio"));
                 progetto.setDataFine(rs.getDate("dataFine"));
@@ -140,7 +153,7 @@ public class ProgettoDAOImpl implements ProgettoDAO {
             ResultSet rs = stmt.executeQuery();
 
             if (rs.next()) {
-                return rs.getInt("id_progetto");
+                return rs.getInt(COLONNA_ID_PROGETTO);
             } else {
                 return -1; // Progetto non trovato
             }
@@ -167,37 +180,32 @@ public class ProgettoDAOImpl implements ProgettoDAO {
         );
 
         List<Object> params = new ArrayList<>();
-        params.add(idProprietario); // questo c'è sempre
+        params.add(idProprietario);
 
-// se stagione è valorizzata, aggiungila alla query
         if (stagione != null ) {
             query.append(" AND p.stagione = ?::stagione");
             params.add(stagione);
         }
 
-// se superficie è valorizzata, aggiungila alla query
         if (superficie != null) {
             query.append(" AND l.superficie >= ?");
             params.add(superficie);
         }
 
-        System.out.println(query.toString());
-        System.out.println(params);
-
         try (Connection conn = ConnessioneDatabase.getConnection();
              PreparedStatement stmt = conn.prepareStatement(query.toString())) {
 
-            // Imposta i parametri nella PreparedStatement
+
             for (int i = 0; i < params.size(); i++) {
                 Object param = params.get(i);
-                if (param instanceof Integer) {
-                    stmt.setInt(i + 1, (Integer) param);
-                } else if (param instanceof Stagione) {
-                    String stagioneStr = ((Stagione) param).name().toLowerCase(); // tutto minuscolo
-                    stagioneStr = stagioneStr.substring(0,1).toUpperCase() + stagioneStr.substring(1); // capitalizza la prima lettera
+                if (param instanceof Integer integer) {
+                    stmt.setInt(i + 1, integer);
+                } else if (param instanceof Stagione stagioneInstance) {
+                    String stagioneStr = stagioneInstance.name().toLowerCase();
+                    stagioneStr = stagioneStr.substring(0,1).toUpperCase() + stagioneStr.substring(1);
                     stmt.setString(i + 1, stagioneStr);
-                } else if (param instanceof Double) {
-                    stmt.setDouble(i + 1, (Double) param);
+                } else if (param instanceof Double d) {
+                    stmt.setDouble(i + 1, d);
                 }
             }
 
@@ -205,7 +213,7 @@ public class ProgettoDAOImpl implements ProgettoDAO {
 
             while (rs.next()) {
                 Progetto progetto = new Progetto();
-                progetto.setIdProgetto(rs.getInt("id_progetto"));
+                progetto.setIdProgetto(rs.getInt(COLONNA_ID_PROGETTO));
                 progetto.setTitolo(rs.getString("titolo"));
                 progetto.setDataInizio(rs.getDate("dataInizio"));
                 progetto.setDataFine(rs.getDate("dataFine"));
@@ -215,7 +223,6 @@ public class ProgettoDAOImpl implements ProgettoDAO {
 
         } catch (SQLException e) {
             e.printStackTrace();
-            // gestione errori: log, rilancio, ecc.
         }
         return progetti;
 
