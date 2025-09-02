@@ -1,8 +1,8 @@
 package it.unina.controller;
 
-import it.unina.Factory.AttivitaCardFactory;
-import it.unina.Factory.ColtureCardFactory;
-import it.unina.Factory.LottoCardFactory;
+import it.unina.factory.AttivitaCardFactory;
+import it.unina.factory.ColtureCardFactory;
+import it.unina.factory.LottoCardFactory;
 import it.unina.reportpdf.ReportGenerator;
 import it.unina.stats.StatisticheColtura;
 import it.unina.dao.*;
@@ -18,6 +18,7 @@ import javafx.scene.layout.VBox;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Logger;
 
 public class ProgettiDetailsController {
 
@@ -59,7 +60,6 @@ public class ProgettiDetailsController {
     private final LottoDAO lottoDao = new LottoDAOImpl();
     private final ColtureDAO coltureDao = new ColtureDAOImpl();
     private final AttivitaDAO attivitaDao = new AttivitaDAOImpl();
-    private final UtenteDAO utenteDao = new UtenteDAOImpl();
     private List<Lotto> lottiAssociati = new ArrayList<>();
     private List<Colture> coltureAssociate = new ArrayList<>();
 
@@ -68,29 +68,17 @@ public class ProgettiDetailsController {
         this.utente = utente;
     }
 
-
-
-    private Progetto getProgetto() {
-        return progetto;
-    }
-
-    private Utente getUtente() {
-        return utente;
-    }
-
     public void setProgetto(Progetto progetto) {
         this.progetto = progetto;
     }
 
     public void setProgettoDetails(Progetto progetto) {
-        System.out.println("Impostazione dettagli del progetto: " + progetto.getTitolo());
         nomeProgettoLabel.setText(progetto.getTitolo());
         stagioneProgettoLabel.setText(progetto.getStagione().toString()); // Enum in camelCase?
         dataInizioLabel.setText(progetto.getDataInizio().toString());
         dataFineLabel.setText(progetto.getDataFine().toString());
         List<Lotto> lotti = lottoDao.getLottiByIdProgetto(progetto.getIdProgetto());
         lottiAssociati = lotti;
-        System.out.println("Lotti associati al progetto: " + lotti.size());
         StringBuilder lottiBuilder = new StringBuilder(" ");
         for(Lotto lotto : lotti){
             lottiBuilder.append(lotto.getIdLotto()).append(",");
@@ -127,7 +115,6 @@ public class ProgettiDetailsController {
             for(Map.Entry<Attivita, List<Utente>> entry : attivitaMap.entrySet()){
                 Attivita attivita = entry.getKey();
                 List<Utente> utenti = entry.getValue();
-                System.out.println("Id_utente " + utenti.getFirst().getIdUtente());
                 vBoxInfoAttivita.getChildren().add(AttivitaCardFactory.createAttivitaCard(attivita, utenti, coltura));
             }
         }
@@ -137,18 +124,18 @@ public class ProgettiDetailsController {
 
     @FXML
     private void onScaricaDatiClicked() throws StatisticheColtura.StatisticheException {
-
+        Logger logger = Logger.getLogger(getClass().getName());
         // Recupera le statistiche per tutti i lotti
         Map<Lotto, Map<Colture, StatisticheColtura>> statistiche = attivitaDao.getStatistichePerLottiEColtureByIdProgetto(progetto);
         // Debug: stampa i dati in console per capire se funziona
         statistiche.forEach((lotto, coltureStats) -> {
-            System.out.println("📌 Lotto ID: " + lotto.getIdLotto());
+            logger.info("Lotto ID: " + lotto.getIdLotto());
             coltureStats.forEach((coltura, stats) -> {
-                System.out.println("   🌱 Coltura ID: " + coltura.getIdColture());
-                System.out.println("      Totale raccolte: " + stats.getTotaleRaccolte());
-                System.out.println("      Media: " + stats.getMedia());
-                System.out.println("      Min: " + stats.getMin());
-                System.out.println("      Max: " + stats.getMax());
+                logger.info("   Coltura ID: " + coltura.getIdColture());
+                logger.info("      Totale raccolte: " + stats.getTotaleRaccolte());
+                logger.info("      Media: " + stats.getMedia());
+                logger.info("      Min: " + stats.getMin());
+                logger.info("      Max: " + stats.getMax());
             });
         });
         // Genera il PDF

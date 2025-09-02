@@ -1,4 +1,4 @@
-package it.unina.Factory;
+package it.unina.factory;
 
 import it.unina.model.Colture;
 import javafx.scene.control.Separator;
@@ -41,12 +41,12 @@ public class ColtureCardFactory {
     }
 
     private static TextFlow getColturaFlow(String s, String coltura) {
-        TextFlow ColturaFlow = new TextFlow();
+        TextFlow colturaFlow = new TextFlow();
         Text labelPart = new Text(s);
         labelPart.setStyle(STILE_TEXT);
         Text valuePart = new Text(coltura);
         valuePart.setStyle(STILE_TEXT_DATI);
-        ColturaFlow.getChildren().addAll(labelPart, valuePart);
-        return ColturaFlow;
+        colturaFlow.getChildren().addAll(labelPart, valuePart);
+        return colturaFlow;
     }
 }

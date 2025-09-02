@@ -133,7 +133,7 @@ public class CreateActivityController {
         Date dataFineAttivita = java.sql.Date.valueOf(dataFine.getValue());
         int quantitaRaccolta = Integer.parseInt(textQuantitaRaccolta.getText());
         int quantitaUsata = Integer.parseInt(textQuantitaUsata.getText());
-        System.out.println("Coltura selezionata: " + Integer.parseInt(colturaSelezionata));
+
 
         Attivita nuovaAttivita = new Attivita();
         nuovaAttivita.setDataFine(dataFineAttivita);
@@ -148,21 +148,20 @@ public class CreateActivityController {
                 tipoAttivitaSelezionata.equals("SEMINA") ? TipoAttivita.SEMINA :
                         TipoAttivita.RACCOLTA;
         nuovaAttivita.setTipo(tipo);
-        System.out.println("Nuova attivita creata: " + nuovaAttivita);
         boolean successo = attivitaDAO.addAttivita(nuovaAttivita, Integer.parseInt(colturaSelezionata),Integer.parseInt(coltivatoreSelezionato),id_proprietario);
+        Alert alert;
         if (successo) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Successo");
             alert.setHeaderText(null);
             alert.setContentText("Attività aggiunta con successo!");
-            alert.showAndWait();
         } else {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Errore");
             alert.setHeaderText(null);
             alert.setContentText("Si è verificato un errore durante l'aggiunta dell'attività.");
-            alert.showAndWait();
         }
+        alert.showAndWait();
 
 
     }

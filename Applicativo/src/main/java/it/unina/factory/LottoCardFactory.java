@@ -1,4 +1,4 @@
-package it.unina.Factory;
+package it.unina.factory;
 
 import it.unina.model.Lotto;
 import javafx.scene.control.Separator;

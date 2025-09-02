@@ -1,4 +1,4 @@
-package it.unina.Factory;
+package it.unina.factory;
 
 import it.unina.dao.AttivitaDAO;
 import it.unina.implementazionepostgresql.AttivitaDAOImpl;
@@ -58,7 +58,6 @@ public class AttivitaCardFactory {
             Optional<String> result = dialog.showAndWait();
             result.ifPresent(nuovoStato -> {
                 attivita.setStato(StatoAttivita.valueOf(nuovoStato));
-                System.out.println("Nuovo stato: " + nuovoStato);
                 // Qui puoi anche aggiornare il DB e refreshare la card
                 attivitaDAO.updateAttivita(attivita);
             });
@@ -116,12 +115,10 @@ public class AttivitaCardFactory {
     }
 
     private static TextFlow getStatoAttivitaFlow(String s, String attivita) {
-        TextFlow statoAttivitaFlow = getDataInizioFlow(s, attivita);
-        return statoAttivitaFlow;
+        return getDataInizioFlow(s, attivita);
     }
 
     private static TextFlow getTipoAttivitaFlow(Attivita attivita) {
-        TextFlow tipoAttivitaFlow = getDataInizioFlow("Tipo di Attività: ", String.valueOf(attivita.getTipo()));
-        return tipoAttivitaFlow;
+        return getDataInizioFlow("Tipo di Attività: ", String.valueOf(attivita.getTipo()));
     }
 }

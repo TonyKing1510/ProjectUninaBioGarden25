@@ -85,10 +85,8 @@ public class CreateProjectController {
             lottoCheckBox.setOnAction(event -> {
                 if (lottoCheckBox.isSelected()) {
                     lottiCheckBoxes.add(lottoCheckBox);
-                    System.out.println("Lotto selezionato: " + opzione.getNome());
                 } else {
                     lottiCheckBoxes.remove(lottoCheckBox);
-                    System.out.println("Lotto deselezionato: " + opzione.getNome());
                 }
             });
 
@@ -114,8 +112,7 @@ public class CreateProjectController {
 
     public void setColtureMenu(List<CheckBox> lottiSelezionati) {
         List<Colture> coltureDisponibili = coltureDAO.getColtureDisponibili();
-        vBoxColture.getChildren().clear(); // pulisco prima la VBox
-        System.out.println("Lotti selezionati: " + lottiSelezionati.size());
+        vBoxColture.getChildren().clear();
 
         for (Colture coltura : coltureDisponibili) {
             // Checkbox per la coltura
@@ -146,12 +143,12 @@ public class CreateProjectController {
                 if (colturaCheckBox.isSelected()) {
                     coltureCheckBoxes.add(colturaCheckBox);
                     lottoComboBox.setDisable(false);
-                    System.out.println("Coltura selezionata: " + coltura.getTitolo());
+
                 } else {
                     lottoComboBox.setDisable(true);
                     lottoComboBox.setValue(null);
                     associazioniColturaLotto.remove(coltura);
-                    System.out.println("Coltura deselezionata: " + coltura.getTitolo());
+
                 }
             });
 
@@ -160,8 +157,6 @@ public class CreateProjectController {
                 Integer lottoIdScelto = lottoComboBox.getValue();
                 if (lottoIdScelto != null) {
                     associazioniColturaLotto.put(coltura, lottoIdScelto);
-                    System.out.println("Associata coltura " + coltura.getTitolo() +
-                            " al lotto con ID " + lottoIdScelto);
                 }
             });
 

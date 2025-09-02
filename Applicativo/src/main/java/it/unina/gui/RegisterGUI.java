@@ -2,12 +2,8 @@ package it.unina.gui;
 
 import it.unina.controller.RegisterController;
 import it.unina.controller.WelcomeController;
-import javafx.animation.TranslateTransition;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Parent;
-import javafx.scene.layout.StackPane;
-import javafx.util.Duration;
 
 import java.io.IOException;
 

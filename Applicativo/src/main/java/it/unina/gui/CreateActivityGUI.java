@@ -17,15 +17,10 @@ public class CreateActivityGUI {
     }
 
     public static void openCreateActivity(Utente utenteLoggato, List<CheckBox> coltureCheckBox) throws Exception {
-        System.out.println("Create Activity GUI opened");
         FXMLLoader fxmlLoader = new FXMLLoader(CreateActivityGUI.class.getResource("/it/unina/CreateActivityPage.fxml"));
         Parent root = fxmlLoader.load();
         CreateActivityController controller = fxmlLoader.getController();
-        System.out.println("Controller loaded: " + controller);
         controller.setUtenteLoggato(utenteLoggato);
-        for(CheckBox cb : coltureCheckBox) {
-            System.out.println("Coltura CheckBox: " + cb.getText());
-        }
         controller.setColtureList(coltureCheckBox);
         controller.setColtureMenu();
 
