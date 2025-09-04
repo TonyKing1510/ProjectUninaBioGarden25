@@ -62,19 +62,6 @@ public class UtenteDAOImpl implements UtenteDAO {
 
 
     /**
-     * Recupera un utente dal database in base all'ID.
-     *
-     *
-     * @return L'oggetto Utente corrispondente all'ID, o null se non trovato.
-     * @Author entn
-     */
-
-    @Override
-    public List<Utente> getTuttiGliUtenti() {
-        return List.of();
-    }
-
-    /**
      * Permette di recuperare un utente dal database in base al nome utente e alla password per il login.
      *
      * @param username l'username dell'utente da recuperare

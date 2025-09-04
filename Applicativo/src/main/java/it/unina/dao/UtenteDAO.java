@@ -12,12 +12,6 @@ public interface UtenteDAO {
      */
     boolean addUtente(Utente utente);
 
-    /**
-     * Restituisce tutti gli utenti presenti nel database.
-     * @return Lista di utenti.
-     * @author entn
-     */
-    List<Utente> getTuttiGliUtenti();
 
     /**
      * Cerca un utente per email e password (per login).
