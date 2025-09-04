@@ -22,9 +22,9 @@
          <children>
             <Pane layoutX="435.0" layoutY="49.0" prefHeight="650.0" prefWidth="699.0" styleClass="whitePane" stylesheets="@css/LoginRegister.css">
                <children>
-                  <ImageView fitHeight="151.0" fitWidth="146.0" layoutX="269.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="143.0" fitWidth="245.0" layoutX="234.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@images/logoUninaBio.png" />
+                        <Image url="@images/logo-removebg-preview(1).png" />
                      </image>
                   </ImageView>
                   <Button fx:id="registerButton" layoutX="276.0" layoutY="480.0" mnemonicParsing="false" onAction="#onRegister" prefHeight="44.0" prefWidth="149.0" text="Registrati" />

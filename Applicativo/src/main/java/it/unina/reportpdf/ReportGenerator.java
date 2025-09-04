@@ -83,6 +83,7 @@ public class ReportGenerator {
             logger.log(Level.INFO, "Report PDF generato in: {0}", outputPath);
 
         } catch (Exception e) {
+
             e.printStackTrace();
         }
     }

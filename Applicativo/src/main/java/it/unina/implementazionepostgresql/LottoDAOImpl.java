@@ -8,6 +8,14 @@ import it.unina.model.Lotto;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Implementazione dell'interfaccia {@link LottoDAO} per PostgreSQL.
+ * <p>
+ * Questa classe fornisce i metodi per la gestione e il recupero dei lotti,
+ * sfruttando JDBC per le operazioni sul database.
+ *
+ * @author entn
+ */
 public class LottoDAOImpl implements LottoDAO {
 
     private final UtenteDAO utenteDAO = new UtenteDAOImpl();
@@ -17,6 +25,14 @@ public class LottoDAOImpl implements LottoDAO {
     private static final String COLONNA_SUPERFICIE = "superficie";
     private static final String COLONNA_ID_PROPRIETARIO = "id_proprietario";
 
+    /**
+     * Restituisce tutti i lotti disponibili (cioè senza progetto associato)
+     * di un determinato proprietario.
+     *
+     * @param idUtenteProprietario ID del proprietario dei lotti.
+     * @return Lista di lotti disponibili. Può essere vuota.
+     * @author entn
+     */
     @Override
     public List<Lotto> getLottiDisponibili(int idUtenteProprietario) {
         String query = "SELECT l.* FROM lotto l WHERE l.id_progetto IS NULL AND l.id_proprietario = ?";
@@ -25,12 +41,10 @@ public class LottoDAOImpl implements LottoDAO {
         try (var connection = ConnessioneDatabase.getConnection();
              var preparedStatement = connection.prepareStatement(query)) {
 
-            // Imposta il parametro nella query
             preparedStatement.setInt(1, idUtenteProprietario);
 
             try (var resultSet = preparedStatement.executeQuery()) {
                 while (resultSet.next()) {
-
                     Lotto lotto = new Lotto();
                     lotto.setIdLotto(resultSet.getInt(COLONNA_ID_LOTTO));
                     lotto.setNome(resultSet.getString("nome"));
@@ -50,7 +64,13 @@ public class LottoDAOImpl implements LottoDAO {
         return lotti;
     }
 
-
+    /**
+     * Restituisce un lotto dato il suo ID.
+     *
+     * @param idLotto ID del lotto da cercare.
+     * @return Lotto trovato, oppure {@code null} se non esiste.
+     * @author entn
+     */
     @Override
     public Lotto getLottoById(int idLotto) {
         String query = "SELECT l.* FROM lotto l WHERE l.id_lotto = ?";
@@ -68,10 +88,8 @@ public class LottoDAOImpl implements LottoDAO {
                             resultSet.getString(COLONNA_INDIRIZZO),
                             resultSet.getString("cap")
                     );
-                    // Set proprietario
                     lotto.setProprietario(utenteDAO.getUtenteProprietario(resultSet.getInt(COLONNA_ID_PROPRIETARIO)));
                     return lotto;
-
                 }
             }
         } catch (Exception e) {
@@ -81,6 +99,13 @@ public class LottoDAOImpl implements LottoDAO {
         return null;
     }
 
+    /**
+     * Restituisce un lotto associato a un determinato progetto.
+     *
+     * @param idProgetto ID del progetto.
+     * @return Lotto associato al progetto, oppure {@code null} se non trovato.
+     * @author entn
+     */
     @Override
     public Lotto getLottoByIdProgetto(int idProgetto) {
         String query = "SELECT l.* FROM lotto l WHERE l.id_progetto = ?";
@@ -98,7 +123,6 @@ public class LottoDAOImpl implements LottoDAO {
                             resultSet.getString(COLONNA_INDIRIZZO),
                             resultSet.getString("cap")
                     );
-                    // Set proprietario
                     lotto.setProprietario(utenteDAO.getUtenteProprietario(resultSet.getInt(COLONNA_ID_PROPRIETARIO)));
                     return lotto;
                 }
@@ -110,6 +134,13 @@ public class LottoDAOImpl implements LottoDAO {
         return null;
     }
 
+    /**
+     * Restituisce tutti i lotti appartenenti a un determinato proprietario.
+     *
+     * @param idProprietario ID del proprietario.
+     * @return Lista di lotti. Può essere vuota.
+     * @author entn
+     */
     @Override
     public List<Lotto> getLottoByIdProprietario(int idProprietario) {
         String query = "SELECT l.* FROM lotto l WHERE l.id_proprietario = ?";
@@ -140,6 +171,13 @@ public class LottoDAOImpl implements LottoDAO {
         return lotti;
     }
 
+    /**
+     * Restituisce tutti i lotti associati a un determinato progetto.
+     *
+     * @param idProgetto ID del progetto.
+     * @return Lista di lotti associati. Può essere vuota.
+     * @author entn
+     */
     @Override
     public List<Lotto> getLottiByIdProgetto(int idProgetto) {
         List<Lotto> lotti = new ArrayList<>();
@@ -162,7 +200,6 @@ public class LottoDAOImpl implements LottoDAO {
                     lotti.add(lotto);
                 }
             }
-
 
         } catch (Exception e) {
             e.printStackTrace();

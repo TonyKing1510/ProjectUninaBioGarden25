@@ -2,19 +2,16 @@ package it.unina.gui;
 
 import it.unina.controller.ProjectViewController;
 import it.unina.controller.components.ProjectCardController;
-import it.unina.controller.components.ProjectCardDetailsController;
 import it.unina.model.Progetto;
 import it.unina.model.Utente;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.Objects;
 
 /**
  * ProjectGUI è la classe che gestisce la visualizzazione della schermata dei progetti.
@@ -40,12 +37,21 @@ public class VisualizeProjectGUI {
         ProjectViewController controller = loader.getController();
         controller.setStagioniMenu();
         controller.setUtenteLoggato(utente);
-        node.getStylesheets().add(VisualizeProjectGUI.class.getResource("/it/unina/css/coltureview.css").toExternalForm());
+        node.getStylesheets().add(Objects.requireNonNull(VisualizeProjectGUI.class.getResource("/it/unina/css/coltureview.css")).toExternalForm());
         borderPane.setCenter(node);
 
 
     }
 
+    /**
+     * Inizializza una card di progetto e la aggiunge al VBox specificato.
+     *
+     * @param progetto   Il progetto da visualizzare nella card.
+     * @param contentBox Il VBox in cui aggiungere la card del progetto.
+     * @param utente     L'utente attualmente loggato.
+     * @throws IOException Se si verifica un errore durante il caricamento del file FXML.
+     * @author entn
+     */
     public static void initProjectCard(Progetto progetto, VBox contentBox, Utente utente) throws IOException {
         FXMLLoader loader = new FXMLLoader(VisualizeProjectGUI.class.getResource("/it/unina/components/ProjectCard.fxml"));
         AnchorPane card = loader.load();
@@ -57,27 +63,5 @@ public class VisualizeProjectGUI {
         controller.setProgettoDetails(progetto);
 
         contentBox.getChildren().add(card);
-    }
-
-    public static void openProjectDetailsView(Progetto progetto, Utente utente) throws IOException {
-        FXMLLoader loader = new FXMLLoader(VisualizeProjectGUI.class.getResource("/it/unina/components/ProjectDetails.fxml"));
-        Parent node = loader.load();
-
-
-        node.getStylesheets().add(VisualizeProjectGUI.class.getResource("/it/unina/css/coltureview.css").toExternalForm());
-
-
-        ProjectCardDetailsController controller = loader.getController();
-        controller.setUtente(utente);
-        controller.setProgetto(progetto);
-        controller.setProgettoDetails(progetto);
-
-
-        Stage stage = new Stage();
-        stage.setTitle("Dettagli Progetto");
-        stage.setScene(new Scene(node));
-        stage.initModality(Modality.APPLICATION_MODAL);
-        stage.show();
-
     }
 }
