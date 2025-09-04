@@ -20,61 +20,115 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
 
+/**
+ * Controller per la visualizzazione dettagliata di un progetto.
+ * Gestisce la visualizzazione di lotti, colture e attività associate a un progetto.
+ * Permette anche di scaricare i dati statistici in formato PDF.
+ *
+ * @author entn
+ */
 public class ProgettiDetailsController {
 
+    /** ScrollPane principale della view dei dettagli progetto */
     @FXML
     public ScrollPane scrollPaneDettagli;
+
+    /** Pane contenente le informazioni generali del progetto */
     @FXML
     public Pane paneInfoProgetto;
+
+    /** VBox contenente le card dei lotti */
     @FXML
     public VBox vBoxInfoLotti;
+
+    /** VBox contenente le card delle attività */
     @FXML
     public VBox vBoxInfoAttivita;
+
+    /** VBox contenente le card delle colture */
     @FXML
     public VBox vBoxInfoColture;
+
+    /** Label per il nome del progetto */
     @FXML
     public Label nomeProgettoLabel;
+
+    /** Label per la stagione del progetto */
     @FXML
     public Label stagioneProgettoLabel;
+
+    /** Label per la data di inizio del progetto */
     @FXML
     public Label dataInizioLabel;
+
+    /** Label per la data di fine del progetto */
     @FXML
     public Label dataFineLabel;
+
+    /** Label contenente gli ID dei lotti associati */
     @FXML
     public Label lottiAssociatiLabel;
+
+    /** VBox contenente informazioni generali (non utilizzata direttamente nel codice) */
     @FXML
     public VBox vBoxInfoGenerali;
+
+    /** AnchorPane contenitore principale dei dettagli */
     @FXML
     public AnchorPane anchorPaneInfo;
 
+    /** Progetto corrente visualizzato */
+    private Progetto progetto;
 
+    /** Utente attualmente loggato */
+    private Utente utente;
 
+    /** DAO per la gestione dei lotti */
+    private final LottoDAO lottoDao = new LottoDAOImpl();
 
+    /** DAO per la gestione delle colture */
+    private final ColtureDAO coltureDao = new ColtureDAOImpl();
 
+    /** DAO per la gestione delle attività */
+    private final AttivitaDAO attivitaDao = new AttivitaDAOImpl();
+
+    /** Lista dei lotti associati al progetto */
+    private List<Lotto> lottiAssociati = new ArrayList<>();
+
+    /** Lista delle colture associate ai lotti del progetto */
+    private final List<Colture> coltureAssociate = new ArrayList<>();
+
+    /**
+     * Costruttore di default.
+     */
     public ProgettiDetailsController() {
-
+        // Costruttore di default
     }
 
-    private Progetto progetto;
-    private Utente utente;
-    private final LottoDAO lottoDao = new LottoDAOImpl();
-    private final ColtureDAO coltureDao = new ColtureDAOImpl();
-    private final AttivitaDAO attivitaDao = new AttivitaDAOImpl();
-    private List<Lotto> lottiAssociati = new ArrayList<>();
-    private List<Colture> coltureAssociate = new ArrayList<>();
-
-
+    /**
+     * Imposta l'utente attualmente loggato.
+     * @param utente Utente loggato
+     */
     public void setUtente(Utente utente) {
         this.utente = utente;
     }
 
+    /**
+     * Imposta il progetto corrente da visualizzare.
+     * @param progetto Progetto selezionato
+     */
     public void setProgetto(Progetto progetto) {
         this.progetto = progetto;
     }
 
+    /**
+     * Aggiorna le informazioni generali del progetto (nome, stagione, date, lotti associati)
+     * e popola la label dei lotti associati.
+     * @param progetto Progetto da visualizzare
+     */
     public void setProgettoDetails(Progetto progetto) {
         nomeProgettoLabel.setText(progetto.getTitolo());
-        stagioneProgettoLabel.setText(progetto.getStagione().toString()); // Enum in camelCase?
+        stagioneProgettoLabel.setText(progetto.getStagione().toString());
         dataInizioLabel.setText(progetto.getDataInizio().toString());
         dataFineLabel.setText(progetto.getDataFine().toString());
         List<Lotto> lotti = lottoDao.getLottiByIdProgetto(progetto.getIdProgetto());
@@ -87,6 +141,9 @@ public class ProgettiDetailsController {
         lottiAssociatiLabel.setText(lottiBuilder.toString());
     }
 
+    /**
+     * Popola la VBox dei lotti con le card dei lotti associati al progetto.
+     */
     public void setLottiDetails(){
         vBoxInfoLotti.getChildren().clear();
         for (Lotto lotto : lottiAssociati) {
@@ -95,6 +152,9 @@ public class ProgettiDetailsController {
         anchorPaneInfo.setPrefHeight(anchorPaneInfo.getPrefHeight() + vBoxInfoLotti.getChildren().size() * 150 + 50);
     }
 
+    /**
+     * Popola la VBox delle colture con le card delle colture associate ai lotti del progetto.
+     */
     public void setColtureDetails(){
         vBoxInfoColture.getChildren().clear();
         for(Lotto lotto : lottiAssociati){
@@ -107,6 +167,9 @@ public class ProgettiDetailsController {
         anchorPaneInfo.setPrefHeight(anchorPaneInfo.getPrefHeight() + vBoxInfoColture.getChildren().size() * 150 + 50);
     }
 
+    /**
+     * Popola la VBox delle attività con le card delle attività associate alle colture del progetto.
+     */
     public void setAttivitaDetails(){
         List<Colture> coltureList = coltureAssociate;
         vBoxInfoAttivita.getChildren().clear();
@@ -119,15 +182,18 @@ public class ProgettiDetailsController {
             }
         }
         anchorPaneInfo.setPrefHeight(anchorPaneInfo.getPrefHeight() + vBoxInfoAttivita.getChildren().size() * 200 + 50);
-
     }
 
+    /**
+     * Scarica i dati statistici delle colture associate al progetto
+     * e genera un report PDF.
+     *
+     * @throws StatisticheColtura.StatisticheException Se si verifica un errore nel calcolo delle statistiche
+     */
     @FXML
     private void onScaricaDatiClicked() throws StatisticheColtura.StatisticheException {
         Logger logger = Logger.getLogger(getClass().getName());
-        // Recupera le statistiche per tutti i lotti
         Map<Lotto, Map<Colture, StatisticheColtura>> statistiche = attivitaDao.getStatistichePerLottiEColtureByIdProgetto(progetto);
-        // Debug: stampa i dati in console per capire se funziona
         statistiche.forEach((lotto, coltureStats) -> {
             logger.info("Lotto ID: " + lotto.getIdLotto());
             coltureStats.forEach((coltura, stats) -> {
@@ -138,9 +204,6 @@ public class ProgettiDetailsController {
                 logger.info("      Max: " + stats.getMax());
             });
         });
-        // Genera il PDF
         ReportGenerator.generaReportPDF(statistiche, "report_statistiche.pdf");
     }
-
-
 }

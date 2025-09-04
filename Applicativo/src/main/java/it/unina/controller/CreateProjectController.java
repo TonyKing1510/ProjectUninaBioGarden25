@@ -16,72 +16,117 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.sql.Date;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
+/**
+ * Controller per la creazione di un nuovo progetto.
+ * Gestisce le varie fasi della creazione:
+ * informazioni generali, selezione lotti, selezione colture
+ * e associazione coltivatori/attività.
+ * Fornisce anche la funzionalità per salvare le associazioni
+ * coltura-lotto e aprire la finestra per la creazione delle attività.
+ *
+ * @author entn
+ */
 public class CreateProjectController {
 
+    /** Pane contenente le informazioni generali del progetto */
     @FXML
     private Pane infoProgettoPane;
+
+    /** Pane per la selezione dei lotti */
     @FXML
     private Pane selectionLottoPane;
+
+    /** Pane per la selezione delle colture */
     @FXML
     private Pane selectionColturePane;
+
+    /** Pane per la selezione dei coltivatori e delle attività */
     @FXML
     private Pane coltivatoriAttivitaPane;
 
-
+    /** Campo testo per il titolo del progetto */
     @FXML
     private TextField titleProject;
+
+    /** DatePicker per la data di inizio del progetto */
     @FXML
     private DatePicker dateInit;
+
+    /** DatePicker per la data di fine del progetto */
     @FXML
     private DatePicker dateFine;
+
+    /** MenuButton per la selezione della stagione */
     @FXML
     private MenuButton stagioneMenu;
+
+    /** VBox contenente le checkbox dei lotti disponibili */
     @FXML
     private VBox vBoxLotto;
 
-
+    /** VBox contenente le checkbox delle colture */
     @FXML
     private VBox vBoxColture;
+
+    /** Bottone per creare il progetto */
     @FXML
     private Button creaProgettoButton;
 
-
-
-
-
+    /** Lista delle checkbox delle colture selezionate */
     private List<CheckBox> coltureCheckBoxes = new ArrayList<>();
+
+    /** Lista delle checkbox dei lotti selezionati */
     private List<CheckBox> lottiCheckBoxes = new ArrayList<>();
 
+    /** Utente attualmente loggato */
     private Utente utenteLoggato;
+
+    /** DAO per la gestione dei lotti */
     private final LottoDAO lottoDAO = new LottoDAOImpl();
+
+    /** DAO per la gestione delle colture */
     private final ColtureDAO coltureDAO = new ColtureDAOImpl();
+
+    /** DAO per la gestione dei progetti */
     private final ProgettoDAO progettoDAO = new ProgettoDAOImpl();
 
+    /** Costanti per le stagioni e messaggi di alert */
+    private static final String PRIMAVERA = "Primavera";
+    private static final String ESTATE = "Estate";
+    private static final String AUTUNNO = "Autunno";
+    private static final String INVERNO = "Inverno";
+    private static final String ATTENZIONE = "Attenzione";
 
+    /** Mappa per salvare le associazioni tra coltura e lotto */
+    private Map<Colture, Integer> associazioniColturaLotto = new HashMap<>();
 
+    /**
+     * Imposta l'utente attualmente loggato.
+     * @param utente Utente loggato
+     */
     public void setUtenteLoggato(Utente utente) {
         this.utenteLoggato = utente;
     }
 
+    /**
+     * Inizializza il controller impostando il menu delle stagioni.
+     */
     public void initialize() {
         setStagioniMenu();
     }
 
+    /**
+     * Popola la VBox dei lotti disponibili con checkbox selezionabili.
+     */
     public void setLottiMenu() {
         List<Lotto> lotti = lottoDAO.getLottiDisponibili(utenteLoggato.getIdUtente());
-
-        vBoxLotto.getChildren().clear(); // pulisco la VBox
-        lottiCheckBoxes.clear(); // pulisco la lista
+        vBoxLotto.getChildren().clear();
+        lottiCheckBoxes.clear();
 
         for (Lotto opzione : lotti) {
             CheckBox lottoCheckBox = new CheckBox(opzione.getIdLotto() + " - " + opzione.getNome());
-
-            // listener per aggiornare la lista quando selezioni/deselezioni
             lottoCheckBox.setOnAction(event -> {
                 if (lottoCheckBox.isSelected()) {
                     lottiCheckBoxes.add(lottoCheckBox);
@@ -89,41 +134,30 @@ public class CreateProjectController {
                     lottiCheckBoxes.remove(lottoCheckBox);
                 }
             });
-
-            lottoCheckBox.setStyle(
-                    "-fx-font-size: 14px; " +
-                            "-fx-text-fill: #2c3e50; " +
-                            "-fx-padding: 5px;"
-            );
-
+            lottoCheckBox.setStyle("-fx-font-size: 14px; -fx-text-fill: #2c3e50; -fx-padding: 5px;");
             vBoxLotto.getChildren().add(lottoCheckBox);
         }
     }
 
-
+    /**
+     * Imposta il menu delle stagioni utilizzando il metodo statico del ProjectViewController.
+     */
     public void setStagioniMenu() {
         ProjectViewController.stagioneMenu(stagioneMenu);
     }
 
-
-
-    // Dichiarazione HashMap
-    private Map<Colture, Integer> associazioniColturaLotto = new HashMap<>();
-
+    /**
+     * Popola la VBox delle colture con checkbox e ComboBox per associare i lotti.
+     * @param lottiSelezionati Lista delle checkbox dei lotti selezionati
+     */
     public void setColtureMenu(List<CheckBox> lottiSelezionati) {
         List<Colture> coltureDisponibili = coltureDAO.getColtureDisponibili();
         vBoxColture.getChildren().clear();
 
         for (Colture coltura : coltureDisponibili) {
-            // Checkbox per la coltura
             CheckBox colturaCheckBox = new CheckBox(coltura.getIdColture() + " - " + coltura.getTitolo());
-            colturaCheckBox.setStyle(
-                    "-fx-font-size: 14px; " +
-                            "-fx-text-fill: #2c3e50; " +
-                            "-fx-padding: 5px;"
-            );
+            colturaCheckBox.setStyle("-fx-font-size: 14px; -fx-text-fill: #2c3e50; -fx-padding: 5px;");
 
-            // Recupero SOLO gli id dei lotti selezionati
             List<Integer> lottiSelezionatiList = new ArrayList<>();
             for (CheckBox checkBox : lottiSelezionati) {
                 if (checkBox.isSelected()) {
@@ -133,26 +167,21 @@ public class CreateProjectController {
                 }
             }
 
-            // ComboBox con SOLO gli ID
             ComboBox<Integer> lottoComboBox = new ComboBox<>();
             lottoComboBox.getItems().addAll(lottiSelezionatiList);
             lottoComboBox.setDisable(true);
 
-            // Azione sulla selezione della coltura
             colturaCheckBox.setOnAction(event -> {
                 if (colturaCheckBox.isSelected()) {
                     coltureCheckBoxes.add(colturaCheckBox);
                     lottoComboBox.setDisable(false);
-
                 } else {
                     lottoComboBox.setDisable(true);
                     lottoComboBox.setValue(null);
                     associazioniColturaLotto.remove(coltura);
-
                 }
             });
 
-            // Azione sulla scelta del lotto
             lottoComboBox.setOnAction(event -> {
                 Integer lottoIdScelto = lottoComboBox.getValue();
                 if (lottoIdScelto != null) {
@@ -160,14 +189,14 @@ public class CreateProjectController {
                 }
             });
 
-            // Aggiungo CheckBox e ComboBox in riga
             HBox riga = new HBox(10, colturaCheckBox, lottoComboBox);
             vBoxColture.getChildren().add(riga);
         }
     }
 
-
-
+    /**
+     * Mostra il pane delle informazioni generali del progetto.
+     */
     public void setVisibleInfoProgettoPane() {
         infoProgettoPane.setVisible(true);
         selectionLottoPane.setVisible(false);
@@ -175,18 +204,21 @@ public class CreateProjectController {
         coltivatoriAttivitaPane.setVisible(false);
     }
 
+    /**
+     * Mostra il pane di selezione dei lotti dopo aver verificato che tutti i campi obbligatori siano compilati.
+     */
     public void setVisibleSelectionLottoPane() {
         boolean isTitleEmpty = titleProject.getText().isEmpty();
-        boolean isStagioneEmpty = stagioneMenu.getText().equals("Primavera") ||
-                stagioneMenu.getText().equals("Estate") ||
-                stagioneMenu.getText().equals("Autunno") ||
-                stagioneMenu.getText().equals("Inverno");
+        boolean isStagioneEmpty = stagioneMenu.getText().equals(PRIMAVERA) ||
+                stagioneMenu.getText().equals(ESTATE) ||
+                stagioneMenu.getText().equals(AUTUNNO) ||
+                stagioneMenu.getText().equals(INVERNO);
         boolean isDateInitEmpty = dateInit.getValue() == null;
         boolean isDateFineEmpty = dateFine.getValue() == null;
 
         if (isTitleEmpty || !isStagioneEmpty || isDateInitEmpty || isDateFineEmpty) {
             Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("Attenzione");
+            alert.setTitle(ATTENZIONE);
             alert.setHeaderText("Compila i campi obbligatori");
             showAlert(alert);
         } else {
@@ -197,19 +229,22 @@ public class CreateProjectController {
         }
     }
 
+    /**
+     * Mostra il pane di selezione delle colture dopo aver verificato i campi obbligatori.
+     */
     public void setVisibleSelectionColturePane() {
         boolean isLottoSelected = lottiCheckBoxes.isEmpty();
         boolean isTitleEmpty = titleProject.getText().isEmpty();
-        boolean isStagioneEmpty = stagioneMenu.getText().equals("Primavera") ||
-                stagioneMenu.getText().equals("Estate") ||
-                stagioneMenu.getText().equals("Autunno") ||
-                stagioneMenu.getText().equals("Inverno");
+        boolean isStagioneEmpty = stagioneMenu.getText().equals(PRIMAVERA) ||
+                stagioneMenu.getText().equals(ESTATE) ||
+                stagioneMenu.getText().equals(AUTUNNO) ||
+                stagioneMenu.getText().equals(INVERNO);
         boolean isDateInitEmpty = dateInit.getValue() == null;
         boolean isDateFineEmpty = dateFine.getValue() == null;
 
-        if ( isLottoSelected || isTitleEmpty || !isStagioneEmpty || isDateInitEmpty || isDateFineEmpty) {
+        if (isLottoSelected || isTitleEmpty || !isStagioneEmpty || isDateInitEmpty || isDateFineEmpty) {
             Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("Attenzione");
+            alert.setTitle(ATTENZIONE);
             alert.setHeaderText("Per procedere, compila i campi obbligatori.");
             showAlert(alert);
         } else {
@@ -217,23 +252,27 @@ public class CreateProjectController {
             coltivatoriAttivitaPane.setVisible(false);
             selectionLottoPane.setVisible(false);
             selectionColturePane.setVisible(true);
-            setColtureMenu(lottiCheckBoxes);}
+            setColtureMenu(lottiCheckBoxes);
+        }
     }
 
+    /**
+     * Mostra il pane dei coltivatori e attività dopo aver verificato la selezione delle colture.
+     */
     public void setVisibleColtivatoriAttivitaPane() {
         boolean isAnyColturaSelected = coltureCheckBoxes.isEmpty();
         boolean isLottoSelected = lottiCheckBoxes.isEmpty();
         boolean isTitleEmpty = titleProject.getText().isEmpty();
-        boolean isStagioneEmpty = stagioneMenu.getText().equals("Primavera") ||
-                stagioneMenu.getText().equals("Estate") ||
-                stagioneMenu.getText().equals("Autunno") ||
-                stagioneMenu.getText().equals("Inverno");
+        boolean isStagioneEmpty = stagioneMenu.getText().equals(PRIMAVERA) ||
+                stagioneMenu.getText().equals(ESTATE) ||
+                stagioneMenu.getText().equals(AUTUNNO) ||
+                stagioneMenu.getText().equals(INVERNO);
         boolean isDateInitEmpty = dateInit.getValue() == null;
         boolean isDateFineEmpty = dateFine.getValue() == null;
 
-        if (isAnyColturaSelected|| isLottoSelected || isTitleEmpty || !isStagioneEmpty || isDateInitEmpty || isDateFineEmpty) {
+        if (isAnyColturaSelected || isLottoSelected || isTitleEmpty || !isStagioneEmpty || isDateInitEmpty || isDateFineEmpty) {
             Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("Attenzione");
+            alert.setTitle(ATTENZIONE);
             alert.setHeaderText("Seleziona almeno una coltura per procedere.");
             showAlert(alert);
         } else {
@@ -244,23 +283,35 @@ public class CreateProjectController {
         }
     }
 
+    /**
+     * Apre la finestra per la creazione delle attività associate alle colture selezionate.
+     * @throws Exception Se si verifica un errore nell'apertura della GUI
+     */
     @FXML
     public void openColtivatoriAttivita() throws Exception {
         CreateActivityGUI.openCreateActivity(utenteLoggato, coltureCheckBoxes);
     }
 
-
+    /**
+     * Mostra un alert con il messaggio predefinito per i campi obbligatori.
+     * @param alert Alert da mostrare
+     */
     private void showAlert(Alert alert) {
         alert.setContentText("Per procedere, compila i campi obbligatori.");
         alert.showAndWait();
     }
 
+    /**
+     * Aggiunge il progetto al database con i lotti selezionati.
+     * Mostra un alert di conferma o errore.
+     */
     @FXML
-    public void addProgetto(){
+    public void addProgetto() {
         String title = titleProject.getText();
-        Date startDate = java.sql.Date.valueOf(dateInit.getValue());
-        Date endDate = java.sql.Date.valueOf(dateFine.getValue());
+        Date startDate = Date.valueOf(dateInit.getValue());
+        Date endDate = Date.valueOf(dateFine.getValue());
         Stagione stagione = Stagione.valueOf(stagioneMenu.getText().toUpperCase());
+
         List<Integer> idLottiSelezionati = new ArrayList<>();
         for (CheckBox checkBox : lottiCheckBoxes) {
             if (checkBox.isSelected()) {
@@ -269,12 +320,12 @@ public class CreateProjectController {
                 idLottiSelezionati.add(idLotto);
             }
         }
+
         List<Lotto> lottiSelezionati = new ArrayList<>();
         for (int idLotto : idLottiSelezionati) {
             Lotto lotto = lottoDAO.getLottoById(idLotto);
             lottiSelezionati.add(lotto);
         }
-
 
         Progetto progettoAdd = new Progetto();
         progettoAdd.setTitolo(title);
@@ -283,18 +334,20 @@ public class CreateProjectController {
         progettoAdd.setStagione(stagione);
         progettoAdd.setCreatore(utenteLoggato);
         progettoAdd.setLottiOspitati(lottiSelezionati);
+
         boolean progetto = progettoDAO.addProgettoAndUpdateLotto(progettoAdd, lottiSelezionati);
+
+        Alert alert;
         if (progetto) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Progetto Aggiunto");
             alert.setHeaderText(null);
             alert.setContentText("Il progetto è stato aggiunto con successo!");
             alert.showAndWait();
-            // Chiudo solo la finestra corrente
             Stage stage = (Stage) creaProgettoButton.getScene().getWindow();
             stage.close();
         } else {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Errore");
             alert.setHeaderText("Si è verificato un errore durante l'aggiunta del progetto.");
             alert.setContentText("Riprova più tardi.");
@@ -302,6 +355,10 @@ public class CreateProjectController {
         }
     }
 
+    /**
+     * Salva le associazioni tra colture e lotti selezionati nel database.
+     * Mostra un alert di conferma o errore.
+     */
     @FXML
     private void salvaAssociazioni() {
         boolean success = coltureDAO.salvaAssociazioni(associazioniColturaLotto);
@@ -321,6 +378,4 @@ public class CreateProjectController {
 
         alert.showAndWait();
     }
-
-
 }

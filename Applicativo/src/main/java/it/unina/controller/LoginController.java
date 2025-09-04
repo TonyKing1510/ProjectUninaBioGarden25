@@ -82,10 +82,9 @@ public class LoginController {
     }
 
     Utente utente = utenteDAO.login(username, password);
-    System.out.println("Utente trovato: " + (utente != null ? utente.getNome() : "null"));
+    
 
     if (utente != null) {
-      System.out.println("Login riuscito per: " + utente.getNome());
       MainAppGui.initializeMainApp((Stage) accediButton.getScene().getWindow(), utente);
     } else {
       showAlert("Login fallito", "Email o password non validi.");

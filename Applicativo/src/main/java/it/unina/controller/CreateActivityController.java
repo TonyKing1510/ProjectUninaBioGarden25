@@ -12,6 +12,13 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Controller per la creazione di attività nel sistema.
+ * Gestisce l'interfaccia JavaFX per la selezione di coltivatori, colture,
+ * tipo e stato dell'attività, nonché date e quantità.
+ *
+ * @author entn
+ */
 public class CreateActivityController {
 
     @FXML
@@ -31,27 +38,27 @@ public class CreateActivityController {
     @FXML
     private TextField textQuantitaUsata;
 
-
     private Utente utenteLoggato;
     private List<CheckBox> coltureList = new ArrayList<>();
     private final UtenteDAO utenteDAO = new UtenteDAOImpl();
     private final AttivitaDAO attivitaDAO = new AttivitaDAOImpl();
 
+    /**
+     * Costruttore di default del controller.
+     * Inizializza il controller senza parametri.
+     *
+     * @author entn
+     */
     public CreateActivityController() {
+        // Costruttore di default
     }
 
-    public CreateActivityController(Utente utenteLoggato, List<CheckBox> coltureList) {
-        this.utenteLoggato = utenteLoggato;
-        this.coltureList = coltureList;
-    }
-    public CreateActivityController(List<CheckBox> coltureList) {
-        this.coltureList = coltureList;
-        this.utenteLoggato = null;
-    }
-
-
-
-
+    /**
+     * Metodo di inizializzazione chiamato automaticamente da JavaFX.
+     * Popola i menu a tendina con coltivatori, colture, tipo e stato attività.
+     *
+     * @author entn
+     */
     @FXML
     private void initialize() {
         setColtureMenu();
@@ -59,73 +66,97 @@ public class CreateActivityController {
         setTipoAttivitaMenu();
         setStatoAttivitaMenu();
     }
-    
+
+    /**
+     * Imposta la lista di colture con checkbox.
+     *
+     * @param coltureList Lista di checkbox rappresentanti le colture disponibili
+     * @author entn
+     */
     public void setColtureList(List<CheckBox> coltureList) {
         this.coltureList = coltureList;
     }
 
+    /**
+     * Popola il menu dei coltivatori disponibili tramite il DAO.
+     * Associa ad ogni voce un'azione che aggiorna il testo del MenuButton.
+     *
+     * @author entn
+     */
     public void setColtivatoriMenu(){
         List<Utente> coltivatori = utenteDAO.getColtivatoriDisponibili();
-        System.out.println("Coltivatori disponibili: " + coltivatori.size());
+
         for(Utente coltivatore : coltivatori){
             MenuItem item = new MenuItem(String.valueOf(coltivatore.getIdUtente()));
-            item.setOnAction(event -> {
-                coltivatoreMenu.setText(String.valueOf(coltivatore.getIdUtente()));
-                System.out.println("Hai selezionato: " + coltivatore);
-            });
+            item.setOnAction(event -> coltivatoreMenu.setText(String.valueOf(coltivatore.getIdUtente())));
             coltivatoreMenu.getItems().add(item);
         }
     }
 
+    /**
+     * Popola il menu delle colture disponibili tramite la lista di checkbox.
+     * Associa ad ogni voce un'azione che aggiorna il testo del MenuButton.
+     *
+     * @author entn
+     */
     public void setColtureMenu(){
-        System.out.println("Colture disponibili: " + coltureList.size());
         for(CheckBox coltura : coltureList){
             MenuItem item = new MenuItem(coltura.getText());
-            item.setOnAction(event -> {
-                colturaMenu.setText(coltura.getText());
-                System.out.println("Hai selezionato: " + coltura);
-            });
+            item.setOnAction(event -> colturaMenu.setText(coltura.getText()));
             colturaMenu.getItems().add(item);
         }
     }
 
-
+    /**
+     * Imposta l'utente attualmente loggato nel controller.
+     *
+     * @param utente Utente loggato nel sistema
+     * @author entn
+     */
     public void setUtenteLoggato(Utente utente) {
         this.utenteLoggato = utente;
     }
 
-    public void setColtureCheckBox(List<CheckBox> coltureList) {
-        this.coltureList = coltureList;
-    }
-
+    /**
+     * Popola il menu dei tipi di attività (IRRIGAZIONE, SEMINA, RACCOLTA).
+     * Aggiorna il MenuButton con il tipo selezionato.
+     *
+     * @author entn
+     */
     public void setTipoAttivitaMenu(){
         List<String> tipiAttivita = List.of(TipoAttivita.IRRIGAZIONE.toString(),TipoAttivita.SEMINA.toString(),TipoAttivita.RACCOLTA.toString());
         for(String tipo : tipiAttivita){
             MenuItem item = new MenuItem(tipo);
-            item.setOnAction(event -> {
-                tipoAttivitaMenu.setText(tipo);
-                System.out.println("Hai selezionato: " + tipo);
-            });
+            item.setOnAction(event -> tipoAttivitaMenu.setText(tipo));
             tipoAttivitaMenu.getItems().add(item);
         }
     }
 
+    /**
+     * Popola il menu degli stati delle attività (PROGRAMMATA, IN_CORSO, COMPLETATA).
+     * Aggiorna il MenuButton con lo stato selezionato.
+     *
+     * @author entn
+     */
     public void setStatoAttivitaMenu(){
         List<String> statiAttivita = List.of(StatoAttivita.PROGRAMMATA.toString(),StatoAttivita.IN_CORSO.toString(), StatoAttivita.COMPLETATA.toString());
         for(String stato : statiAttivita){
             MenuItem item = new MenuItem(stato);
-            item.setOnAction(event -> {
-                statoAttivitaMenu.setText(stato);
-                System.out.println("Hai selezionato: " + stato);
-            });
+            item.setOnAction(event -> statoAttivitaMenu.setText(stato));
             statoAttivitaMenu.getItems().add(item);
         }
     }
 
+    /**
+     * Crea una nuova attività utilizzando i dati selezionati nei menu e nei campi di input.
+     * Effettua l'inserimento nel database tramite il DAO e mostra un alert di conferma o errore.
+     *
+     * @author entn
+     */
     @FXML
     public void addAttivita() {
-        int id_proprietario = utenteLoggato.getIdUtente(); // ho id_proprietario
-        String coltivatoreSelezionato = coltivatoreMenu.getText(); // ho id_coltivatore
+        int idProprietario = utenteLoggato.getIdUtente();
+        String coltivatoreSelezionato = coltivatoreMenu.getText();
         String colturaSelezionata = colturaMenu.getText().substring(0, 1);
         String tipoAttivitaSelezionata = tipoAttivitaMenu.getText();
         String statoAttivitaSelezionato = statoAttivitaMenu.getText();
@@ -134,21 +165,35 @@ public class CreateActivityController {
         int quantitaRaccolta = Integer.parseInt(textQuantitaRaccolta.getText());
         int quantitaUsata = Integer.parseInt(textQuantitaUsata.getText());
 
-
         Attivita nuovaAttivita = new Attivita();
         nuovaAttivita.setDataFine(dataFineAttivita);
         nuovaAttivita.setDataInizio(dataInizioAttivita);
         nuovaAttivita.setQuantitaRaccolta(quantitaRaccolta);
         nuovaAttivita.setQuantitaUsata(quantitaUsata);
-        StatoAttivita stato = statoAttivitaSelezionato.equals("PROGRAMMATA") ? StatoAttivita.PROGRAMMATA :
-                statoAttivitaSelezionato.equals("IN_CORSO") ? StatoAttivita.IN_CORSO :
-                        StatoAttivita.COMPLETATA;
+
+        // Determinazione dello stato
+        StatoAttivita stato;
+        if ("PROGRAMMATA".equals(statoAttivitaSelezionato)) {
+            stato = StatoAttivita.PROGRAMMATA;
+        } else if ("IN_CORSO".equals(statoAttivitaSelezionato)) {
+            stato = StatoAttivita.IN_CORSO;
+        } else {
+            stato = StatoAttivita.COMPLETATA;
+        }
         nuovaAttivita.setStato(stato);
-        TipoAttivita tipo = tipoAttivitaSelezionata.equals("IRRIGAZIONE") ? TipoAttivita.IRRIGAZIONE :
-                tipoAttivitaSelezionata.equals("SEMINA") ? TipoAttivita.SEMINA :
-                        TipoAttivita.RACCOLTA;
+
+        // Determinazione del tipo
+        TipoAttivita tipo;
+        if ("IRRIGAZIONE".equals(tipoAttivitaSelezionata)) {
+            tipo = TipoAttivita.IRRIGAZIONE;
+        } else if ("SEMINA".equals(tipoAttivitaSelezionata)) {
+            tipo = TipoAttivita.SEMINA;
+        } else {
+            tipo = TipoAttivita.RACCOLTA;
+        }
         nuovaAttivita.setTipo(tipo);
-        boolean successo = attivitaDAO.addAttivita(nuovaAttivita, Integer.parseInt(colturaSelezionata),Integer.parseInt(coltivatoreSelezionato),id_proprietario);
+
+        boolean successo = attivitaDAO.addAttivita(nuovaAttivita, Integer.parseInt(colturaSelezionata), Integer.parseInt(coltivatoreSelezionato), idProprietario);
         Alert alert;
         if (successo) {
             alert = new Alert(Alert.AlertType.INFORMATION);
@@ -162,9 +207,6 @@ public class CreateActivityController {
             alert.setContentText("Si è verificato un errore durante l'aggiunta dell'attività.");
         }
         alert.showAndWait();
-
-
     }
-
 
 }
