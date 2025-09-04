@@ -1,4 +1,4 @@
-package it.unina.connessioneDB;
+package it.unina.connessionedb;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -14,7 +14,7 @@ import java.util.logging.Logger;
  * @version 1.0
  */
 public class ConnessioneDatabase {
-    ConnessioneDatabase(){};
+    ConnessioneDatabase(){}
     private static final String URL = "jdbc:postgresql://ep-rough-thunder-abcu1orj-pooler.eu-west-2.aws.neon.tech/UninaGarden25?sslmode=require";
     private static final String USER = "UninaGarden25_owner";
     private static final String PASSWORD = "npg_ydSrY90LDifh";
@@ -55,7 +55,7 @@ public class ConnessioneDatabase {
                 logger.info("Connessione al database chiusa.");
             } catch (SQLException e) {
                 logger.severe("Errore durante la chiusura della connessione: " + e.getMessage());
-              
+
             }
         }
     }

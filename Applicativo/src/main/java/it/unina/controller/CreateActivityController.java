@@ -12,6 +12,8 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
+import static it.unina.model.StatoAttivita.fromString;
+
 /**
  * Controller per la creazione di attività nel sistema.
  * Gestisce l'interfaccia JavaFX per la selezione di coltivatori, colture,
@@ -157,7 +159,7 @@ public class CreateActivityController {
     public void addAttivita() {
         int idProprietario = utenteLoggato.getIdUtente();
         String coltivatoreSelezionato = coltivatoreMenu.getText();
-        String colturaSelezionata = colturaMenu.getText().substring(0, 1);
+        String colturaSelezionata = colturaMenu.getText().split(" ")[0];
         String tipoAttivitaSelezionata = tipoAttivitaMenu.getText();
         String statoAttivitaSelezionato = statoAttivitaMenu.getText();
         Date dataInizioAttivita = java.sql.Date.valueOf(dataInizio.getValue());
@@ -173,25 +175,30 @@ public class CreateActivityController {
 
         // Determinazione dello stato
         StatoAttivita stato;
-        if ("PROGRAMMATA".equals(statoAttivitaSelezionato)) {
+        if ("programmata".equalsIgnoreCase(statoAttivitaSelezionato)) {
             stato = StatoAttivita.PROGRAMMATA;
-        } else if ("IN_CORSO".equals(statoAttivitaSelezionato)) {
+        } else if ("in corso".equalsIgnoreCase(statoAttivitaSelezionato)) {
             stato = StatoAttivita.IN_CORSO;
         } else {
             stato = StatoAttivita.COMPLETATA;
         }
+        System.out.println("Stato selezionato: " + stato);
         nuovaAttivita.setStato(stato);
+
+        System.out.println("Stato selezionato: " + stato);
 
         // Determinazione del tipo
         TipoAttivita tipo;
-        if ("IRRIGAZIONE".equals(tipoAttivitaSelezionata)) {
+        if ("Irrigazione".equals(tipoAttivitaSelezionata)) {
             tipo = TipoAttivita.IRRIGAZIONE;
-        } else if ("SEMINA".equals(tipoAttivitaSelezionata)) {
+        } else if ("Semina".equals(tipoAttivitaSelezionata)) {
             tipo = TipoAttivita.SEMINA;
         } else {
             tipo = TipoAttivita.RACCOLTA;
         }
         nuovaAttivita.setTipo(tipo);
+
+
 
         boolean successo = attivitaDAO.addAttivita(nuovaAttivita, Integer.parseInt(colturaSelezionata), Integer.parseInt(coltivatoreSelezionato), idProprietario);
         Alert alert;

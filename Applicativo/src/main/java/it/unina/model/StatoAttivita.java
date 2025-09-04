@@ -38,4 +38,14 @@ public enum StatoAttivita {
             default -> super.toString();
         };
     }
+
+    public static StatoAttivita fromString(String s) {
+        return switch (s.toLowerCase()) {
+            case "in corso" -> StatoAttivita.IN_CORSO;
+            case "programmata" -> StatoAttivita.PROGRAMMATA;
+            case "completata" -> StatoAttivita.COMPLETATA;
+            default -> null; // oppure puoi lanciare un'eccezione
+        };
+    }
+
 }

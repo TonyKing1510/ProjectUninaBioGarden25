@@ -1,6 +1,6 @@
 package it.unina.implementazionepostgresql;
 
-import it.unina.connessioneDB.ConnessioneDatabase;
+import it.unina.connessionedb.ConnessioneDatabase;
 import it.unina.dao.UtenteDAO;
 import it.unina.model.Ruolo;
 import it.unina.model.Utente;

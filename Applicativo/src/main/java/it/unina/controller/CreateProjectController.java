@@ -124,6 +124,7 @@ public class CreateProjectController {
         List<Lotto> lotti = lottoDAO.getLottiDisponibili(utenteLoggato.getIdUtente());
         vBoxLotto.getChildren().clear();
         lottiCheckBoxes.clear();
+        System.out.println("Lotti disponibili: " + lotti.size());
 
         for (Lotto opzione : lotti) {
             CheckBox lottoCheckBox = new CheckBox(opzione.getIdLotto() + " - " + opzione.getNome());

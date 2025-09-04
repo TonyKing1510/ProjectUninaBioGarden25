@@ -1,6 +1,6 @@
 package it.unina.implementazionepostgresql;
 
-import it.unina.connessioneDB.ConnessioneDatabase;
+import it.unina.connessionedb.ConnessioneDatabase;
 import it.unina.dao.ColtureDAO;
 import it.unina.dao.LottoDAO;
 import it.unina.model.Colture;

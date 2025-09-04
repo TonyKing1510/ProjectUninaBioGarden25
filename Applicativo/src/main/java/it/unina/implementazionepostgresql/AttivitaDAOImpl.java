@@ -1,7 +1,7 @@
 package it.unina.implementazionepostgresql;
 
 import it.unina.stats.StatisticheColtura;
-import it.unina.connessioneDB.ConnessioneDatabase;
+import it.unina.connessionedb.ConnessioneDatabase;
 import it.unina.dao.AttivitaDAO;
 import it.unina.model.*;
 
@@ -15,6 +15,7 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import static it.unina.model.StatoAttivita.fromString;
 
 
 /**
@@ -57,8 +58,9 @@ public class AttivitaDAOImpl implements AttivitaDAO {
              var preparedStatement = connection.prepareStatement(insertQuery, Statement.RETURN_GENERATED_KEYS)) {
 
             // 1. Inserisco Attivita
-            preparedStatement.setString(1, attivita.getStato().name().toLowerCase());
-            preparedStatement.setString(2, attivita.getTipo().name().toLowerCase());
+            System.out.println("Stato Attivita: " + attivita.getStato());
+            preparedStatement.setString(1, String.valueOf(attivita.getStato()));
+            preparedStatement.setString(2, attivita.getTipo().toString().toLowerCase());
             preparedStatement.setInt(3, attivita.getQuantitaRaccolta());
             preparedStatement.setInt(4, attivita.getQuantitaUsata());
             preparedStatement.setDate(5, attivita.getDataInizio());
@@ -175,7 +177,7 @@ public class AttivitaDAOImpl implements AttivitaDAO {
 
                     String statoStr = resultSet.getString(COLONNA_STATO_ATTIVITA);
                     if (statoStr != null) {
-                        attivita.setStato(StatoAttivita.valueOf(statoStr.toUpperCase()));
+                        attivita.setStato(StatoAttivita.valueOf(statoStr.toLowerCase()));
                     }
 
                     String tipoStr = resultSet.getString("tipo");
@@ -303,7 +305,7 @@ public class AttivitaDAOImpl implements AttivitaDAO {
             Attivita attivita = new Attivita();
             attivita.setIdAttivita(resultSet.getInt(COLONNA_ID_ATTIVITA));
             attivita.setTipo(TipoAttivita.valueOf(resultSet.getString("tipo").toUpperCase()));
-            attivita.setStato(StatoAttivita.valueOf(resultSet.getString(COLONNA_STATO_ATTIVITA).toUpperCase()));
+            attivita.setStato(StatoAttivita.valueOf(resultSet.getString(COLONNA_STATO_ATTIVITA)));
             attivita.setQuantitaRaccolta(resultSet.getInt(COLONNA_QUANTITA_RACCOLTA));
             attivita.setQuantitaUsata(resultSet.getInt(COLONNA_QUANTITA_USATA));
             attivita.setDataInizio(resultSet.getDate("datai"));
