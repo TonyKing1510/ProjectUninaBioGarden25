@@ -12,8 +12,6 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
-import static it.unina.model.StatoAttivita.fromString;
-
 /**
  * Controller per la creazione di attività nel sistema.
  * Gestisce l'interfaccia JavaFX per la selezione di coltivatori, colture,
@@ -85,10 +83,10 @@ public class CreateActivityController {
      *
      * @author entn
      */
-    public void setColtivatoriMenu(){
+    public void setColtivatoriMenu() {
         List<Utente> coltivatori = utenteDAO.getColtivatoriDisponibili();
 
-        for(Utente coltivatore : coltivatori){
+        for (Utente coltivatore : coltivatori) {
             MenuItem item = new MenuItem(String.valueOf(coltivatore.getIdUtente()));
             item.setOnAction(event -> coltivatoreMenu.setText(String.valueOf(coltivatore.getIdUtente())));
             coltivatoreMenu.getItems().add(item);
@@ -101,8 +99,8 @@ public class CreateActivityController {
      *
      * @author entn
      */
-    public void setColtureMenu(){
-        for(CheckBox coltura : coltureList){
+    public void setColtureMenu() {
+        for (CheckBox coltura : coltureList) {
             MenuItem item = new MenuItem(coltura.getText());
             item.setOnAction(event -> colturaMenu.setText(coltura.getText()));
             colturaMenu.getItems().add(item);
@@ -125,9 +123,9 @@ public class CreateActivityController {
      *
      * @author entn
      */
-    public void setTipoAttivitaMenu(){
-        List<String> tipiAttivita = List.of(TipoAttivita.IRRIGAZIONE.toString(),TipoAttivita.SEMINA.toString(),TipoAttivita.RACCOLTA.toString());
-        for(String tipo : tipiAttivita){
+    public void setTipoAttivitaMenu() {
+        List<String> tipiAttivita = List.of(TipoAttivita.IRRIGAZIONE.toString(), TipoAttivita.SEMINA.toString(), TipoAttivita.RACCOLTA.toString());
+        for (String tipo : tipiAttivita) {
             MenuItem item = new MenuItem(tipo);
             item.setOnAction(event -> tipoAttivitaMenu.setText(tipo));
             tipoAttivitaMenu.getItems().add(item);
@@ -140,9 +138,9 @@ public class CreateActivityController {
      *
      * @author entn
      */
-    public void setStatoAttivitaMenu(){
-        List<String> statiAttivita = List.of(StatoAttivita.PROGRAMMATA.toString(),StatoAttivita.IN_CORSO.toString(), StatoAttivita.COMPLETATA.toString());
-        for(String stato : statiAttivita){
+    public void setStatoAttivitaMenu() {
+        List<String> statiAttivita = List.of(StatoAttivita.PROGRAMMATA.toString(), StatoAttivita.IN_CORSO.toString(), StatoAttivita.COMPLETATA.toString());
+        for (String stato : statiAttivita) {
             MenuItem item = new MenuItem(stato);
             item.setOnAction(event -> statoAttivitaMenu.setText(stato));
             statoAttivitaMenu.getItems().add(item);
@@ -172,34 +170,14 @@ public class CreateActivityController {
         nuovaAttivita.setDataInizio(dataInizioAttivita);
         nuovaAttivita.setQuantitaRaccolta(quantitaRaccolta);
         nuovaAttivita.setQuantitaUsata(quantitaUsata);
-
-        // Determinazione dello stato
-        StatoAttivita stato;
-        if ("programmata".equalsIgnoreCase(statoAttivitaSelezionato)) {
-            stato = StatoAttivita.PROGRAMMATA;
-        } else if ("in corso".equalsIgnoreCase(statoAttivitaSelezionato)) {
-            stato = StatoAttivita.IN_CORSO;
-        } else {
-            stato = StatoAttivita.COMPLETATA;
-        }
-        System.out.println("Stato selezionato: " + stato);
+        StatoAttivita stato = statoAttivitaSelezionato.equals("programmata") ? StatoAttivita.PROGRAMMATA :
+                statoAttivitaSelezionato.equals("in corso") ? StatoAttivita.IN_CORSO :
+                        StatoAttivita.COMPLETATA;
         nuovaAttivita.setStato(stato);
-
-        System.out.println("Stato selezionato: " + stato);
-
-        // Determinazione del tipo
-        TipoAttivita tipo;
-        if ("Irrigazione".equals(tipoAttivitaSelezionata)) {
-            tipo = TipoAttivita.IRRIGAZIONE;
-        } else if ("Semina".equals(tipoAttivitaSelezionata)) {
-            tipo = TipoAttivita.SEMINA;
-        } else {
-            tipo = TipoAttivita.RACCOLTA;
-        }
+        TipoAttivita tipo = tipoAttivitaSelezionata.equals("Irrigazione") ? TipoAttivita.IRRIGAZIONE : tipoAttivitaSelezionata.equals("Semina") ? TipoAttivita.SEMINA : TipoAttivita.RACCOLTA;
         nuovaAttivita.setTipo(tipo);
-
-
-
+        System.out.println(nuovaAttivita.getStato());
+        System.out.println(nuovaAttivita.getTipo());
         boolean successo = attivitaDAO.addAttivita(nuovaAttivita, Integer.parseInt(colturaSelezionata), Integer.parseInt(coltivatoreSelezionato), idProprietario);
         Alert alert;
         if (successo) {
@@ -214,6 +192,7 @@ public class CreateActivityController {
             alert.setContentText("Si è verificato un errore durante l'aggiunta dell'attività.");
         }
         alert.showAndWait();
-    }
 
+
+    }
 }

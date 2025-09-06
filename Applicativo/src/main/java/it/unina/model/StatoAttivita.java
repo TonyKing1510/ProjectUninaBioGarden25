@@ -15,17 +15,24 @@ package it.unina.model;
  */
 public enum StatoAttivita {
 
-    /** Attività attualmente in corso */
+    /**
+     * Attività attualmente in corso
+     */
     IN_CORSO,
 
-    /** Attività programmata per il futuro */
+    /**
+     * Attività programmata per il futuro
+     */
     PROGRAMMATA,
 
-    /** Attività completata */
+    /**
+     * Attività completata
+     */
     COMPLETATA;
 
     /**
      * Restituisce una rappresentazione testuale leggibile dello stato.
+     *
      * @return stringa descrittiva dello stato dell'attività
      * @author entn
      */
@@ -37,15 +44,6 @@ public enum StatoAttivita {
             case COMPLETATA -> "completata";
             default -> super.toString();
         };
-    }
 
-    public static StatoAttivita fromString(String s) {
-        return switch (s.toLowerCase()) {
-            case "in corso" -> StatoAttivita.IN_CORSO;
-            case "programmata" -> StatoAttivita.PROGRAMMATA;
-            case "completata" -> StatoAttivita.COMPLETATA;
-            default -> null; // oppure puoi lanciare un'eccezione
-        };
     }
-
 }

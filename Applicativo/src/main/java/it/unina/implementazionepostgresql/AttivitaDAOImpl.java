@@ -15,8 +15,6 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import static it.unina.model.StatoAttivita.fromString;
-
 
 /**
  * Implementazione dell'interfaccia {@link AttivitaDAO} per il database PostgreSQL.
@@ -59,8 +57,8 @@ public class AttivitaDAOImpl implements AttivitaDAO {
 
             // 1. Inserisco Attivita
             System.out.println("Stato Attivita: " + attivita.getStato());
-            preparedStatement.setString(1, String.valueOf(attivita.getStato()));
-            preparedStatement.setString(2, attivita.getTipo().toString().toLowerCase());
+            preparedStatement.setString(1, String.valueOf(attivita.getStato()).toLowerCase());
+            preparedStatement.setString(2, attivita.getTipo().name().toLowerCase());
             preparedStatement.setInt(3, attivita.getQuantitaRaccolta());
             preparedStatement.setInt(4, attivita.getQuantitaUsata());
             preparedStatement.setDate(5, attivita.getDataInizio());
@@ -176,9 +174,10 @@ public class AttivitaDAOImpl implements AttivitaDAO {
                     attivita.setIdAttivita(idAttivita);
 
                     String statoStr = resultSet.getString(COLONNA_STATO_ATTIVITA);
-                    if (statoStr != null) {
-                        attivita.setStato(StatoAttivita.valueOf(statoStr.toLowerCase()));
-                    }
+                    StatoAttivita stato = statoStr.equals("programmata") ? StatoAttivita.PROGRAMMATA :
+                            statoStr.equals("in corso") ? StatoAttivita.IN_CORSO :
+                                    StatoAttivita.COMPLETATA;
+                    attivita.setStato(stato);
 
                     String tipoStr = resultSet.getString("tipo");
                     if (tipoStr != null) {
