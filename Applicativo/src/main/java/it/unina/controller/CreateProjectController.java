@@ -128,6 +128,13 @@ public class CreateProjectController {
 
         for (Lotto opzione : lotti) {
             CheckBox lottoCheckBox = new CheckBox(opzione.getIdLotto() + " - " + opzione.getNome());
+            lottoCheckBox.setStyle(
+                    "-fx-font-size: 15px;" +
+                            "-fx-text-fill: #ffffff;" +
+                            "-fx-padding: 5px;" +
+                            "-fx-font-family: 'System';" +
+                            "-fx-font-style: italic;"
+            );
             lottoCheckBox.setOnAction(event -> {
                 if (lottoCheckBox.isSelected()) {
                     lottiCheckBoxes.add(lottoCheckBox);
@@ -135,7 +142,6 @@ public class CreateProjectController {
                     lottiCheckBoxes.remove(lottoCheckBox);
                 }
             });
-            lottoCheckBox.setStyle("-fx-font-size: 14px; -fx-text-fill: #2c3e50; -fx-padding: 5px;");
             vBoxLotto.getChildren().add(lottoCheckBox);
         }
     }
@@ -157,7 +163,13 @@ public class CreateProjectController {
 
         for (Colture coltura : coltureDisponibili) {
             CheckBox colturaCheckBox = new CheckBox(coltura.getIdColture() + " - " + coltura.getTitolo());
-            colturaCheckBox.setStyle("-fx-font-size: 14px; -fx-text-fill: #2c3e50; -fx-padding: 5px;");
+            colturaCheckBox.setStyle(
+                    "-fx-font-size: 15px;" +
+                            "-fx-text-fill: #ffffff;" +
+                            "-fx-padding: 5px;" +
+                            "-fx-font-family: 'System';" +
+                            "-fx-font-style: italic;"
+            );
 
             List<Integer> lottiSelezionatiList = new ArrayList<>();
             for (CheckBox checkBox : lottiSelezionati) {
