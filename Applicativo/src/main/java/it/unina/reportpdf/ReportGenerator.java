@@ -70,6 +70,9 @@ public class ReportGenerator {
                 ByteArrayOutputStream baos = new ByteArrayOutputStream();
                 ChartUtils.writeBufferedImageAsPNG(baos, bufferedImage);
 
+                System.out.println("Current working directory: " + System.getProperty("user.dir"));
+
+
                 // Inserisco nel PDF
                 Image image = Image.getInstance(baos.toByteArray());
                 document.add(image);

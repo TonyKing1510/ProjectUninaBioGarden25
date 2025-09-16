@@ -2,6 +2,7 @@ package it.unina.controller;
 
 import it.unina.gui.VisualizeProjectGUI;
 import it.unina.gui.CreateProjectGUI;
+import it.unina.gui.LoginGUI;
 import it.unina.model.Utente;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -94,5 +95,33 @@ public class MainPageController {
   public void setUtenteLoggato(Utente utente) {
     this.utenteLoggato = utente;
     nomeCognomeLabel.setText(utente.getNome() + " " + utente.getCognome());
+  }
+
+
+  /**   * Gestisce il logout dell'utente, chiudendo la finestra corrente
+   * e tornando alla schermata di login.
+   *
+   * @throws IOException se il caricamento della vista di login fallisce
+   * @author entn
+   */
+  public void logout() throws IOException {
+    if (previousStage != null) {
+      Stage currentStage = (Stage) borderPane.getScene().getWindow();
+      currentStage.close();
+      clearData();
+      WelcomeController previousController = (WelcomeController) previousStage.getUserData();
+
+      LoginGUI.initializeLoginView(previousController);
+    }
+  }
+
+    /**
+     * Resetta i dati dell'utente e pulisce la GUI.
+     * @author entn
+     */
+  private void clearData() {
+    utenteLoggato = null;
+    nomeCognomeLabel.setText("");
+    borderPane.setCenter(null);
   }
 }

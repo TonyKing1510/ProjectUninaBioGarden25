@@ -23,7 +23,6 @@ public class WelcomeController {
   @FXML private StackPane rootPane;
 
   private Parent loginView;
-  private Parent registerView;
 
   /** Utente attualmente loggato. */
   private Utente utenteLoggato;
@@ -58,7 +57,6 @@ public class WelcomeController {
   public void initialize() {
     try {
       loadLoginView();
-      loadRegisterView();
       showView(loginView);
       setUtenteLoggato(utenteLoggato); // Di default è null
     } catch (IOException e) {
@@ -77,20 +75,9 @@ public class WelcomeController {
     loginView = loader.load();
     LoginController controller = loader.getController();
     controller.setRootController(this);
+
   }
 
-  /**
-   * Carica la vista di registrazione dal file FXML e imposta il controller.
-   *
-   * @throws IOException se il file FXML non viene trovato o non può essere caricato
-   * @author Sderr12
-   */
-  private void loadRegisterView() throws IOException {
-    FXMLLoader loader = new FXMLLoader(getClass().getResource("/it/unina/RegisterPage.fxml"));
-    registerView = loader.load();
-    RegisterController controller = loader.getController();
-    controller.setRootController(this);
-  }
 
   /**
    * Passa alla vista di login.
@@ -101,14 +88,6 @@ public class WelcomeController {
     showView(loginView);
   }
 
-  /**
-   * Passa alla vista di registrazione.
-   *
-   * @author Sderr12
-   */
-  public void switchToRegister() {
-    showView(registerView);
-  }
 
   /**
    * Mostra una nuova vista all'interno del contenitore principale con un'animazione di transizione.

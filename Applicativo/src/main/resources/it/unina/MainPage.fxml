@@ -9,6 +9,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
 <BorderPane fx:id="borderPane" stylesheets="@css/mainpage.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unina.controller.MainPageController">
 
@@ -64,9 +65,12 @@
                      </ImageView>
                   </graphic></Button>
 
-                    <VBox alignment="CENTER_LEFT" spacing="2">
+                    <VBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="142.0" spacing="2">
                         <Label fx:id="nomeCognomeLabel" styleClass="username-label" text="- - -  - " />
-                        <Button fx:id="logoutButton" alignment="BOTTOM_LEFT" styleClass="logout-button" text="⇦" />
+                        <Button fx:id="logoutButton" alignment="TOP_LEFT" onAction="#logout" contentDisplay="CENTER" prefHeight="30.0" prefWidth="66.0" style="-fx-background-color: transparent; -fx-border-color: white; -fx-border-radius: 10;" text="Logout" textAlignment="CENTER" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold Italic" size="13.0" />
+                     </font></Button>
                     </VBox>
                 </HBox>
             </VBox>

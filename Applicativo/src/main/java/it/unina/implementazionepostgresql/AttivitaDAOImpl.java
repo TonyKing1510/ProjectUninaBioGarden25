@@ -304,7 +304,7 @@ public class AttivitaDAOImpl implements AttivitaDAO {
             Attivita attivita = new Attivita();
             attivita.setIdAttivita(resultSet.getInt(COLONNA_ID_ATTIVITA));
             attivita.setTipo(TipoAttivita.valueOf(resultSet.getString("tipo").toUpperCase()));
-            attivita.setStato(StatoAttivita.valueOf(resultSet.getString(COLONNA_STATO_ATTIVITA)));
+            attivita.setStato(StatoAttivita.fromString(resultSet.getString(COLONNA_STATO_ATTIVITA)));
             attivita.setQuantitaRaccolta(resultSet.getInt(COLONNA_QUANTITA_RACCOLTA));
             attivita.setQuantitaUsata(resultSet.getInt(COLONNA_QUANTITA_USATA));
             attivita.setDataInizio(resultSet.getDate("datai"));

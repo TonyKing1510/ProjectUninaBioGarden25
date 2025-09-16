@@ -53,18 +53,6 @@ public class LoginController {
   }
 
   /**
-   * Metodo chiamato quando l'utente clicca su "Registrati".
-   * Passa alla schermata di registrazione.
-   *
-   * @param event l'evento del clic sul pulsante
-   * @author Sderr12
-   */
-  @FXML
-  private void goToRegister(ActionEvent event) {
-    rootController.switchToRegister();
-  }
-
-  /**
    * Gestisce il login dell'utente. Verifica le credenziali e,
    * in caso positivo, apre la schermata principale dell'applicazione.
    *
@@ -104,5 +92,17 @@ public class LoginController {
     alert.setHeaderText(null);
     alert.setContentText(messaggio);
     alert.showAndWait();
+  }
+
+  /**
+     * Pulisce i campi di input (username e password).
+     * Utile per resettare il form dopo un tentativo di login fallito
+     * o quando si ritorna alla schermata di login.
+     *
+     * @author entn
+     */
+  public void clearFields() {
+    usernameField.clear();
+    passwordField.clear();
   }
 }

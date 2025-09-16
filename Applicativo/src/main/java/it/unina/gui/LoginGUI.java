@@ -4,6 +4,8 @@ import it.unina.controller.LoginController;
 import it.unina.controller.WelcomeController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 
@@ -49,6 +51,11 @@ public class LoginGUI {
         loginView = loader.load();
         LoginController controller = loader.getController();
         controller.setRootController(welcomeController);
+
+        Stage loginStage = new Stage();
+        loginStage.setScene(new Scene(loginView));
+        loginStage.show();
+
     }
 
     /**

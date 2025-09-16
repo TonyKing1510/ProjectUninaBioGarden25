@@ -46,4 +46,16 @@ public enum StatoAttivita {
         };
 
     }
+
+
+    public static StatoAttivita fromString(String value) {
+        if (value == null) throw new IllegalArgumentException("Valore nullo");
+        return switch (value.trim().toLowerCase()) {
+            case "in corso" -> IN_CORSO;
+            case "programmata" -> PROGRAMMATA;
+            case "completata" -> COMPLETATA;
+            default -> throw new IllegalArgumentException("Valore stato non valido: " + value);
+        };
+    }
+
 }

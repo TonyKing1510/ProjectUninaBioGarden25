@@ -15,6 +15,8 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -191,7 +193,7 @@ public class ProgettiDetailsController {
      * @throws StatisticheColtura.StatisticheException Se si verifica un errore nel calcolo delle statistiche
      */
     @FXML
-    private void onScaricaDatiClicked() throws StatisticheColtura.StatisticheException {
+    private void onScaricaDatiClicked() throws StatisticheColtura.StatisticheException, IOException {
         Logger logger = Logger.getLogger(getClass().getName());
         Map<Lotto, Map<Colture, StatisticheColtura>> statistiche = attivitaDao.getStatistichePerLottiEColtureByIdProgetto(progetto);
         statistiche.forEach((lotto, coltureStats) -> {
@@ -204,6 +206,14 @@ public class ProgettiDetailsController {
                 logger.info("      Max: " + stats.getMax());
             });
         });
-        ReportGenerator.generaReportPDF(statistiche, "report_statistiche.pdf");
+        // Percorso completo nella directory di lavoro
+        String outputPath = System.getProperty("user.dir") + "\\report.pdf";
+        ReportGenerator.generaReportPDF(statistiche, outputPath);
+        logger.info("Report PDF generato in: " + outputPath);
+        // Apri la cartella contenente il PDF
+        File file = new File(outputPath);
+        if (file.exists() && java.awt.Desktop.isDesktopSupported()) {
+            java.awt.Desktop.getDesktop().open(file.getParentFile());
+        }
     }
 }
