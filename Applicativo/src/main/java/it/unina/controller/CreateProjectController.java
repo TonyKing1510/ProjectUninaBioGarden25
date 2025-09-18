@@ -10,6 +10,7 @@ import it.unina.implementazionepostgresql.ProgettoDAOImpl;
 import it.unina.model.*;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -73,6 +74,17 @@ public class CreateProjectController {
     /** Bottone per creare il progetto */
     @FXML
     private Button creaProgettoButton;
+
+    @FXML
+    private ScrollPane scrollPaneLotto;
+
+    @FXML
+    private AnchorPane anchorLottoPane;
+
+    @FXML
+    private ScrollPane scrollPaneColture;
+    @FXML
+    private AnchorPane anchorColturePane;
 
     /** Lista delle checkbox delle colture selezionate */
     private List<CheckBox> coltureCheckBoxes = new ArrayList<>();
@@ -143,6 +155,8 @@ public class CreateProjectController {
                 }
             });
             vBoxLotto.getChildren().add(lottoCheckBox);
+            scrollPaneLotto.setVvalue(0); // Scrolla all'inizio della ScrollPane
+            anchorLottoPane.setPrefHeight(vBoxLotto.getChildren().size() * 35 + 20); // Aggiorna l'altezza dell'AnchorPane
         }
     }
 
@@ -175,8 +189,7 @@ public class CreateProjectController {
             for (CheckBox checkBox : lottiSelezionati) {
                 if (checkBox.isSelected()) {
                     String[] parts = checkBox.getText().split(" - ");
-                    int idLotto = Integer.parseInt(parts[0]);
-                    lottiSelezionatiList.add(idLotto);
+                    lottiSelezionatiList.add(Integer.parseInt(parts[0]));
                 }
             }
 
@@ -205,7 +218,13 @@ public class CreateProjectController {
             HBox riga = new HBox(10, colturaCheckBox, lottoComboBox);
             vBoxColture.getChildren().add(riga);
         }
+
+        // Sposta lo scroll in alto solo una volta
+        scrollPaneColture.setFitToWidth(true);
+        scrollPaneColture.setPannable(true);
+        scrollPaneColture.setVvalue(0);
     }
+
 
     /**
      * Mostra il pane delle informazioni generali del progetto.
