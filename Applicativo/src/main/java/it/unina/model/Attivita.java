@@ -36,6 +36,8 @@ public class Attivita {
     /** Data di fine dell'attività */
     private Date dataFine;
 
+    private Utente responsabile;
+
     /**
      * Costruisce un oggetto {@code Attivita} completo.
      *

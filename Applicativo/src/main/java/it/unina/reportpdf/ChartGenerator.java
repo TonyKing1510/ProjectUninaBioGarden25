@@ -38,18 +38,20 @@ public class ChartGenerator {
             Colture coltura = entry.getKey();
             StatisticheColtura stats = entry.getValue();
 
-            String nomeColtura = coltura.getTitolo();
+            String nomeColtura = coltura.getTitolo() + ", totale raccolte: " + stats.getTotaleRaccolte();
 
             dataset.addValue(stats.getMedia(), "Media", nomeColtura);
             dataset.addValue(stats.getMin(), "Minimo", nomeColtura);
             dataset.addValue(stats.getMax(), "Massimo", nomeColtura);
+
         }
 
         return ChartFactory.createBarChart(
-                titolo,              // titolo grafico
-                "Colture",           // asse X
-                "Quantità raccolta", // asse Y
+                titolo,               // Titolo del grafico
+                "Colture",            // Etichetta asse X
+                "Quantità raccolta",  // Etichetta asse Y
                 dataset
         );
     }
+
 }

@@ -83,8 +83,7 @@ public class CreateProjectController {
 
     @FXML
     private ScrollPane scrollPaneColture;
-    @FXML
-    private AnchorPane anchorColturePane;
+
 
     /** Lista delle checkbox delle colture selezionate */
     private List<CheckBox> coltureCheckBoxes = new ArrayList<>();

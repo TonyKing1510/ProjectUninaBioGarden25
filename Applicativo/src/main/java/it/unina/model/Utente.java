@@ -39,6 +39,16 @@ public class Utente {
     /** Lista dei progetti creati dall'utente */
     private List<Progetto> progettiCreati = new ArrayList<>();
 
+    public Attivita getAttivita() {
+        return attivita;
+    }
+
+    public void setAttivita(Attivita attivita) {
+        this.attivita = attivita;
+    }
+
+    private Attivita attivita;
+
     /**
      * Costruttore vuoto.
      */

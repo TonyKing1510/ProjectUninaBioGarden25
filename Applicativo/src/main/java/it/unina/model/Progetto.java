@@ -21,13 +21,10 @@ public class Progetto {
 
     /** Utente creatore del Progetto (deve avere ruolo PROPRIETARIO) */
     private Utente creatore;
-
     /** Data di inizio del Progetto */
     private Date dataInizio;
-
     /** Data di fine del Progetto */
     private Date dataFine;
-
     /** Titolo del Progetto */
     private String titolo;
 

@@ -17,6 +17,8 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+
+
 /**
  * Classe utility per generare report PDF contenenti grafici a barre delle statistiche
  * di raccolta per ogni lotto e le relative colture.
