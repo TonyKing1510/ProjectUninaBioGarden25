@@ -221,7 +221,7 @@ public class CreateProjectController {
 
             lottoComboBox.setOnAction(event -> {
                 Integer lottoIdScelto = lottoComboBox.getValue();
-                if (lottoIdScelto != null) {
+                if (lottoIdScelto != null && colturaCheckBox.isSelected() ) {
                     associazioniColturaLotto.put(coltura, lottoIdScelto);
                 }
             });
@@ -369,7 +369,9 @@ public class CreateProjectController {
         for (int idLotto : idLottiSelezionati) {
             Lotto lotto = lottoDAO.getLottoById(idLotto);
             lottiSelezionati.add(lotto);
+            System.out.println(lottiSelezionati);
         }
+
 
         Progetto progettoAdd = new Progetto();
         progettoAdd.setTitolo(title);
@@ -405,6 +407,7 @@ public class CreateProjectController {
      */
     @FXML
     private void salvaAssociazioni() {
+        System.out.println(associazioniColturaLotto);
         boolean success = coltureDAO.salvaAssociazioni(associazioniColturaLotto);
 
         Alert alert;
