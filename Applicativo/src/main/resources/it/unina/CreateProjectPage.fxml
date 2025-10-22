@@ -148,7 +148,7 @@
                   <Font name="System Bold Italic" size="20.0" />
                </font>
             </Label>
-            <Label layoutX="14.0" layoutY="44.0" prefHeight="30.0" prefWidth="399.0" text="1. Seleziona le colture da associare" textFill="WHITE">
+            <Label layoutX="14.0" layoutY="44.0" prefHeight="30.0" prefWidth="620.0" text="1. Seleziona le colture da associare ai lotti selezionandoli di fianco" textFill="WHITE">
                <font>
                   <Font name="System Italic" size="16.0" />
                </font>
@@ -186,6 +186,11 @@
                   <Font size="14.0" />
                </font>
             </Button>
+            <Label layoutX="14.0" layoutY="103.0" prefHeight="52.0" prefWidth="464.0" text="ATTENZIONE: per crearne di piu' ripremere il pulsante crea, per quante sono le attività" textFill="#f58989" wrapText="true">
+               <font>
+                  <Font name="System Bold Italic" size="14.0" />
+               </font>
+            </Label>
          </children></Pane>
    </children>
 </Pane>

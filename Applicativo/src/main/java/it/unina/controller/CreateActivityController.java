@@ -7,6 +7,7 @@ import it.unina.implementazionepostgresql.UtenteDAOImpl;
 import it.unina.model.*;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.stage.Stage;
 
 import java.sql.Date;
 import java.util.ArrayList;
@@ -42,6 +43,7 @@ public class CreateActivityController {
     private List<CheckBox> coltureList = new ArrayList<>();
     private final UtenteDAO utenteDAO = new UtenteDAOImpl();
     private final AttivitaDAO attivitaDAO = new AttivitaDAOImpl();
+    private Stage currentStage;
 
     /**
      * Costruttore di default del controller.
@@ -91,6 +93,10 @@ public class CreateActivityController {
             item.setOnAction(event -> coltivatoreMenu.setText(String.valueOf(coltivatore.getIdUtente())));
             coltivatoreMenu.getItems().add(item);
         }
+    }
+
+    public void setCurrentStage(Stage currentStage) {
+        this.currentStage = currentStage;
     }
 
     /**
@@ -185,13 +191,17 @@ public class CreateActivityController {
             alert.setTitle("Successo");
             alert.setHeaderText(null);
             alert.setContentText("Attività aggiunta con successo!");
+            alert.showAndWait();
+            if (currentStage != null) {
+                currentStage.close();
+            }
         } else {
             alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Errore");
             alert.setHeaderText(null);
             alert.setContentText("Si è verificato un errore durante l'aggiunta dell'attività.");
+            alert.showAndWait();
         }
-        alert.showAndWait();
 
 
     }

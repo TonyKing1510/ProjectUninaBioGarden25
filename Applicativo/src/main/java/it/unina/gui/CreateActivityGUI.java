@@ -63,6 +63,7 @@ public class CreateActivityGUI {
         );
 
         stage.setScene(scene);
+        controller.setCurrentStage(stage);
         stage.show();
     }
 }

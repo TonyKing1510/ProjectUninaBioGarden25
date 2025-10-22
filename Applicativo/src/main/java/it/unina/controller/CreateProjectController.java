@@ -84,6 +84,10 @@ public class CreateProjectController {
     @FXML
     private ScrollPane scrollPaneColture;
 
+    /** Bottone per associare le colture ai lotti**/
+    @FXML
+    private Button associaColtureButton;
+
 
     /** Lista delle checkbox delle colture selezionate */
     private List<CheckBox> coltureCheckBoxes = new ArrayList<>();
@@ -195,6 +199,14 @@ public class CreateProjectController {
             ComboBox<Integer> lottoComboBox = new ComboBox<>();
             lottoComboBox.getItems().addAll(lottiSelezionatiList);
             lottoComboBox.setDisable(true);
+            lottoComboBox.setStyle(
+                    "-fx-background-color: white;" +
+                            "-fx-text-fill: black;" +
+                            "-fx-font-size: 14px;" +
+                            "-fx-border-color: #cccccc;" +
+                            "-fx-border-radius: 5px;" +
+                            "-fx-background-radius: 5px;"
+            );
 
             colturaCheckBox.setOnAction(event -> {
                 if (colturaCheckBox.isSelected()) {
@@ -300,11 +312,12 @@ public class CreateProjectController {
                 stagioneMenu.getText().equals(INVERNO);
         boolean isDateInitEmpty = dateInit.getValue() == null;
         boolean isDateFineEmpty = dateFine.getValue() == null;
+        boolean isPressAssociatedButton = associaColtureButton.isPressed();
 
-        if (isAnyColturaSelected || isLottoSelected || isTitleEmpty || !isStagioneEmpty || isDateInitEmpty || isDateFineEmpty) {
+        if (isAnyColturaSelected || isLottoSelected || isTitleEmpty || !isStagioneEmpty || isDateInitEmpty || isDateFineEmpty || isPressAssociatedButton) {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle(ATTENZIONE);
-            alert.setHeaderText("Seleziona almeno una coltura per procedere.");
+            alert.setHeaderText("Seleziona almeno una coltura per procedere o associale.");
             showAlert(alert);
         } else {
             infoProgettoPane.setVisible(false);
