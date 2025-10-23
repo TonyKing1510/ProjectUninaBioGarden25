@@ -35,8 +35,7 @@ public class VisualizeProjectGUI {
         FXMLLoader loader = new FXMLLoader(VisualizeProjectGUI.class.getResource("/it/unina/ProjectView.fxml"));
         Parent node = loader.load();
         ProjectViewController controller = loader.getController();
-        controller.setStagioniMenu();
-        controller.setUtenteLoggato(utente);
+        controller.setUtenteLoggatoLoadProject(utente);
         node.getStylesheets().add(Objects.requireNonNull(VisualizeProjectGUI.class.getResource("/it/unina/css/coltureview.css")).toExternalForm());
         borderPane.setCenter(node);
 
@@ -53,14 +52,24 @@ public class VisualizeProjectGUI {
      * @author entn
      */
     public static void initProjectCard(Progetto progetto, VBox contentBox, Utente utente) throws IOException {
+        // per ogni figlio controllo che non esista una card con quel id , se ce allora la skippo e non la carico , cosi da visualizzarne una sola
+        for (javafx.scene.Node child : contentBox.getChildren()) {
+            if (child.getUserData() instanceof Integer) {
+                int id = (Integer) child.getUserData();
+                if (id == progetto.getIdProgetto()) {
+                    System.out.println("Skip duplicate project card: " + id);
+                    return;
+                }
+            }
+        }
         FXMLLoader loader = new FXMLLoader(VisualizeProjectGUI.class.getResource("/it/unina/components/ProjectCard.fxml"));
         AnchorPane card = loader.load();
 
-        // Ottieni il controller della card e setta i dati
         ProjectCardController controller = loader.getController();
         controller.setProgetto(progetto);
         controller.setUtente(utente);
         controller.setProgettoDetails(progetto);
+        card.setUserData(progetto.getIdProgetto());
         contentBox.getChildren().add(card);
     }
 }

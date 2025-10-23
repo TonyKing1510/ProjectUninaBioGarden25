@@ -50,8 +50,11 @@ public class ProjectViewController {
      * @param utente Utente attualmente loggato
      * @author entn
      */
-    public void setUtenteLoggato(Utente utente) {
+    public void setUtenteLoggatoLoadProject(Utente utente) {
+        System.out.println("setUtenteLoggato called. utente=" + (utente==null? "null": utente.getIdUtente()));
+
         this.utenteLoggato = utente;
+        Platform.runLater(this::loadProjects);
     }
 
     /**
@@ -62,7 +65,8 @@ public class ProjectViewController {
      */
     @FXML
     private void initialize() {
-        Platform.runLater(this::loadProjects);
+        System.out.println("ProjectViewController.initialize()");
+        setStagioniMenu();
     }
 
     /**
@@ -71,7 +75,9 @@ public class ProjectViewController {
      * @author entn
      */
     public void loadProjects() {
-            contentBox.getChildren().clear();
+        System.out.println("loadProjects called. children before clear: " + contentBox.getChildren().size());
+
+        contentBox.getChildren().clear();
             List<Progetto> progetti = progettoDAO.getProgettiByIdUtente(utenteLoggato.getIdUtente());
             for (Progetto progetto : progetti) {
                 try {
@@ -107,7 +113,6 @@ public class ProjectViewController {
             contentBox.getChildren().clear();
             for (Progetto progetto : progetti) {
                 try {
-
                     VisualizeProjectGUI.initProjectCard(progetto, contentBox, utenteLoggato);
                 } catch (IOException e) {
                     e.printStackTrace();
