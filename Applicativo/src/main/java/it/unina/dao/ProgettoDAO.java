@@ -68,6 +68,7 @@ public interface ProgettoDAO {
      * @param idProprietario ID del proprietario dei progetti.
      * @param stagione       Stagione dei progetti (può essere null per ignorare il filtro).
      * @param superficie     Superficie minima dei lotti (può essere null per ignorare il filtro).
+     *
      * @return Lista dei progetti che soddisfano i criteri di filtro.
      * @author entn
      */

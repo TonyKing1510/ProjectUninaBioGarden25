@@ -43,6 +43,7 @@ public class ProjectViewController {
     /** DAO per la gestione dei progetti nel database */
     private final ProgettoDAO progettoDAO = new ProgettoDAOImpl();
 
+
     /**
      * Imposta l'utente loggato per il controller.
      *
@@ -70,15 +71,16 @@ public class ProjectViewController {
      * @author entn
      */
     public void loadProjects() {
-        List<Progetto> progetti = progettoDAO.getProgettiByIdUtente(utenteLoggato.getIdUtente());
-        for (Progetto progetto : progetti) {
-            try {
-                System.out.println("Caricamento progetto: " + progetto.getIdProgetto());
-                VisualizeProjectGUI.initProjectCard(progetto, contentBox, utenteLoggato);
-            } catch (IOException e) {
-                e.printStackTrace();
+            contentBox.getChildren().clear();
+            List<Progetto> progetti = progettoDAO.getProgettiByIdUtente(utenteLoggato.getIdUtente());
+            for (Progetto progetto : progetti) {
+                try {
+                    System.out.println("Caricamento progetto: " + progetto.getIdProgetto());
+                    VisualizeProjectGUI.initProjectCard(progetto, contentBox, utenteLoggato);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
-        }
     }
 
     /**
@@ -89,26 +91,29 @@ public class ProjectViewController {
      */
     @FXML
     public void refreshProjects() {
-        contentBox.getChildren().clear();
-        Double superficieText = null;
-        String superficieInput = superficieField.getText();
-        if (superficieInput != null && !superficieInput.isEmpty()) {
-            superficieText = Double.valueOf(superficieInput);
-        }
-        String stagioneSelezionata = stagioneMenu.getText();
-        Stagione stagione = Stagione.valueOf(stagioneSelezionata.toUpperCase());
-        List<Progetto> progetti = progettoDAO.getProgettiWithFilter(
-                utenteLoggato.getIdUtente(),
-                stagione,
-                superficieText
-        );
-        for (Progetto progetto : progetti) {
-            try {
-                VisualizeProjectGUI.initProjectCard(progetto, contentBox, utenteLoggato);
-            } catch (IOException e) {
-                e.printStackTrace();
+            contentBox.getChildren().clear();
+            Double superficieText = null;
+            String superficieInput = superficieField.getText();
+            if (superficieInput != null && !superficieInput.isEmpty()) {
+                superficieText = Double.valueOf(superficieInput);
             }
-        }
+            String stagioneSelezionata = stagioneMenu.getText();
+            Stagione stagione = Stagione.valueOf(stagioneSelezionata.toUpperCase());
+            List<Progetto> progetti = progettoDAO.getProgettiWithFilter(
+                    utenteLoggato.getIdUtente(),
+                    stagione,
+                    superficieText
+            );
+            contentBox.getChildren().clear();
+            for (Progetto progetto : progetti) {
+                try {
+
+                    VisualizeProjectGUI.initProjectCard(progetto, contentBox, utenteLoggato);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
     }
 
     /**

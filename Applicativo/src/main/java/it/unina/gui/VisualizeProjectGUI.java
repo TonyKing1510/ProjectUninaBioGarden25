@@ -61,7 +61,6 @@ public class VisualizeProjectGUI {
         controller.setProgetto(progetto);
         controller.setUtente(utente);
         controller.setProgettoDetails(progetto);
-
         contentBox.getChildren().add(card);
     }
 }

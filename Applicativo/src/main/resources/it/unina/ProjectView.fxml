@@ -28,7 +28,7 @@
             </HBox>
          <Pane prefHeight="62.0" prefWidth="760.0" style="-fx-background-color: rgba(27,93,32,0.9); -fx-background-radius: 10; -fx-border-radius: 10; -fx-border-color: white;">
             <children>
-               <Button fx:id="cercaButton" onAction="#refreshProjects" layoutX="709.0" layoutY="12.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="36.0" style="-fx-background-color: rgba(255,255,255,255,0.7); -fx-background-radius: 10;">
+               <Button fx:id="cercaButton" layoutX="709.0" layoutY="12.0" mnemonicParsing="false" onAction="#refreshProjects" prefHeight="30.0" prefWidth="36.0" style="-fx-background-color: rgba(255,255,255,255,0.7); -fx-background-radius: 10;">
                   <font>
                      <Font size="14.0" />
                   </font>
