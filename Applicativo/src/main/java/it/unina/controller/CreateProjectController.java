@@ -17,6 +17,8 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.sql.Date;
+import java.time.LocalDate;
+import java.time.MonthDay;
 import java.util.*;
 
 /**
@@ -95,6 +97,9 @@ public class CreateProjectController {
     /** Lista delle checkbox dei lotti selezionati */
     private List<CheckBox> lottiCheckBoxes = new ArrayList<>();
 
+    /** Mappa per salvare le associazioni tra coltura e lotto */
+    private Map<Colture, Integer> associazioniColturaLotto = new HashMap<>();
+
     /** Utente attualmente loggato */
     private Utente utenteLoggato;
 
@@ -114,8 +119,7 @@ public class CreateProjectController {
     private static final String INVERNO = "Inverno";
     private static final String ATTENZIONE = "Attenzione";
 
-    /** Mappa per salvare le associazioni tra coltura e lotto */
-    private Map<Colture, Integer> associazioniColturaLotto = new HashMap<>();
+    private boolean coltureAssociate = false;
 
     /**
      * Imposta l'utente attualmente loggato.
@@ -176,7 +180,6 @@ public class CreateProjectController {
      */
     public void setColtureMenu(List<CheckBox> lottiSelezionati) {
         List<Colture> coltureDisponibili = coltureDAO.getColtureDisponibili();
-        vBoxColture.getChildren().clear();
 
         for (Colture coltura : coltureDisponibili) {
             CheckBox colturaCheckBox = new CheckBox(coltura.getIdColture() + " - " + coltura.getTitolo());
@@ -188,6 +191,7 @@ public class CreateProjectController {
                             "-fx-font-style: italic;"
             );
 
+            // Prepara la lista dei lotti selezionati
             List<Integer> lottiSelezionatiList = new ArrayList<>();
             for (CheckBox checkBox : lottiSelezionati) {
                 if (checkBox.isSelected()) {
@@ -208,21 +212,44 @@ public class CreateProjectController {
                             "-fx-background-radius: 5px;"
             );
 
+            // ✅ Ripristina lo stato precedente usando l'idColture come chiave
+            Integer lottoAssociato = associazioniColturaLotto.entrySet().stream()
+                    .filter(entry -> entry.getKey().getIdColture() == coltura.getIdColture())
+                    .map(Map.Entry::getValue)
+                    .findFirst()
+                    .orElse(null);
+
+            if (lottoAssociato != null) {
+                colturaCheckBox.setSelected(true);
+                lottoComboBox.setDisable(false);
+                lottoComboBox.setValue(lottoAssociato);
+
+                if (!coltureCheckBoxes.contains(colturaCheckBox)) {
+                    coltureCheckBoxes.add(colturaCheckBox);
+                }
+            }
+
+            // Listener per checkbox
             colturaCheckBox.setOnAction(event -> {
                 if (colturaCheckBox.isSelected()) {
-                    coltureCheckBoxes.add(colturaCheckBox);
+                    if (!coltureCheckBoxes.contains(colturaCheckBox)) {
+                        coltureCheckBoxes.add(colturaCheckBox);
+                    }
                     lottoComboBox.setDisable(false);
                 } else {
                     lottoComboBox.setDisable(true);
                     lottoComboBox.setValue(null);
-                    associazioniColturaLotto.remove(coltura);
+                    // rimuovo dalla mappa basandomi sull'idColture
+                    associazioniColturaLotto.entrySet().removeIf(entry -> entry.getKey().getIdColture() == coltura.getIdColture());
+                    coltureCheckBoxes.remove(colturaCheckBox);
                 }
             });
 
+            // Listener per ComboBox
             lottoComboBox.setOnAction(event -> {
                 Integer lottoIdScelto = lottoComboBox.getValue();
-                if (lottoIdScelto != null && colturaCheckBox.isSelected() ) {
-                    associazioniColturaLotto.put(coltura, lottoIdScelto);
+                if (lottoIdScelto != null && colturaCheckBox.isSelected()) {
+                        associazioniColturaLotto.put(coltura, lottoIdScelto);
                 }
             });
 
@@ -230,11 +257,12 @@ public class CreateProjectController {
             vBoxColture.getChildren().add(riga);
         }
 
-        // Sposta lo scroll in alto solo una volta
         scrollPaneColture.setFitToWidth(true);
         scrollPaneColture.setPannable(true);
         scrollPaneColture.setVvalue(0);
     }
+
+
 
 
     /**
@@ -312,9 +340,10 @@ public class CreateProjectController {
                 stagioneMenu.getText().equals(INVERNO);
         boolean isDateInitEmpty = dateInit.getValue() == null;
         boolean isDateFineEmpty = dateFine.getValue() == null;
-        boolean isPressAssociatedButton = associaColtureButton.isPressed();
+        boolean isAssociationEmpty = associazioniColturaLotto.isEmpty();
 
-        if (isAnyColturaSelected || isLottoSelected || isTitleEmpty || !isStagioneEmpty || isDateInitEmpty || isDateFineEmpty || isPressAssociatedButton) {
+
+        if ( isAssociationEmpty || isAnyColturaSelected || isLottoSelected || isTitleEmpty || !isStagioneEmpty || isDateInitEmpty || isDateFineEmpty || !coltureAssociate ) {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle(ATTENZIONE);
             alert.setHeaderText("Seleziona almeno una coltura per procedere o associale.");
@@ -352,9 +381,21 @@ public class CreateProjectController {
     @FXML
     public void addProgetto() {
         String title = titleProject.getText();
+        if (controlloCampiStagioneDateMancanti()) return;
+
         Date startDate = Date.valueOf(dateInit.getValue());
         Date endDate = Date.valueOf(dateFine.getValue());
         Stagione stagione = Stagione.valueOf(stagioneMenu.getText().toUpperCase());
+
+
+        if (controlloDateCoincidono(stagione)) return;
+
+        boolean nessunaColtura = coltureCheckBoxes == null || coltureCheckBoxes.isEmpty() || coltureCheckBoxes.stream().noneMatch(CheckBox::isSelected);
+        boolean nessunLotto = lottiCheckBoxes == null || lottiCheckBoxes.isEmpty() || lottiCheckBoxes.stream().noneMatch(CheckBox::isSelected);
+        boolean nessunaAssociazione = associazioniColturaLotto == null || associazioniColturaLotto.isEmpty();
+
+        if (controlloColtureLotto(nessunaColtura, nessunLotto, nessunaAssociazione)) return;
+
 
         List<Integer> idLottiSelezionati = new ArrayList<>();
         for (CheckBox checkBox : lottiCheckBoxes) {
@@ -369,9 +410,7 @@ public class CreateProjectController {
         for (int idLotto : idLottiSelezionati) {
             Lotto lotto = lottoDAO.getLottoById(idLotto);
             lottiSelezionati.add(lotto);
-            System.out.println(lottiSelezionati);
         }
-
 
         Progetto progettoAdd = new Progetto();
         progettoAdd.setTitolo(title);
@@ -401,6 +440,64 @@ public class CreateProjectController {
         }
     }
 
+    private static boolean controlloColtureLotto(boolean nessunaColtura, boolean nessunLotto, boolean nessunaAssociazione) {
+        if (nessunaColtura || nessunLotto || nessunaAssociazione) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Selezione Mancante");
+            alert.setHeaderText("Colture o Lotti non selezionati");
+            alert.setContentText("Assicurati di selezionare almeno una coltura, un lotto e di creare l'associazione coltura-lotto.");
+            alert.showAndWait();
+            return true;
+        }
+        return false;
+    }
+
+    private boolean controlloDateCoincidono(Stagione stagione) {
+        if (!isPeriodoNellaStagione(dateInit.getValue(), dateFine.getValue(), stagione)) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Stagione Non Corrispondente");
+            alert.setHeaderText("Le date non coincidono con la stagione selezionata.");
+            alert.setContentText("Controlla che il periodo scelto rientri nella stagione di " + stagioneMenu.getText() + ".");
+            alert.showAndWait();
+            return true;
+        }
+        return false;
+    }
+
+    private boolean controlloCampiStagioneDateMancanti() {
+        if (dateInit.getValue() == null || dateFine.getValue() == null || stagioneMenu.getText() == null || stagioneMenu.getText().isEmpty()) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Campi Mancanti");
+            alert.setHeaderText(null);
+            alert.setContentText("Compila tutti i campi: stagione, data di inizio e data di fine.");
+            alert.showAndWait();
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Metodo di supporto per verificare se il periodo rientra nella stagione.
+     */
+    private boolean isPeriodoNellaStagione(LocalDate dataInizio, LocalDate dataFine, Stagione stagione) {
+        return isDateInSeason(dataInizio, stagione) && isDateInSeason(dataFine, stagione);
+    }
+
+    /**
+     * Controlla se una singola data rientra nella stagione.
+     */
+    private boolean isDateInSeason(LocalDate date, Stagione stagione) {
+        MonthDay md = MonthDay.from(date);
+
+        return switch (stagione) {
+            case PRIMAVERA -> !md.isBefore(MonthDay.of(3, 21)) && !md.isAfter(MonthDay.of(6, 20));
+            case ESTATE    -> !md.isBefore(MonthDay.of(6, 21)) && !md.isAfter(MonthDay.of(9, 22));
+            case AUTUNNO   -> !md.isBefore(MonthDay.of(9, 23)) && !md.isAfter(MonthDay.of(12, 20));
+            case INVERNO   -> md.isAfter(MonthDay.of(12, 20)) || md.isBefore(MonthDay.of(3, 21));
+        };
+    }
+
+
     /**
      * Salva le associazioni tra colture e lotti selezionati nel database.
      * Mostra un alert di conferma o errore.
@@ -416,6 +513,7 @@ public class CreateProjectController {
             alert.setTitle("Successo");
             alert.setHeaderText("Associazioni salvate");
             alert.setContentText("Le associazioni coltura-lotto sono state salvate correttamente!");
+            coltureAssociate = true;
         } else {
             alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Errore");
