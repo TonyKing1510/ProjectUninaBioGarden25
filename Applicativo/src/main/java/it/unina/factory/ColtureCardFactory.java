@@ -63,7 +63,7 @@ public class ColtureCardFactory {
         TextFlow nomeColturaFlow = getColturaFlow("Nome della coltura: ", coltura.getTitolo());
         TextFlow stagioneColturaFlow = getColturaFlow("Stagione: ", coltura.getStagionalita().toString());
         TextFlow tempoMaturazioneFlow = getColturaFlow("Tempo di maturazione: ", coltura.getTempoMaturazione().toDays() + " giorni");
-        TextFlow lottoAssociatoFlow = getColturaFlow("Lotto associato: ", String.valueOf(coltura.getLotto().getIdLotto()));
+        TextFlow lottoAssociatoFlow = getColturaFlow("Lotto associato: ", coltura.getLotto().getIdLotto() + "- "+ coltura.getLotto().getNome());
 
         Separator separator = new Separator();
         separator.setStyle("-fx-background-color: #ffffff; -fx-pref-height: 2;");

@@ -37,6 +37,10 @@ public class Attivita {
     private Date dataFine;
 
     private Utente responsabile;
+    public Utente getResponsabile(){return responsabile;}
+    public void setResponsabile(Utente u){
+        this.responsabile = u;
+    }
 
     /**
      * Costruisce un oggetto {@code Attivita} completo.

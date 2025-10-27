@@ -63,9 +63,9 @@ public class ReportGenerator {
                 Lotto lotto = entry.getKey();
                 Map<Colture, StatisticheColtura> statsColture = entry.getValue();
 
-                document.add(new Paragraph("Lotto ID: " + lotto.getIdLotto()));
+                document.add(new Paragraph("Lotto: " + lotto.getIdLotto() + " - " + lotto.getNome()));
                 // Creo il grafico per questo lotto
-                JFreeChart chart = ChartGenerator.creaBarChart("Statistiche Lotto " + lotto.getIdLotto(), statsColture);
+                JFreeChart chart = ChartGenerator.creaBarChart("Statistiche Lotto " + lotto.getNome(), statsColture);
 
                 // Converto in immagine
                 BufferedImage bufferedImage = chart.createBufferedImage(500, 300);

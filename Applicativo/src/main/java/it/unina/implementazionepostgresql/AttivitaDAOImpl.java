@@ -156,9 +156,10 @@ public class AttivitaDAOImpl implements AttivitaDAO {
     public Map<Attivita, List<Utente>> getAttivitaByIdColture(int idColtura) {
         Logger logger = Logger.getLogger(getClass().getName());
         Map<Attivita, List<Utente>> result = new HashMap<>();
-        String query = "SELECT a.*, au.id_utente FROM Attivita a " +
+        String query = "SELECT a.*, au.id_utente,u.nome FROM Attivita a " +
                 "JOIN attivita_utente au ON a.id_attivita = au.id_attivita " +
                 "JOIN utente_coltura uc ON au.id_utente = uc.id_coltivatore " +
+                "JOIN utente u ON uc.id_coltivatore = u.id_utente " +
                 "WHERE uc.id_colture = ?";
 
         try (var connection = ConnessioneDatabase.getConnection();
@@ -171,7 +172,11 @@ public class AttivitaDAOImpl implements AttivitaDAO {
                     Attivita attivita = new Attivita();
 
                     int idAttivita = resultSet.getInt(COLONNA_ID_ATTIVITA);
+                    int idUtenteColtivatore = resultSet.getInt("id_utente");
+                    Utente utenteColtivatore = new Utente();
+                    utenteColtivatore.setIdUtente(idUtenteColtivatore);
                     attivita.setIdAttivita(idAttivita);
+                    attivita.setResponsabile(utenteColtivatore);
 
                     String statoStr = resultSet.getString(COLONNA_STATO_ATTIVITA);
                     StatoAttivita stato = statoStr.equals("programmata") ? StatoAttivita.PROGRAMMATA :
@@ -191,6 +196,8 @@ public class AttivitaDAOImpl implements AttivitaDAO {
 
                     Utente utente = new Utente();
                     utente.setIdUtente(resultSet.getInt("id_utente"));
+                    utente.setNome(resultSet.getString("nome"));
+                    utente.setAttivita(attivita);
 
                     result.computeIfAbsent(attivita, k -> new ArrayList<>()).add(utente);
                 }
@@ -214,7 +221,7 @@ public class AttivitaDAOImpl implements AttivitaDAO {
     @Override
     public Map<Lotto, Map<Colture, StatisticheColtura>> getStatistichePerLottiEColtureByIdProgetto(Progetto progetto) throws StatisticheColtura.StatisticheException{
             Map<Lotto, Map<Colture, List<Attivita>>> rawData = new HashMap<>();
-            String query = "SELECT a.*,c.titolo ,c.id_colture, l.id_lotto " +
+            String query = "SELECT a.*,c.titolo ,c.id_colture, l.id_lotto, l.nome, uc.id_coltivatore " +
                     "FROM Attivita a " +
                     "JOIN attivita_utente au ON a.id_attivita = au.id_attivita " +
                     "JOIN utente_coltura uc ON au.id_utente = uc.id_coltivatore " +
@@ -296,6 +303,7 @@ public class AttivitaDAOImpl implements AttivitaDAO {
         while (resultSet.next()) {
             Lotto lotto = new Lotto();
             lotto.setIdLotto(resultSet.getInt("id_lotto"));
+            lotto.setNome(resultSet.getString("nome"));
 
             Colture coltura = new Colture();
             coltura.setIdColture(resultSet.getInt("id_colture"));
@@ -309,6 +317,10 @@ public class AttivitaDAOImpl implements AttivitaDAO {
             attivita.setQuantitaUsata(resultSet.getInt(COLONNA_QUANTITA_USATA));
             attivita.setDataInizio(resultSet.getDate("datai"));
             attivita.setDataFine(resultSet.getDate("dataf"));
+            Utente coltivatore = new Utente();
+            coltivatore.setIdUtente(resultSet.getInt("id_coltivatore"));
+            coltivatore.setAttivita(attivita);
+            attivita.setResponsabile(coltivatore);
 
             rawData
                     .computeIfAbsent(lotto, k -> new HashMap<>())

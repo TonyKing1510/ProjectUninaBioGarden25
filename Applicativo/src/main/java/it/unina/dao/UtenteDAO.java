@@ -38,8 +38,15 @@ public interface UtenteDAO {
      */
     List<Utente> getColtivatoriByLottoId(int idColtivatore);
 
+    /**
+     * Restituisce un utente proprietario.
+     */
     Utente getUtenteProprietario(int idProprietario);
 
+
+    /**
+     * Restituisce tutti gli utenti coltivatori disponibili.
+     */
     List<Utente> getColtivatoriDisponibili();
 }
 

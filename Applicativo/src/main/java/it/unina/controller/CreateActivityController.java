@@ -89,8 +89,8 @@ public class CreateActivityController {
         List<Utente> coltivatori = utenteDAO.getColtivatoriDisponibili();
 
         for (Utente coltivatore : coltivatori) {
-            MenuItem item = new MenuItem(String.valueOf(coltivatore.getIdUtente()));
-            item.setOnAction(event -> coltivatoreMenu.setText(String.valueOf(coltivatore.getIdUtente())));
+            MenuItem item = new MenuItem(coltivatore.getIdUtente() + "- "+ coltivatore.getNome());
+            item.setOnAction(event -> coltivatoreMenu.setText(coltivatore.getIdUtente() + "- "+ coltivatore.getNome()));
             coltivatoreMenu.getItems().add(item);
         }
     }
@@ -161,30 +161,11 @@ public class CreateActivityController {
      */
     @FXML
     public void addAttivita() {
-        int idProprietario = utenteLoggato.getIdUtente();
-        String coltivatoreSelezionato = coltivatoreMenu.getText();
-        String colturaSelezionata = colturaMenu.getText().split(" ")[0];
-        String tipoAttivitaSelezionata = tipoAttivitaMenu.getText();
-        String statoAttivitaSelezionato = statoAttivitaMenu.getText();
-        Date dataInizioAttivita = java.sql.Date.valueOf(dataInizio.getValue());
-        Date dataFineAttivita = java.sql.Date.valueOf(dataFine.getValue());
-        int quantitaRaccolta = Integer.parseInt(textQuantitaRaccolta.getText());
-        int quantitaUsata = Integer.parseInt(textQuantitaUsata.getText());
+        Result result = getResult();
 
-        Attivita nuovaAttivita = new Attivita();
-        nuovaAttivita.setDataFine(dataFineAttivita);
-        nuovaAttivita.setDataInizio(dataInizioAttivita);
-        nuovaAttivita.setQuantitaRaccolta(quantitaRaccolta);
-        nuovaAttivita.setQuantitaUsata(quantitaUsata);
-        StatoAttivita stato = statoAttivitaSelezionato.equals("programmata") ? StatoAttivita.PROGRAMMATA :
-                statoAttivitaSelezionato.equals("in corso") ? StatoAttivita.IN_CORSO :
-                        StatoAttivita.COMPLETATA;
-        nuovaAttivita.setStato(stato);
-        TipoAttivita tipo = tipoAttivitaSelezionata.equals("Irrigazione") ? TipoAttivita.IRRIGAZIONE : tipoAttivitaSelezionata.equals("Semina") ? TipoAttivita.SEMINA : TipoAttivita.RACCOLTA;
-        nuovaAttivita.setTipo(tipo);
-        System.out.println(nuovaAttivita.getStato());
-        System.out.println(nuovaAttivita.getTipo());
-        boolean successo = attivitaDAO.addAttivita(nuovaAttivita, Integer.parseInt(colturaSelezionata), Integer.parseInt(coltivatoreSelezionato), idProprietario);
+        Attivita nuovaAttivita = getNuovaAttivita(result);
+
+        boolean successo = attivitaDAO.addAttivita(nuovaAttivita, Integer.parseInt(result.colturaSelezionata()), Integer.parseInt(result.coltivatoreSelezionato()), result.idProprietario());
         Alert alert;
         if (successo) {
             alert = new Alert(Alert.AlertType.INFORMATION);
@@ -204,5 +185,40 @@ public class CreateActivityController {
         }
 
 
+    }
+
+    private static Attivita getNuovaAttivita(Result result) {
+        Attivita nuovaAttivita = new Attivita();
+        nuovaAttivita.setDataFine(result.dataFineAttivita());
+        nuovaAttivita.setDataInizio(result.dataInizioAttivita());
+        nuovaAttivita.setQuantitaRaccolta(result.quantitaRaccolta());
+        nuovaAttivita.setQuantitaUsata(result.quantitaUsata());
+        StatoAttivita stato = result.statoAttivitaSelezionato().equals("programmata") ? StatoAttivita.PROGRAMMATA :
+                result.statoAttivitaSelezionato().equals("in corso") ? StatoAttivita.IN_CORSO :
+                        StatoAttivita.COMPLETATA;
+        nuovaAttivita.setStato(stato);
+        TipoAttivita tipo = result.tipoAttivitaSelezionata().equals("Irrigazione") ? TipoAttivita.IRRIGAZIONE : result.tipoAttivitaSelezionata().equals("Semina") ? TipoAttivita.SEMINA : TipoAttivita.RACCOLTA;
+        nuovaAttivita.setTipo(tipo);
+        Utente coltivatore = new Utente();
+        coltivatore.setIdUtente(Integer.parseInt(result.coltivatoreSelezionato()));
+        nuovaAttivita.setResponsabile(coltivatore);
+        return nuovaAttivita;
+    }
+
+    private Result getResult() {
+        int idProprietario = utenteLoggato.getIdUtente();
+        String coltivatoreSelezionato = coltivatoreMenu.getText();
+        coltivatoreSelezionato = coltivatoreSelezionato.split("- ")[0];
+        String colturaSelezionata = colturaMenu.getText().split(" ")[0];
+        String tipoAttivitaSelezionata = tipoAttivitaMenu.getText();
+        String statoAttivitaSelezionato = statoAttivitaMenu.getText();
+        Date dataInizioAttivita = Date.valueOf(dataInizio.getValue());
+        Date dataFineAttivita = Date.valueOf(dataFine.getValue());
+        int quantitaRaccolta = Integer.parseInt(textQuantitaRaccolta.getText());
+        int quantitaUsata = Integer.parseInt(textQuantitaUsata.getText());
+        return new Result(idProprietario, coltivatoreSelezionato, colturaSelezionata, tipoAttivitaSelezionata, statoAttivitaSelezionato, dataInizioAttivita, dataFineAttivita, quantitaRaccolta, quantitaUsata);
+    }
+
+    private record Result(int idProprietario, String coltivatoreSelezionato, String colturaSelezionata, String tipoAttivitaSelezionata, String statoAttivitaSelezionato, Date dataInizioAttivita, Date dataFineAttivita, int quantitaRaccolta, int quantitaUsata) {
     }
 }

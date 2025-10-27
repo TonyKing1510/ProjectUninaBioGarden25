@@ -60,7 +60,7 @@ public class LottoCardFactory {
     public static VBox createLottoCard(Lotto lotto) {
         VBox vBoxInfoLotto = new VBox(5);
 
-        TextFlow lottoIdFlow = getTextFlow("Lotto ID: ", String.valueOf(lotto.getIdLotto()));
+        TextFlow lottoIdFlow = getTextFlow("Lotto: ", lotto.getIdLotto() + "- " + lotto.getNome());
         TextFlow superficieFlow = getTextFlow("Superficie: ", lotto.getSuperficie() + " mq");
         TextFlow indirizzoFlow = getTextFlow("Indirizzo: ", lotto.getIndirizzo() + " " + lotto.getCap());
 

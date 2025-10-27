@@ -119,7 +119,7 @@
                                                 <Font name="System Bold Italic" size="15.0" />
                                              </font>
                                           </Label>
-                                          <Label fx:id="lottiAssociatiLabel" prefHeight="30.0" prefWidth="149.0" text="LottiAssociati" textFill="WHITE">
+                                          <Label fx:id="lottiAssociatiLabel" prefHeight="22.0" prefWidth="488.0" text="LottiAssociati" textFill="WHITE">
                                              <font>
                                                 <Font name="System Italic" size="15.0" />
                                              </font>
@@ -144,7 +144,7 @@
                                                       <Font name="System Bold Italic" size="15.0" />
                                                    </font>
                                                 </Label>
-                                                <Label fx:id="nomeLottoLabel1" prefHeight="30.0" prefWidth="149.0" text="Nome del lotto" textFill="WHITE">
+                                                <Label fx:id="nomeLottoLabel1" prefHeight="22.0" prefWidth="473.0" text="Nome del lotto" textFill="WHITE">
                                                    <font>
                                                       <Font name="System Italic" size="15.0" />
                                                    </font>
@@ -158,7 +158,7 @@
                                                       <Font name="System Bold Italic" size="15.0" />
                                                    </font>
                                                 </Label>
-                                                <Label fx:id="superficieLottoLabel1" prefHeight="30.0" prefWidth="149.0" text="Superficie" textFill="WHITE">
+                                                <Label fx:id="superficieLottoLabel1" prefHeight="22.0" prefWidth="486.0" text="Superficie" textFill="WHITE">
                                                    <font>
                                                       <Font name="System Italic" size="15.0" />
                                                    </font>

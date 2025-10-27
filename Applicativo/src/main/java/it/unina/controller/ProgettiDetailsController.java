@@ -137,7 +137,7 @@ public class ProgettiDetailsController {
         lottiAssociati = lotti;
         StringBuilder lottiBuilder = new StringBuilder(" ");
         for(Lotto lotto : lotti){
-            lottiBuilder.append(lotto.getIdLotto()).append(",");
+            lottiBuilder.append(lotto.getIdLotto()).append("- ").append(lotto.getNome()).append(",");
         }
         lottiBuilder.setLength(lottiBuilder.length() - 1);
         lottiAssociatiLabel.setText(lottiBuilder.toString());
@@ -197,9 +197,9 @@ public class ProgettiDetailsController {
         Logger logger = Logger.getLogger(getClass().getName());
         Map<Lotto, Map<Colture, StatisticheColtura>> statistiche = attivitaDao.getStatistichePerLottiEColtureByIdProgetto(progetto);
         statistiche.forEach((lotto, coltureStats) -> {
-            logger.info("Lotto ID: " + lotto.getIdLotto());
+            logger.info("Lotto : " + lotto.getIdLotto() + "- "+ lotto.getNome());
             coltureStats.forEach((coltura, stats) -> {
-                logger.info("   Coltura ID: " + coltura.getIdColture());
+                logger.info("   Nome coltura: " + coltura.getTitolo());
                 logger.info("      Totale raccolte: " + stats.getTotaleRaccolte());
                 logger.info("      Media: " + stats.getMedia());
                 logger.info("      Min: " + stats.getMin());

@@ -89,26 +89,7 @@ public class AttivitaCardFactory {
 
         // Stato attività + bottone "Modifica"
         TextFlow statoAttivitaFlow = getStatoAttivitaFlow("Stato Attività: ", attivita.getStato().toString());
-        Button modificaButton = new Button("Modifica");
-        modificaButton.setOnAction(e -> {
-            // elenco degli stati disponibili
-            List<String> stati = Arrays.asList("IN_CORSO", "COMPLETATA", "PROGRAMMATA");
-
-            ChoiceDialog<String> dialog = new ChoiceDialog<>(attivita.getStato().toString(), stati);
-            dialog.setTitle("Modifica Stato");
-            dialog.setHeaderText("Scegli il nuovo stato dell'attività");
-            dialog.setContentText("Nuovo stato:");
-
-            // Mostra il dialog e aspetta la scelta
-            Optional<String> result = dialog.showAndWait();
-            result.ifPresent(nuovoStato -> {
-                attivita.setStato(StatoAttivita.valueOf(nuovoStato));
-                // Aggiornamento su DB
-                attivitaDAO.updateAttivita(attivita);
-            });
-        });
-
-        HBox statoBox = new HBox(5, statoAttivitaFlow, modificaButton);
+        HBox statoBox = getHBox(attivita, statoAttivitaFlow);
 
         TextFlow dataInizioFlow = getDataInizioFlow("Data Inizio: ", attivita.getDataInizio().toString());
         TextFlow dataFineFlow = getDataInizioFlow("Data Fine: ", attivita.getDataFine().toString());
@@ -131,6 +112,30 @@ public class AttivitaCardFactory {
         return vBoxInfoAttivita;
     }
 
+    private static HBox getHBox(Attivita attivita, TextFlow statoAttivitaFlow) {
+        Button modificaButton = new Button("Modifica");
+        modificaButton.setOnAction(e -> {
+            // elenco degli stati disponibili
+            List<String> stati = Arrays.asList("IN_CORSO", "COMPLETATA", "PROGRAMMATA");
+
+            ChoiceDialog<String> dialog = new ChoiceDialog<>(attivita.getStato().toString(), stati);
+            dialog.setTitle("Modifica Stato");
+            dialog.setHeaderText("Scegli il nuovo stato dell'attività");
+            dialog.setContentText("Nuovo stato:");
+
+            // Mostra il dialog e aspetta la scelta
+            Optional<String> result = dialog.showAndWait();
+            result.ifPresent(nuovoStato -> {
+                attivita.setStato(StatoAttivita.valueOf(nuovoStato));
+                // Aggiornamento su DB
+                attivitaDAO.updateAttivita(attivita);
+            });
+        });
+
+        HBox statoBox = new HBox(5, statoAttivitaFlow, modificaButton);
+        return statoBox;
+    }
+
     /**
      * Crea un {@link TextFlow} per visualizzare i coltivatori associati a un’attività.
      *
@@ -141,18 +146,18 @@ public class AttivitaCardFactory {
     private static TextFlow getColtivatoriFlow(List<Utente> coltivatori) {
         TextFlow coltivatoriFlow = new TextFlow();
 
-        Text coltivatoriLabelPart = new Text("Id coltivatore associato: ");
+        Text coltivatoriLabelPart = new Text("Coltivatore associato: ");
         coltivatoriLabelPart.setStyle(STILE_TEXT);
 
-        StringBuilder coltivatoriIds = new StringBuilder();
+        StringBuilder coltivatoriName = new StringBuilder();
         for (int i = 0; i < coltivatori.size(); i++) {
-            coltivatoriIds.append(coltivatori.get(i).getIdUtente());
+            coltivatoriName.append(coltivatori.get(i).getNome());
             if (i < coltivatori.size() - 1) {
-                coltivatoriIds.append(", ");
+                coltivatoriName.append(", ");
             }
         }
 
-        Text coltivatoriValuePart = new Text(coltivatoriIds.toString());
+        Text coltivatoriValuePart = new Text(coltivatoriName.toString());
         coltivatoriValuePart.setStyle(STILE_TEXT_DATI);
 
         coltivatoriFlow.getChildren().addAll(coltivatoriLabelPart, coltivatoriValuePart);

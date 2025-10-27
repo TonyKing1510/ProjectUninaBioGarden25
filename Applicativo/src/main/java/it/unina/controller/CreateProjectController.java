@@ -180,79 +180,83 @@ public class CreateProjectController {
      */
     public void setColtureMenu(List<CheckBox> lottiSelezionati) {
         List<Colture> coltureDisponibili = coltureDAO.getColtureDisponibili();
+        vBoxColture.getChildren().clear(); // Pulisco la VBox prima di riempirla
+
+        // Preparo la lista dei lotti selezionati
+        List<String> lottiSelezionatiList = new ArrayList<>();
+        for (CheckBox checkBox : lottiSelezionati) {
+            if (checkBox.isSelected()) {
+                lottiSelezionatiList.add(checkBox.getText()); // Esempio: "17 - Oasi Verde"
+            }
+        }
 
         for (Colture coltura : coltureDisponibili) {
             CheckBox colturaCheckBox = new CheckBox(coltura.getIdColture() + " - " + coltura.getTitolo());
-            colturaCheckBox.setStyle(
-                    "-fx-font-size: 15px;" +
-                            "-fx-text-fill: #ffffff;" +
-                            "-fx-padding: 5px;" +
-                            "-fx-font-family: 'System';" +
-                            "-fx-font-style: italic;"
-            );
+            colturaCheckBox.setStyle("""
+                -fx-font-size: 15px;
+                -fx-text-fill: #ffffff;
+                -fx-padding: 5px;
+                -fx-font-family: 'System';
+                -fx-font-style: italic;
+                """);
 
-            // Prepara la lista dei lotti selezionati
-            List<Integer> lottiSelezionatiList = new ArrayList<>();
-            for (CheckBox checkBox : lottiSelezionati) {
-                if (checkBox.isSelected()) {
-                    String[] parts = checkBox.getText().split(" - ");
-                    lottiSelezionatiList.add(Integer.parseInt(parts[0]));
-                }
-            }
-
-            ComboBox<Integer> lottoComboBox = new ComboBox<>();
+            // ComboBox per scegliere il lotto associato
+            ComboBox<String> lottoComboBox = new ComboBox<>();
             lottoComboBox.getItems().addAll(lottiSelezionatiList);
             lottoComboBox.setDisable(true);
-            lottoComboBox.setStyle(
-                    "-fx-background-color: white;" +
-                            "-fx-text-fill: black;" +
-                            "-fx-font-size: 14px;" +
-                            "-fx-border-color: #cccccc;" +
-                            "-fx-border-radius: 5px;" +
-                            "-fx-background-radius: 5px;"
-            );
+            lottoComboBox.setStyle("""
+                -fx-background-color: white;
+                -fx-text-fill: black;
+                -fx-font-size: 14px;
+                -fx-border-color: #cccccc;
+                -fx-border-radius: 5px;
+                -fx-background-radius: 5px;
+                """);
 
-            // ✅ Ripristina lo stato precedente usando l'idColture come chiave
-            Integer lottoAssociato = associazioniColturaLotto.entrySet().stream()
-                    .filter(entry -> entry.getKey().getIdColture() == coltura.getIdColture())
-                    .map(Map.Entry::getValue)
-                    .findFirst()
-                    .orElse(null);
-
+            // Ripristino stato precedente se esiste un'associazione
+            Integer lottoAssociato = associazioniColturaLotto.get(coltura);
             if (lottoAssociato != null) {
                 colturaCheckBox.setSelected(true);
                 lottoComboBox.setDisable(false);
-                lottoComboBox.setValue(lottoAssociato);
 
-                if (!coltureCheckBoxes.contains(colturaCheckBox)) {
-                    coltureCheckBoxes.add(colturaCheckBox);
-                }
+                // Cerco la stringa del lotto con quell'ID
+                String lottoText = lottiSelezionatiList.stream()
+                        .filter(text -> text.startsWith(lottoAssociato + " -"))
+                        .findFirst()
+                        .orElse(null);
+                lottoComboBox.setValue(lottoText);
+
+                coltureCheckBoxes.add(colturaCheckBox);
             }
 
-            // Listener per checkbox
+            // Listener per la CheckBox
             colturaCheckBox.setOnAction(event -> {
                 if (colturaCheckBox.isSelected()) {
-                    if (!coltureCheckBoxes.contains(colturaCheckBox)) {
-                        coltureCheckBoxes.add(colturaCheckBox);
-                    }
                     lottoComboBox.setDisable(false);
+                    coltureCheckBoxes.add(colturaCheckBox);
                 } else {
                     lottoComboBox.setDisable(true);
                     lottoComboBox.setValue(null);
-                    // rimuovo dalla mappa basandomi sull'idColture
-                    associazioniColturaLotto.entrySet().removeIf(entry -> entry.getKey().getIdColture() == coltura.getIdColture());
                     coltureCheckBoxes.remove(colturaCheckBox);
+                    associazioniColturaLotto.remove(coltura);
                 }
             });
 
-            // Listener per ComboBox
+            //  Listener per la ComboBox
             lottoComboBox.setOnAction(event -> {
-                Integer lottoIdScelto = lottoComboBox.getValue();
-                if (lottoIdScelto != null && colturaCheckBox.isSelected()) {
+                String selectedText = lottoComboBox.getValue();
+                if (selectedText != null && colturaCheckBox.isSelected()) {
+                    try {
+                        // Estrai l'ID prima del trattino (es: "17 - Oasi Verde" → 17)
+                        Integer lottoIdScelto = Integer.parseInt(selectedText.split(" - ")[0]);
                         associazioniColturaLotto.put(coltura, lottoIdScelto);
+                    } catch (NumberFormatException e) {
+                        System.err.println("Errore nel parsing dell'ID del lotto: " + selectedText);
+                    }
                 }
             });
 
+            // Aggiungo tutto nella VBox
             HBox riga = new HBox(10, colturaCheckBox, lottoComboBox);
             vBoxColture.getChildren().add(riga);
         }
@@ -261,7 +265,6 @@ public class CreateProjectController {
         scrollPaneColture.setPannable(true);
         scrollPaneColture.setVvalue(0);
     }
-
 
 
 
