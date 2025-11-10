@@ -6,10 +6,15 @@ import it.unina.implementazionepostgresql.ProgettoDAOImpl;
 import it.unina.model.*;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 
 /**
@@ -97,29 +102,51 @@ public class ProjectViewController {
      */
     @FXML
     public void refreshProjects() {
-            contentBox.getChildren().clear();
-            Double superficieText = null;
-            String superficieInput = superficieField.getText();
-            if (superficieInput != null && !superficieInput.isEmpty()) {
-                superficieText = Double.valueOf(superficieInput);
-            }
-            String stagioneSelezionata = stagioneMenu.getText();
-            Stagione stagione = Stagione.valueOf(stagioneSelezionata.toUpperCase());
-            List<Progetto> progetti = progettoDAO.getProgettiWithFilter(
-                    utenteLoggato.getIdUtente(),
-                    stagione,
-                    superficieText
-            );
-            contentBox.getChildren().clear();
-            for (Progetto progetto : progetti) {
-                try {
-                    VisualizeProjectGUI.initProjectCard(progetto, contentBox, utenteLoggato);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
+        contentBox.getChildren().clear();
 
+        Double superficieText = null;
+        String superficieInput = superficieField.getText();
+        if (superficieInput != null && !superficieInput.isEmpty()) {
+            superficieText = Double.valueOf(superficieInput);
+        }
+
+        String stagioneSelezionata = stagioneMenu.getText();
+        Stagione stagione = Stagione.valueOf(stagioneSelezionata.toUpperCase());
+
+        List<Progetto> progetti = progettoDAO.getProgettiWithFilter(
+                utenteLoggato.getIdUtente(),
+                stagione,
+                superficieText
+        );
+
+        contentBox.getChildren().clear();
+
+        if (progetti.isEmpty()) {
+
+            Label emptyLabel = new Label("Nessun progetto trovato con questi filtri");
+            emptyLabel.setStyle("-fx-font-size: 16px; -fx-text-fill: red;");
+
+            VBox emptyBox = new VBox(emptyLabel);
+            emptyBox.setAlignment(Pos.CENTER);
+            emptyBox.setPadding(new Insets(30));
+
+            contentBox.getChildren().add(emptyBox);
+            return;
+        }
+
+        
+        for (Progetto progetto : progetti) {
+            try {
+                VisualizeProjectGUI.initProjectCard(progetto, contentBox, utenteLoggato);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
+
+
+
+
 
     /**
      * Inizializza il menu delle stagioni con le opzioni disponibili.
