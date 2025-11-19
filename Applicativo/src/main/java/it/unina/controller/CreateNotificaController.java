@@ -17,6 +17,7 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.stage.Stage;
 
 import java.util.List;
 
@@ -178,6 +179,9 @@ public class CreateNotificaController {
         if (successo) {
             showAlert("Successo", "Notifica creata correttamente!");
             resetForm();
+            // Chiudi la finestra corrente
+            Stage stage = (Stage) creaNotifica.getScene().getWindow();
+            stage.close();
         } else {
             showAlert("Errore", "Errore durante la creazione della notifica.");
         }
