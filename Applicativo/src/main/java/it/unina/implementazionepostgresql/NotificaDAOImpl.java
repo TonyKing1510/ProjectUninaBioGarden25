@@ -3,6 +3,7 @@ package it.unina.implementazionepostgresql;
 import it.unina.connessionedb.ConnessioneDatabase;
 import it.unina.dao.NotificaDAO;
 import it.unina.model.Notifica;
+import it.unina.model.Progetto;
 import it.unina.model.Utente;
 import it.unina.model.Lotto;
 
@@ -26,14 +27,14 @@ public class NotificaDAOImpl implements NotificaDAO {
     @Override
     public boolean inserisciNotifica(Notifica notifica) {
         String sql = "INSERT INTO notifiche " +
-                "(id_proprietario, id_lotto, id_destinatario, tutti, titolo, descrizione, giorni_scadenza, tipo, data_creazione) " +
+                "(id_proprietario, id_progetto, id_destinatario, tutti, titolo, descrizione, giorni_scadenza, tipo, data_creazione) " +
                 "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         try (var conn = ConnessioneDatabase.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
 
             ps.setInt(1, notifica.getOwner().getIdUtente());
-            ps.setObject(2, notifica.getLotto() != null ? notifica.getLotto().getIdLotto() : null);
+            ps.setObject(2, notifica.getProgetto() != null ? notifica.getProgetto().getIdProgetto(): null);
             ps.setObject(3, notifica.getDestinatario() != null ? notifica.getDestinatario().getIdUtente() : null);
             ps.setBoolean(4, notifica.isTutti());
             ps.setString(5, notifica.getTitolo());
@@ -74,14 +75,14 @@ public class NotificaDAOImpl implements NotificaDAO {
     }
 
     @Override
-    public List<Notifica> getNotifichePerLotto(int idLotto) {
+    public List<Notifica> getNotifichePerProgetto(int idProgetto) {
         List<Notifica> notifiche = new ArrayList<>();
-        String sql = "SELECT * FROM notifiche WHERE id_lotto = ? ORDER BY data_creazione DESC";
+        String sql = "SELECT * FROM notifiche WHERE id_progetto = ? ORDER BY data_creazione DESC";
 
         try (var conn = ConnessioneDatabase.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
 
-            ps.setInt(1, idLotto);
+            ps.setInt(1, idProgetto);
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
@@ -150,11 +151,11 @@ public class NotificaDAOImpl implements NotificaDAO {
         n.setOwner(owner);
 
         // Lotto (opzionale)
-        int idLotto = rs.getInt("id_lotto");
+        int idProgetto = rs.getInt("id_progetto");
         if (!rs.wasNull()) {
-            Lotto lotto = new Lotto();
-            lotto.setIdLotto(idLotto);
-            n.setLotto(lotto);
+            Progetto progetto = new Progetto();
+            progetto.setIdProgetto(idProgetto);
+            n.setProgetto(progetto);
         }
 
         // Destinatario (opzionale)

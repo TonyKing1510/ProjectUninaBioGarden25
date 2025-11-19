@@ -26,10 +26,10 @@ public interface NotificaDAO {
 
     /**
      * Recupera tutte le notifiche associate a un determinato lotto.
-     * @param idLotto ID del lotto
+     * @param idProgetto ID del lotto
      * @return lista di notifiche
      */
-    List<Notifica> getNotifichePerLotto(int idLotto);
+    List<Notifica> getNotifichePerProgetto(int idProgetto);
 
     /**
      * Recupera tutte le notifiche indirizzate a un destinatario specifico.

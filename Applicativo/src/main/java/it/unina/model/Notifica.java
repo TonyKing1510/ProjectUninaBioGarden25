@@ -16,8 +16,8 @@ public class Notifica {
     /** Utente proprietario che ha creato la notifica */
     private Utente owner;
 
-    /** Lotto opzionale a cui la notifica fa riferimento */
-    private Lotto lotto;
+    /** Progetto opzionale a cui la notifica fa riferimento */
+    private Progetto progetto;
 
     /** Utente destinatario singolo (opzionale) */
     private Utente destinatario;
@@ -49,7 +49,7 @@ public class Notifica {
     /**
      * Costruttore completo
      * @param owner proprietario che crea la notifica
-     * @param lotto lotto associato (opzionale)
+     * @param progetto progetto a cui fa riferimento (opzionale)
      * @param destinatario destinatario singolo (opzionale)
      * @param tutti true se destinata a tutti i coltivatori
      * @param titolo titolo della notifica
@@ -57,10 +57,10 @@ public class Notifica {
      * @param giorniScadenza giorni entro cui è rilevante
      * @param tipo tipo di notifica
      */
-    public Notifica(Utente owner, Lotto lotto, Utente destinatario, boolean tutti,
+    public Notifica(Utente owner, Progetto progetto, Utente destinatario, boolean tutti,
                     String titolo, String descrizione, int giorniScadenza, String tipo) {
         this.owner = owner;
-        this.lotto = lotto;
+        this.progetto = progetto;
         this.destinatario = destinatario;
         this.tutti = tutti;
         this.titolo = titolo;
@@ -77,8 +77,8 @@ public class Notifica {
     public Utente getOwner() { return owner; }
     public void setOwner(Utente owner) { this.owner = owner; }
 
-    public Lotto getLotto() { return lotto; }
-    public void setLotto(Lotto lotto) { this.lotto = lotto; }
+    public Progetto getProgetto() { return progetto; }
+    public void setProgetto(Progetto progetto) { this.progetto = progetto; }
 
     public Utente getDestinatario() { return destinatario; }
     public void setDestinatario(Utente destinatario) { this.destinatario = destinatario; }
@@ -106,7 +106,7 @@ public class Notifica {
         return "Notifica{" +
                 "id=" + id +
                 ", owner=" + (owner != null ? owner.getUsername() : "null") +
-                ", lotto=" + (lotto != null ? lotto.getIdLotto() : "null") +
+                ", lotto=" + (progetto != null ? progetto.getIdProgetto() : "null") +
                 ", destinatario=" + (destinatario != null ? destinatario.getUsername() : "null") +
                 ", tutti=" + tutti +
                 ", titolo='" + titolo + '\'' +
