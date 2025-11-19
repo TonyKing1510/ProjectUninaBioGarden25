@@ -31,6 +31,15 @@ public class Progetto {
     /** Lista dei Lotti ospitati nel Progetto */
     private List<Lotto> lottiOspitati = new ArrayList<>();
 
+    private List<Notifica> notifiche = new ArrayList<>();
+
+    public List<Notifica> getNotifiche() { return notifiche; }
+    public void aggiungiNotifica(Notifica notifica) {
+        if(notifica != null) {
+            notifiche.add(notifica);
+        }
+    }
+
     /**
      * Costruttore completo che permette di creare un progetto con più lotti.
      * Valida che il creatore abbia ruolo PROPRIETARIO.

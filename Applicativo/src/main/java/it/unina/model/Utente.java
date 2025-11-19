@@ -49,6 +49,15 @@ public class Utente {
 
     private Attivita attivita;
 
+    private List<Notifica> notificheCreate = new ArrayList<>();
+
+    public List<Notifica> getNotificheCreate() { return notificheCreate; }
+    public void aggiungiNotificaCreata(Notifica notifica) {
+        if(notifica != null) {
+            notificheCreate.add(notifica);
+        }
+    }
+
     /**
      * Costruttore vuoto.
      */
