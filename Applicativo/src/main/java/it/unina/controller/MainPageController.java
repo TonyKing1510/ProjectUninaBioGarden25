@@ -74,6 +74,11 @@ public class MainPageController {
     VisualizeProjectGUI.initializeProjectView(borderPane, utenteLoggato);
   }
 
+  @FXML
+  private void goToVisualizeNotifiche() throws IOException{
+
+  }
+
   /**
    * Carica la vista dei progetti all'interno del pannello principale.
    *

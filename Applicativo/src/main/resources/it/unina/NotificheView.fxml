@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="600" prefWidth="800" styleClass="pattern-background" stylesheets="@css/cultivator.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unina.controller.ProjectViewController">
+
+    <VBox spacing="10" AnchorPane.bottomAnchor="20" AnchorPane.leftAnchor="20" AnchorPane.rightAnchor="20" AnchorPane.topAnchor="20">
+
+
+        <VBox prefHeight="170.0" prefWidth="760.0" spacing="10">
+            <HBox alignment="TOP_CENTER" prefHeight="50.0" prefWidth="300.0" styleClass="section-title" />
+         <Pane prefHeight="62.0" prefWidth="760.0" style="-fx-background-color: rgba(27,93,32,0.9); -fx-background-radius: 10; -fx-border-radius: 10; -fx-border-color: white;">
+            <children>
+               <Button fx:id="creaNotifica" layoutX="439.0" layoutY="15.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="36.0" style="-fx-background-color: rgba(255,255,255,255,0.7); -fx-background-radius: 10;">
+                  <font>
+                     <Font size="14.0" />
+                  </font>
+                  <graphic>
+                     <ImageView fitHeight="25.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                           <Image url="@images/icons8-aggiorna-50.png" />
+                        </image>
+                     </ImageView>
+                  </graphic>
+               </Button>
+               <Label layoutX="8.0" layoutY="14.0" prefHeight="34.0" prefWidth="416.0" text="Visualizza qui le tue notifiche oppure creane di nuove cliccando qui" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+                  <font>
+                     <Font name="System Italic" size="14.0" />
+                  </font>
+               </Label>
+            </children>
+         </Pane>
+
+        </VBox>
+
+        <ScrollPane fx:id="scrollPane" fitToWidth="true" prefHeight="440.0" prefWidth="760.0" styleClass="scrollable" VBox.vgrow="ALWAYS">
+            <VBox fx:id="contentBox" prefHeight="216.0" prefWidth="758.0" spacing="10" styleClass="scrollable-vbox">
+                <padding>
+                    <Insets bottom="10" left="10" right="10" top="10" />
+                </padding>
+
+
+            </VBox>
+        </ScrollPane>
+
+        <HBox alignment="CENTER_RIGHT" spacing="10" />
+
+
+    </VBox>
+</AnchorPane>

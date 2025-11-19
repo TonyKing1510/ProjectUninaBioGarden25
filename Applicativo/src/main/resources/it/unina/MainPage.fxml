@@ -52,6 +52,15 @@
                     </ImageView>
                 </graphic>
             </Button>
+         <Button fx:id="visualizeNotifiche" contentDisplay="LEFT" onAction="#goToVisualizeNotifiche" styleClass="sidebar-button" text="Notifiche">
+            <graphic>
+               <ImageView fitHeight="26.0" fitWidth="26.0" preserveRatio="true" smooth="true">
+                  <image>
+                     <Image url="@images/icons8-allarmi-50.png" />
+                  </image>
+               </ImageView>
+            </graphic>
+         </Button>
 
             <Pane VBox.vgrow="ALWAYS" />
             <VBox alignment="CENTER" spacing="10">
@@ -67,7 +76,7 @@
 
                     <VBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="142.0" spacing="2">
                         <Label fx:id="nomeCognomeLabel" styleClass="username-label" text="- - -  - " />
-                        <Button fx:id="logoutButton" alignment="TOP_LEFT" onAction="#logout" contentDisplay="CENTER" prefHeight="30.0" prefWidth="66.0" style="-fx-background-color: transparent; -fx-border-color: white; -fx-border-radius: 10;" text="Logout" textAlignment="CENTER" textFill="WHITE">
+                        <Button fx:id="logoutButton" alignment="TOP_LEFT" contentDisplay="CENTER" onAction="#logout" prefHeight="30.0" prefWidth="66.0" style="-fx-background-color: transparent; -fx-border-color: white; -fx-border-radius: 10;" text="Logout" textAlignment="CENTER" textFill="WHITE">
                      <font>
                         <Font name="System Bold Italic" size="13.0" />
                      </font></Button>
