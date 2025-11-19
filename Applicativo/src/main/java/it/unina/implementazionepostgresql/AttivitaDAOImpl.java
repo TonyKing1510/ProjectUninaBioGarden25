@@ -5,6 +5,7 @@ import it.unina.stats.StatisticheColtura;
 import it.unina.connessionedb.ConnessioneDatabase;
 import it.unina.dao.AttivitaDAO;
 import it.unina.model.*;
+import javafx.application.Platform;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -46,62 +47,71 @@ public class AttivitaDAOImpl implements AttivitaDAO {
     public boolean addAttivita(Attivita attivita, int idColtura, int idColtivatore, int idProprietario) {
         Logger logger = Logger.getLogger(getClass().getName());
 
-        String insertQuery = "INSERT INTO Attivita (stato, tipo, quantita_raccolta, quantita_usata, datai, dataf, id_coltura) VALUES (?::stato_attivita, ?::tipoattivitaenum, ?, ?, ?, ?,?)";
+        String insertQuery = "INSERT INTO Attivita (stato, tipo, quantita_raccolta, quantita_usata, datai, dataf, id_coltura) " +
+                "VALUES (?::stato_attivita, ?::tipoattivitaenum, ?, ?, ?, ?, ?)";
         String insertUtenteColturaQuery = "INSERT INTO utente_coltura (id_proprietario, id_coltivatore, id_colture) VALUES (?, ?, ?)";
         String insertAttivitaUtente = "INSERT INTO attivita_utente (id_attivita, id_utente) VALUES (?, ?)";
 
-        // Debug log
         logger.log(Level.INFO, () -> "Debug: Coltura ID: " + idColtura);
+        // Recupero coltura e collegamento all'attività
+        ColtureDAO coltureDAO = new ColtureDAOImpl();
+        Colture coltura = coltureDAO.getColturaById(idColtura);
 
-        try (var connection = ConnessioneDatabase.getConnection();
-             var preparedStatement = connection.prepareStatement(insertQuery, Statement.RETURN_GENERATED_KEYS)) {
+        try (var connection = ConnessioneDatabase.getConnection()) {
+            connection.setAutoCommit(false); // gestione manuale della transazione
 
-            // 1. Inserisco Attivita
-            System.out.println("Stato Attivita: " + attivita.getStato());
-            preparedStatement.setString(1, String.valueOf(attivita.getStato()).toLowerCase());
-            preparedStatement.setString(2, attivita.getTipo().name().toLowerCase());
-            preparedStatement.setInt(3, attivita.getQuantitaRaccolta());
-            preparedStatement.setInt(4, attivita.getQuantitaUsata());
-            preparedStatement.setDate(5, attivita.getDataInizio());
-            preparedStatement.setDate(6, attivita.getDataFine());
-            ColtureDAO coltureDAO = new ColtureDAOImpl();
-            Colture coltura = coltureDAO.getColturaById(idColtura);
-            coltura.addAttivita(attivita);
-            preparedStatement.setInt(7, attivita.setColtura(coltura));
+            // 1. Inserimento Attivita
+            try (var preparedStatement = connection.prepareStatement(insertQuery, Statement.RETURN_GENERATED_KEYS)) {
+                preparedStatement.setString(1, attivita.getStato().name().toLowerCase());
+                preparedStatement.setString(2, attivita.getTipo().name().toLowerCase());
+                preparedStatement.setInt(3, attivita.getQuantitaRaccolta());
+                preparedStatement.setInt(4, attivita.getQuantitaUsata());
+                preparedStatement.setDate(5, attivita.getDataInizio());
+                preparedStatement.setDate(6, attivita.getDataFine());
+                preparedStatement.setInt(7, idColtura);
+                coltura.addAttivita(attivita);
 
-            int rows = preparedStatement.executeUpdate();
 
-            if (rows > 0) {
-                // Recupero l'id generato dell'attività
-                try (ResultSet rs = preparedStatement.getGeneratedKeys()) {
-                    if (rs.next()) {
-                        int idAttivita = rs.getInt(1);
+                int rows = preparedStatement.executeUpdate();
 
-                        // 2. Inserisco su utente_coltura
-                        try (var ps2 = connection.prepareStatement(insertUtenteColturaQuery)) {
-                            ps2.setInt(1, idProprietario);
-                            ps2.setInt(2, idColtivatore);
-                            ps2.setInt(3, idColtura);
-                            ps2.executeUpdate();
-                        }
+                if (rows > 0) {
+                    try (ResultSet rs = preparedStatement.getGeneratedKeys()) {
+                        if (rs.next()) {
+                            int idAttivita = rs.getInt(1);
 
-                        // 3. Inserisco su attivita_utente
-                        try (var ps3 = connection.prepareStatement(insertAttivitaUtente)) {
-                            ps3.setInt(1, idAttivita);
-                            ps3.setInt(2, idColtivatore);
-                            ps3.executeUpdate();
+                            // 2. Inserimento utente_coltura
+                            try (var ps2 = connection.prepareStatement(insertUtenteColturaQuery)) {
+                                ps2.setInt(1, idProprietario);
+                                ps2.setInt(2, idColtivatore);
+                                ps2.setInt(3, idColtura);
+                                ps2.executeUpdate();
+                            }
+
+                            // 3. Inserimento attivita_utente
+                            try (var ps3 = connection.prepareStatement(insertAttivitaUtente)) {
+                                ps3.setInt(1, idAttivita);
+                                ps3.setInt(2, idColtivatore);
+                                ps3.executeUpdate();
+                            }
                         }
                     }
                 }
+
+                connection.commit(); // commit finale della transazione
+                return true;
+
+            } catch (Exception e) {
+                connection.rollback(); // rollback in caso di errore
+                logger.log(Level.SEVERE, e, () -> "Errore durante l'inserimento dell'attività");
+                return false;
             }
 
-            return true;
-
         } catch (Exception e) {
-            logger.log(Level.SEVERE, e, () -> "Errore durante l'inserimento dell'attività");
+            logger.log(Level.SEVERE, e, () -> "Errore connessione al database");
             return false;
         }
     }
+
 
 
     /**
@@ -168,6 +178,9 @@ public class AttivitaDAOImpl implements AttivitaDAO {
                 "JOIN utente u ON uc.id_coltivatore = u.id_utente " +
                 "WHERE uc.id_colture = ?";
 
+        ColtureDAO coltureDAO = new ColtureDAOImpl();
+        Colture coltura = coltureDAO.getColturaById(idColtura);
+
         try (var connection = ConnessioneDatabase.getConnection();
              var preparedStatement = connection.prepareStatement(query)) {
 
@@ -199,8 +212,6 @@ public class AttivitaDAOImpl implements AttivitaDAO {
                     attivita.setQuantitaUsata(resultSet.getInt(COLONNA_QUANTITA_USATA));
                     attivita.setDataInizio(resultSet.getDate("datai"));
                     attivita.setDataFine(resultSet.getDate("dataf"));
-                    ColtureDAO coltureDAO = new ColtureDAOImpl();
-                    Colture coltura = coltureDAO.getColturaById(idColtura);
                     coltura.addAttivita(attivita);
                     attivita.setColtura(coltura);
 

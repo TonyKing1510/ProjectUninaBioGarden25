@@ -48,5 +48,10 @@ public interface UtenteDAO {
      * Restituisce tutti gli utenti coltivatori disponibili.
      */
     List<Utente> getColtivatoriDisponibili();
+
+
+    Utente getUtenteById(int idUtente);
+
+    List<Utente> getColtivatoriByIdProgetto(int idProgetto);
 }
 

@@ -2,15 +2,15 @@ package it.unina.implementazionepostgresql;
 
 import it.unina.connessionedb.ConnessioneDatabase;
 import it.unina.dao.NotificaDAO;
+import it.unina.dao.ProgettoDAO;
+import it.unina.dao.UtenteDAO;
 import it.unina.model.Notifica;
 import it.unina.model.Progetto;
 import it.unina.model.Utente;
-import it.unina.model.Lotto;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Timestamp;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -146,23 +146,28 @@ public class NotificaDAOImpl implements NotificaDAO {
         n.setId(rs.getInt("id"));
 
         // Proprietario
-        Utente owner = new Utente();
-        owner.setIdUtente(rs.getInt("id_proprietario"));
+        Utente owner;
+        UtenteDAO utenteDAO = new UtenteDAOImpl();
+        owner = utenteDAO.getUtenteById(rs.getInt("id_proprietario"));
+        owner.aggiungiNotificaCreata(n);
         n.setOwner(owner);
 
         // Lotto (opzionale)
         int idProgetto = rs.getInt("id_progetto");
         if (!rs.wasNull()) {
-            Progetto progetto = new Progetto();
-            progetto.setIdProgetto(idProgetto);
+            ProgettoDAO progettoDAO = new ProgettoDAOImpl();
+            Progetto progetto;
+            progetto = progettoDAO.getProgettoById(idProgetto);
+            progetto.aggiungiNotifica(n);
             n.setProgetto(progetto);
         }
 
         // Destinatario (opzionale)
         int idDest = rs.getInt("id_destinatario");
         if (!rs.wasNull()) {
-            Utente dest = new Utente();
-            dest.setIdUtente(idDest);
+            Utente dest;
+            UtenteDAO utenteDAODest = new UtenteDAOImpl();
+            dest = utenteDAODest.getUtenteById(idDest);
             n.setDestinatario(dest);
         }
 

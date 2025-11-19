@@ -73,4 +73,7 @@ public interface ProgettoDAO {
      * @author entn
      */
     List<Progetto> getProgettiWithFilter(int idProprietario, Stagione stagione, Double superficie);
+
+
+    Progetto getProgettoById(int id);
 }

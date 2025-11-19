@@ -9,6 +9,7 @@ module it.unina {
     requires java.sql;
     requires org.jfree.jfreechart;
     requires com.github.librepdf.openpdf;
+    requires javafx.graphics;
 
 
     opens it.unina to javafx.fxml;

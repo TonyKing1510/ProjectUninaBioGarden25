@@ -2,14 +2,13 @@ package it.unina.implementazionepostgresql;
 
 import it.unina.connessionedb.ConnessioneDatabase;
 import it.unina.dao.ProgettoDAO;
+import it.unina.dao.UtenteDAO;
 import it.unina.model.Lotto;
 import it.unina.model.Progetto;
 import it.unina.model.Stagione;
+import it.unina.model.Utente;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -48,6 +47,9 @@ public class ProgettoDAOImpl implements ProgettoDAO {
         String updateQuery = "UPDATE lotto SET id_progetto = ? WHERE id_lotto = ?";
         Logger logger2 = Logger.getLogger(getClass().getName());
 
+        UtenteDAO utenteDAO = new UtenteDAOImpl();
+        Utente creatore = utenteDAO.getUtenteProprietario(progetto.getIdUtenteCreatore());
+
         try (Connection conn = ConnessioneDatabase.getConnection()) {
             conn.setAutoCommit(false);  // Inizio transazione
             int progettoId;
@@ -59,6 +61,7 @@ public class ProgettoDAOImpl implements ProgettoDAO {
                 insertStmt.setDate(3, java.sql.Date.valueOf(progetto.getDataInizio().toString()));
                 insertStmt.setDate(4, java.sql.Date.valueOf(progetto.getDataFine().toString()));
                 insertStmt.setString(5, progetto.getTitolo());
+                creatore.aggiungiProgettoCreato(progetto);
 
                 try (ResultSet rs = insertStmt.executeQuery()) {
                     if (rs.next()) {
@@ -114,6 +117,9 @@ public class ProgettoDAOImpl implements ProgettoDAO {
         String query = "SELECT id_progetto, stagione, id_utentecreatore, \"dataInizio\", \"dataFine\", titolo " +
                 "FROM Progetto WHERE id_utentecreatore = ?";
 
+        UtenteDAO utenteDAO = new UtenteDAOImpl();
+        Utente creatore = utenteDAO.getUtenteProprietario(idUtente);
+
         try (Connection conn = ConnessioneDatabase.getConnection();
              PreparedStatement stmt = conn.prepareStatement(query)) {
 
@@ -128,6 +134,10 @@ public class ProgettoDAOImpl implements ProgettoDAO {
                 progetto.setDataFine(rs.getDate("dataFine"));
                 progetto.setStagione(Stagione.valueOf(rs.getString("stagione").toUpperCase()));
                 progetti.add(progetto);
+
+
+                progetto.setCreatore(creatore);
+                creatore.aggiungiProgettoCreato(progetto);
             }
 
         } catch (SQLException e) {
@@ -179,6 +189,9 @@ public class ProgettoDAOImpl implements ProgettoDAO {
         }
     }
 
+
+
+
     /**
      * Inserisce un nuovo progetto con associazione a un proprietario.
      * <p>
@@ -226,6 +239,9 @@ public class ProgettoDAOImpl implements ProgettoDAO {
             params.add(superficie);
         }
 
+        UtenteDAO utenteDAO = new UtenteDAOImpl();
+        Utente creatore = utenteDAO.getUtenteProprietario(idProprietario);
+
         try (Connection conn = ConnessioneDatabase.getConnection();
              PreparedStatement stmt = conn.prepareStatement(query.toString())) {
 
@@ -252,6 +268,7 @@ public class ProgettoDAOImpl implements ProgettoDAO {
                 progetto.setDataFine(rs.getDate("dataFine"));
                 progetto.setStagione(Stagione.valueOf(rs.getString("stagione").toUpperCase()));
                 progetti.add(progetto);
+                creatore.aggiungiProgettoCreato(progetto);
             }
 
         } catch (SQLException e) {
@@ -259,4 +276,48 @@ public class ProgettoDAOImpl implements ProgettoDAO {
         }
         return progetti;
     }
+
+    @Override
+    public Progetto getProgettoById(int idProgetto) {
+
+        String query = "SELECT id_progetto, stagione, id_utentecreatore, \"dataInizio\", \"dataFine\", titolo " +
+                "FROM Progetto WHERE id_progetto = ?";
+
+        try (Connection conn = ConnessioneDatabase.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(query)) {
+
+            stmt.setInt(1, idProgetto);
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+
+                    Progetto progetto = new Progetto();
+                    progetto.setIdProgetto(rs.getInt("id_progetto"));
+                    String stagioneDb = rs.getString("stagione");
+                    Stagione stagione = Stagione.valueOf(stagioneDb.toUpperCase().trim());
+                    progetto.setStagione(stagione);
+
+                    progetto.setTitolo(rs.getString("titolo"));
+                    progetto.setDataInizio(Date.valueOf(rs.getDate("dataInizio").toLocalDate()));
+                    progetto.setDataFine(Date.valueOf(rs.getDate("dataFine").toLocalDate()));
+
+                    // Carico il creatore del progetto
+                    int idCreatore = rs.getInt("id_utentecreatore");
+                    UtenteDAO utenteDAO = new UtenteDAOImpl();
+                    Utente creatore = utenteDAO.getUtenteProprietario(idCreatore);
+                    progetto.setCreatore(creatore);
+                    creatore.aggiungiProgettoCreato(progetto);
+
+                    return progetto;
+                }
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.err.println("Errore durante il recupero del progetto con ID " + idProgetto);
+        }
+
+        return null; // Nessun progetto trovato
+    }
+
 }

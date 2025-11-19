@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="borderPane" stylesheets="@css/mainpage.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unina.controller.MainPageController">
+<BorderPane fx:id="borderPane" stylesheets="@css/mainpage.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unina.controller.MainPageColtivatoreController">
 
     <left>
         <VBox fx:id="sidebar" alignment="TOP_CENTER" prefHeight="602.0" prefWidth="318.0" spacing="20" styleClass="sidebar">
@@ -34,7 +34,7 @@
                </VBox>
             </graphic>
             </Button>
-         <Button fx:id="visualizeNotifiche" contentDisplay="LEFT" styleClass="sidebar-button" text="Notifiche">
+         <Button fx:id="visualizeNotifiche" contentDisplay="LEFT" onAction="#goToVisualizeNotifiche" styleClass="sidebar-button" text="Notifiche">
             <graphic>
                <ImageView fitHeight="26.0" fitWidth="26.0" preserveRatio="true" smooth="true">
                   <image>

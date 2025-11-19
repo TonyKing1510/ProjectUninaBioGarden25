@@ -1,5 +1,6 @@
 package it.unina.controller;
 
+import it.unina.gui.VisualizeNotificheGUI;
 import it.unina.gui.VisualizeProjectGUI;
 import it.unina.gui.CreateProjectGUI;
 import it.unina.gui.LoginGUI;
@@ -75,7 +76,7 @@ public class MainPageColtivatoreController {
 
     @FXML
     private void goToVisualizeNotifiche() throws IOException{
-
+        VisualizeNotificheGUI.initVisualizeNotificheColtivatore(borderPane, utenteLoggato);
     }
 
 

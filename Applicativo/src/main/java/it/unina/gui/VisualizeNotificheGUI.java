@@ -29,5 +29,9 @@ public class VisualizeNotificheGUI {
         borderPane.setCenter(node);
     }
 
+    public static void initVisualizeNotificheColtivatore(BorderPane borderPane,Utente utente) throws IOException {
+        initializeNotificheView(borderPane, utente);
+    }
+
 
 }

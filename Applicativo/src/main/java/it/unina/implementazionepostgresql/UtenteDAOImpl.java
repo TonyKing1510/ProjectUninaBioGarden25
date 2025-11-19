@@ -164,6 +164,45 @@ public class UtenteDAOImpl implements UtenteDAO {
         return coltivatori;
     }
 
+    @Override
+    public List<Utente> getColtivatoriByIdProgetto(int idProgetto) {
+        Logger logger = Logger.getLogger(getClass().getName());
+        List<Utente> coltivatori = new ArrayList<>();
+
+        String sql = """
+            SELECT u.id_utente, u.nome, u.cognome, u.username, u.ruolo
+            FROM utente u
+            JOIN utente_coltura uc ON u.id_utente = uc.id_coltivatore
+            JOIN colture c ON uc.id_colture = c.id_colture
+            JOIN lotto l ON c.id_lotto = l.id_lotto
+            JOIN progetto p ON l.id_progetto = p.id_progetto
+            WHERE p.id_progetto = ?
+            AND u.ruolo = 'coltivatore'
+            """;
+
+        try (var connection = ConnessioneDatabase.getConnection();
+             PreparedStatement ps = connection.prepareStatement(sql)) {
+
+            ps.setInt(1, idProgetto);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Utente utente = new Utente();
+                utente.setIdUtente(rs.getInt("id_utente"));
+                utente.setNome(rs.getString("nome"));
+                utente.setCognome(rs.getString("cognome"));
+                utente.setUsername(rs.getString("username"));
+                utente.setRuolo(Ruolo.valueOf(rs.getString("ruolo").toUpperCase()));
+                coltivatori.add(utente);
+            }
+
+        } catch (Exception e) {
+            logger.log(Level.SEVERE, "Errore nel recupero dei coltivatori per progetto " + idProgetto, e);
+        }
+
+        return coltivatori;
+    }
+
 
 
     @Override
@@ -220,5 +259,41 @@ public class UtenteDAOImpl implements UtenteDAO {
         }return coltivatori;
     }
 
+    @Override
+    public Utente getUtenteById(int idUtente) {
+        Utente utente = null;
+        String sql = "SELECT * FROM Utente WHERE id_utente = ?";
+
+        try (Connection conn = ConnessioneDatabase.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setInt(1, idUtente);
+
+            try (ResultSet rs = stmt.executeQuery()) {
+
+                if (rs.next()) {
+                    utente = new Utente();
+                    utente.setIdUtente(rs.getInt("id_utente"));
+                    utente.setNome(rs.getString("nome"));
+                    utente.setCognome(rs.getString("cognome"));
+                    utente.setMail(rs.getString("mail"));
+                    utente.setUsername(rs.getString("username"));
+                    String ruoloDb = rs.getString("ruolo");
+                    if (ruoloDb != null) {
+                        utente.setRuolo(Ruolo.valueOf(ruoloDb.toUpperCase().trim()));
+                    }
+
+
+
+                }
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return utente;
     }
+
+}
 

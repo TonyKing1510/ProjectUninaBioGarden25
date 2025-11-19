@@ -1,6 +1,7 @@
 package it.unina.controller;
 
 import it.unina.dao.NotificaDAO;
+import it.unina.gui.CreateNotificaGUI;
 import it.unina.implementazionepostgresql.NotificaDAOImpl;
 import it.unina.model.Notifica;
 import it.unina.model.Ruolo;
@@ -18,6 +19,7 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 
+import java.io.IOException;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
@@ -47,11 +49,16 @@ public class NotificheViewController {
     @FXML
     private Button creaNotifica;
 
+    @FXML
+    private Label labelInfoText;
+
     /** Utente attualmente loggato nell'applicazione */
     private Utente utenteLoggato;
 
     /** DAO per la gestione delle notifiche nel database */
     private final NotificaDAO notificaDAO;
+
+
 
     /**
      * Costruttore del controller.
@@ -71,11 +78,6 @@ public class NotificheViewController {
      */
     @FXML
     private void initialize() {
-
-        // Configura il bottone di refresh/creazione
-        if (creaNotifica != null) {
-            creaNotifica.setOnAction(event -> refreshNotifiche());
-        }
     }
 
     /**
@@ -116,6 +118,9 @@ public class NotificheViewController {
                 notifiche = notificaDAO.getNotifichePerProprietario(utenteLoggato.getIdUtente());
             } else {
                 notifiche = notificaDAO.getNotifichePerDestinatario(utenteLoggato.getIdUtente());
+                creaNotifica.setVisible(false);
+                labelInfoText.setText("Visualizza le tue notifiche qui in basso");
+
             }
 
             if (notifiche.isEmpty()) {
@@ -143,8 +148,8 @@ public class NotificheViewController {
      * @author Sderr12
      */
     @FXML
-    public void refreshNotifiche() {
-        loadNotifiche();
+    public void openCreateNotifica() throws IOException {
+        CreateNotificaGUI.openCreateNotificaView(utenteLoggato);
     }
 
     /**
@@ -246,9 +251,9 @@ public class NotificheViewController {
         destinatarioLabel.setStyle("-fx-text-fill: #666666;");
 
         if (notifica.isTutti()) {
-            destinatarioLabel.setText("📢 Destinato a tutti i coltivatori");
+            destinatarioLabel.setText("Destinato a tutti i coltivatori");
         } else if (notifica.getDestinatario() != null) {
-            destinatarioLabel.setText("👤 Destinatario: " + notifica.getDestinatario().getUsername());
+            destinatarioLabel.setText("Destinatario: " + notifica.getDestinatario().getUsername());
         }
 
         // Descrizione
@@ -260,7 +265,7 @@ public class NotificheViewController {
         // Informazioni progetto se presente
         VBox progettoBox = new VBox();
         if (notifica.getProgetto() != null) {
-            Label progettoLabel = new Label("🌱 Progetto #" + notifica.getProgetto().getIdProgetto());
+            Label progettoLabel = new Label("Progetto #" + notifica.getProgetto().getIdProgetto());
             progettoLabel.setFont(new Font("System Italic", 12));
             progettoLabel.setStyle("-fx-text-fill: #1b5d20;");
             progettoBox.getChildren().add(progettoLabel);
