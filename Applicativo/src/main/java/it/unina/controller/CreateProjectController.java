@@ -162,8 +162,8 @@ public class CreateProjectController {
                 }
             });
             vBoxLotto.getChildren().add(lottoCheckBox);
-            scrollPaneLotto.setVvalue(0); // Scrolla all'inizio della ScrollPane
-            anchorLottoPane.setPrefHeight(vBoxLotto.getChildren().size() * 35 + 20); // Aggiorna l'altezza dell'AnchorPane
+            scrollPaneLotto.setVvalue(0);
+            anchorLottoPane.setPrefHeight(vBoxLotto.getChildren().size() * 35 + 20);
         }
     }
 
@@ -186,7 +186,7 @@ public class CreateProjectController {
         List<String> lottiSelezionatiList = new ArrayList<>();
         for (CheckBox checkBox : lottiSelezionati) {
             if (checkBox.isSelected()) {
-                lottiSelezionatiList.add(checkBox.getText()); // Esempio: "17 - Oasi Verde"
+                lottiSelezionatiList.add(checkBox.getText());
             }
         }
 
@@ -247,7 +247,6 @@ public class CreateProjectController {
                 String selectedText = lottoComboBox.getValue();
                 if (selectedText != null && colturaCheckBox.isSelected()) {
                     try {
-                        // Estrai l'ID prima del trattino (es: "17 - Oasi Verde" → 17)
                         Integer lottoIdScelto = Integer.parseInt(selectedText.split(" - ")[0]);
                         associazioniColturaLotto.put(coltura, lottoIdScelto);
                     } catch (NumberFormatException e) {

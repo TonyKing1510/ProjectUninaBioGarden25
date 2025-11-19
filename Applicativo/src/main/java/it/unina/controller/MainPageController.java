@@ -88,7 +88,7 @@ public class MainPageController {
 
   /**
    * Imposta l'utente loggato e aggiorna la GUI per mostrare il suo nome e cognome.
-   *
+   *\
    * @param utente l'utente attualmente loggato
    *@author entn
    */

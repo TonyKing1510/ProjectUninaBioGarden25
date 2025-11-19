@@ -206,11 +206,10 @@ public class ProgettiDetailsController {
                 logger.info("      Max: " + stats.getMax());
             });
         });
-        // Percorso completo nella directory di lavoro
+        // è il percorso completo nella directory
         String outputPath = System.getProperty("user.dir") + "\\report.pdf";
         ReportGenerator.generaReportPDF(statistiche, outputPath);
         logger.info("Report PDF generato in: " + outputPath);
-        // Apri la cartella contenente il PDF
         File file = new File(outputPath);
         if (file.exists() && java.awt.Desktop.isDesktopSupported()) {
             java.awt.Desktop.getDesktop().open(file.getParentFile());

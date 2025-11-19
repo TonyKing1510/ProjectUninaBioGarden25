@@ -143,40 +143,45 @@ public class ColtureDAOImpl implements ColtureDAO {
      * @author entn
      */
     @Override
-    public List<Colture> getColturaById(int idColtura) {
+    public Colture getColturaById(int idColtura) {
         Logger logger = Logger.getLogger(getClass().getName());
-        List<Colture> coltureList = new ArrayList<>();
+        Colture coltura = null; // inizialmente nulla
         String query = "SELECT c.* FROM Colture c WHERE c.id_colture = ?";
+
         try (var connection = ConnessioneDatabase.getConnection();
              var preparedStatement = connection.prepareStatement(query)) {
 
             preparedStatement.setInt(1, idColtura);
             var resultSet = preparedStatement.executeQuery();
 
-            while (resultSet.next()) {
-                Colture coltura = new Colture();
+            if (resultSet.next()) { // uso if perché ci aspettiamo massimo 1 risultato
+                coltura = new Colture();
                 coltura.setIdColture(resultSet.getInt(COLONNA_ID_COLTURE));
                 coltura.setTitolo(resultSet.getString(COLONNA_TITOLO_COLTURE));
 
                 // Conversione enum con controllo null/sicurezza
-                String stagStr = resultSet.getString(COLONNA_STAGIONALITA_COLTURE).toUpperCase();
-                coltura.setStagionalita(Stagione.valueOf(stagStr));
+                String stagStr = resultSet.getString(COLONNA_STAGIONALITA_COLTURE);
+                if (stagStr != null) {
+                    coltura.setStagionalita(Stagione.valueOf(stagStr.toUpperCase()));
+                }
 
                 String intervallo = resultSet.getString(COLONNA_TEMPOMATURAZIONE_COLTURE);
-                Duration durata = parsePostgresInterval(intervallo); // metodo sotto
-                coltura.setTempoMaturazione(durata);
+                if (intervallo != null) {
+                    Duration durata = parsePostgresInterval(intervallo);
+                    coltura.setTempoMaturazione(durata);
+                }
 
                 Date dataInizioColtura = resultSet.getDate("datainizio_coltura");
                 coltura.setDataInizioColtura(dataInizioColtura);
-
-                coltureList.add(coltura);
             }
 
         } catch (Exception e) {
-            logger.log(Level.SEVERE, e , () -> "Errore durante il recupero delle colture per id " + idColtura);
+            logger.log(Level.SEVERE, e, () -> "Errore durante il recupero della coltura per id " + idColtura);
         }
-        return coltureList;
+
+        return coltura; // può essere null se non trovata
     }
+
 
 
     /**
@@ -198,7 +203,7 @@ public class ColtureDAOImpl implements ColtureDAO {
                 Colture coltura = entry.getKey();
                 Integer idLotto = entry.getValue();
 
-                preparedStatement.setObject(1, idLotto); // usa setObject per gestire null
+                preparedStatement.setObject(1, idLotto);
                 preparedStatement.setInt(2, coltura.getIdColture());
                 preparedStatement.addBatch();
             }

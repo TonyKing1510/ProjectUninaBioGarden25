@@ -42,6 +42,18 @@ public class Attivita {
         this.responsabile = u;
     }
 
+    private Colture coltura;
+
+    public Colture getColtura() {
+        return coltura;
+    }
+
+    public int setColtura(Colture coltura) {
+        this.coltura = coltura;
+        return coltura.getIdColture();
+    }
+
+
     /**
      * Costruisce un oggetto {@code Attivita} completo.
      *

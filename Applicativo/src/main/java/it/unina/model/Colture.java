@@ -2,6 +2,8 @@ package it.unina.model;
 
 import java.sql.Date;
 import java.time.Duration;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -34,6 +36,19 @@ public class Colture {
 
     /** Lotto a cui appartiene la coltura */
     private Lotto lotto;
+
+    private List<Attivita> attivita = new ArrayList<>();
+
+        public void addAttivita(Attivita a) {
+            a.setColtura(this);
+            attivita.add(a);
+        }
+
+        public List<Attivita> getAttivita() {
+            return attivita;
+        }
+
+
 
     /**
      * Costruttore vuoto.

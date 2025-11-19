@@ -1,5 +1,6 @@
 package it.unina.implementazionepostgresql;
 
+import it.unina.dao.ColtureDAO;
 import it.unina.stats.StatisticheColtura;
 import it.unina.connessionedb.ConnessioneDatabase;
 import it.unina.dao.AttivitaDAO;
@@ -45,7 +46,7 @@ public class AttivitaDAOImpl implements AttivitaDAO {
     public boolean addAttivita(Attivita attivita, int idColtura, int idColtivatore, int idProprietario) {
         Logger logger = Logger.getLogger(getClass().getName());
 
-        String insertQuery = "INSERT INTO Attivita (stato, tipo, quantita_raccolta, quantita_usata, datai, dataf) VALUES (?::stato_attivita, ?::tipoattivitaenum, ?, ?, ?, ?)";
+        String insertQuery = "INSERT INTO Attivita (stato, tipo, quantita_raccolta, quantita_usata, datai, dataf, id_coltura) VALUES (?::stato_attivita, ?::tipoattivitaenum, ?, ?, ?, ?,?)";
         String insertUtenteColturaQuery = "INSERT INTO utente_coltura (id_proprietario, id_coltivatore, id_colture) VALUES (?, ?, ?)";
         String insertAttivitaUtente = "INSERT INTO attivita_utente (id_attivita, id_utente) VALUES (?, ?)";
 
@@ -63,6 +64,10 @@ public class AttivitaDAOImpl implements AttivitaDAO {
             preparedStatement.setInt(4, attivita.getQuantitaUsata());
             preparedStatement.setDate(5, attivita.getDataInizio());
             preparedStatement.setDate(6, attivita.getDataFine());
+            ColtureDAO coltureDAO = new ColtureDAOImpl();
+            Colture coltura = coltureDAO.getColturaById(idColtura);
+            coltura.addAttivita(attivita);
+            preparedStatement.setInt(7, attivita.setColtura(coltura));
 
             int rows = preparedStatement.executeUpdate();
 
@@ -134,6 +139,7 @@ public class AttivitaDAOImpl implements AttivitaDAO {
                 attivita.setQuantitaUsata(resultSet.getInt(COLONNA_QUANTITA_USATA));
                 attivita.setDataInizio(resultSet.getDate("data_inizio"));
                 attivita.setDataFine(resultSet.getDate("data_fine"));
+                attivita.setColtura(new Colture());
 
                 attivitaList.add(attivita);
             }
@@ -193,6 +199,10 @@ public class AttivitaDAOImpl implements AttivitaDAO {
                     attivita.setQuantitaUsata(resultSet.getInt(COLONNA_QUANTITA_USATA));
                     attivita.setDataInizio(resultSet.getDate("datai"));
                     attivita.setDataFine(resultSet.getDate("dataf"));
+                    ColtureDAO coltureDAO = new ColtureDAOImpl();
+                    Colture coltura = coltureDAO.getColturaById(idColtura);
+                    coltura.addAttivita(attivita);
+                    attivita.setColtura(coltura);
 
                     Utente utente = new Utente();
                     utente.setIdUtente(resultSet.getInt("id_utente"));
@@ -309,6 +319,7 @@ public class AttivitaDAOImpl implements AttivitaDAO {
             coltura.setIdColture(resultSet.getInt("id_colture"));
             coltura.setTitolo(resultSet.getString("titolo"));
 
+
             Attivita attivita = new Attivita();
             attivita.setIdAttivita(resultSet.getInt(COLONNA_ID_ATTIVITA));
             attivita.setTipo(TipoAttivita.valueOf(resultSet.getString("tipo").toUpperCase()));
@@ -321,6 +332,8 @@ public class AttivitaDAOImpl implements AttivitaDAO {
             coltivatore.setIdUtente(resultSet.getInt("id_coltivatore"));
             coltivatore.setAttivita(attivita);
             attivita.setResponsabile(coltivatore);
+            attivita.setColtura(coltura);
+            coltura.addAttivita(attivita);
 
             rawData
                     .computeIfAbsent(lotto, k -> new HashMap<>())

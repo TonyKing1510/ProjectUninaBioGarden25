@@ -4,7 +4,6 @@ import it.unina.dao.UtenteDAO;
 import it.unina.implementazionepostgresql.UtenteDAOImpl;
 import it.unina.model.Utente;
 import it.unina.gui.MainAppGui;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -56,11 +55,10 @@ public class LoginController {
    * Gestisce il login dell'utente. Verifica le credenziali e,
    * in caso positivo, apre la schermata principale dell'applicazione.
    *
-   * @param event l'evento del clic sul pulsante di login
    * @author entn
    */
   @FXML
-  private void onLogin(ActionEvent event) {
+  private void onLogin() {
     String username = usernameField.getText().trim();
     String password = passwordField.getText();
 

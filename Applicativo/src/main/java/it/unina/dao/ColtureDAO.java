@@ -41,7 +41,7 @@ public interface ColtureDAO {
      * @return Lista contenente la coltura trovata, vuota se non esiste.
      * @author entn
      */
-    List<Colture> getColturaById(int idColtura);
+    Colture getColturaById(int idColtura);
 
     /**
      * Salva le associazioni tra colture e altre entità (ad esempio lotti o progetti).

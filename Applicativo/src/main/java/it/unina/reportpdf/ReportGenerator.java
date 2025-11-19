@@ -65,7 +65,7 @@ public class ReportGenerator {
 
                 document.add(new Paragraph("Lotto: " + lotto.getIdLotto() + " - " + lotto.getNome()));
                 // Creo il grafico per questo lotto
-                JFreeChart chart = ChartGenerator.creaBarChart("Statistiche Lotto " + lotto.getNome(), statsColture);
+                JFreeChart chart = ChartGenerator.creaBarChart("Statistiche " + lotto.getNome(), statsColture);
 
                 // Converto in immagine
                 BufferedImage bufferedImage = chart.createBufferedImage(500, 300);
