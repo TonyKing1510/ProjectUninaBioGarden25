@@ -2,6 +2,7 @@ package it.unina.controller;
 
 import it.unina.dao.UtenteDAO;
 import it.unina.implementazionepostgresql.UtenteDAOImpl;
+import it.unina.model.Ruolo;
 import it.unina.model.Utente;
 import it.unina.gui.MainAppGui;
 import javafx.fxml.FXML;
@@ -68,13 +69,15 @@ public class LoginController {
     }
 
     Utente utente = utenteDAO.login(username, password);
-    
 
-    if (utente != null) {
-      MainAppGui.initializeMainApp((Stage) accediButton.getScene().getWindow(), utente);
-    } else {
-      showAlert("Login fallito", "Email o password non validi.");
-    }
+
+      if (utente.getRuolo() == Ruolo.PROPRIETARIO) {
+          MainAppGui.initializeMainApp((Stage) accediButton.getScene().getWindow(), utente);
+      } else if (utente.getRuolo() == Ruolo.COLTIVATORE) {
+          MainAppGui.initializeMainAppColtivatore((Stage) accediButton.getScene().getWindow(), utente);
+      } else {
+          showAlert("Errore", "Utente non trovato.");
+      }
   }
 
   /**

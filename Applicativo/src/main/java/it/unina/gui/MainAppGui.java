@@ -1,5 +1,6 @@
 package it.unina.gui;
 
+import it.unina.controller.MainPageColtivatoreController;
 import it.unina.controller.MainPageController;
 import it.unina.model.Utente;
 import javafx.application.Application;
@@ -37,6 +38,36 @@ public class MainAppGui {
 
 
             MainPageController controller = loader.getController();
+            controller.setUtenteLoggato(utente);
+            controller.setPreviousStage(previouStage);
+
+
+            Stage newStage = new Stage();
+
+            newStage.setTitle("MainApp");
+            newStage.setScene(scene);
+            newStage.show();
+
+            Stage currentStage = previouStage;
+            currentStage.close();
+        }catch (IOException e) {
+            e.printStackTrace();
+
+            e.printStackTrace();
+
+
+            showErrorDialog("Errore durante il caricamento della schermata principale.", e.getMessage());
+        }
+    }
+
+    public static void initializeMainAppColtivatore(Stage previouStage,Utente utente) {
+        try {
+            FXMLLoader loader = new FXMLLoader(MainAppGui.class.getResource("/it/unina/MainPageColtivatore.fxml"));
+            Parent mainRoot = loader.load();
+            Scene scene = new Scene(mainRoot, 1540, 790);
+
+
+            MainPageColtivatoreController controller = loader.getController();
             controller.setUtenteLoggato(utente);
             controller.setPreviousStage(previouStage);
 
