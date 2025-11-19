@@ -14,6 +14,7 @@ public interface NotificaDAO {
      * Inserisce una nuova notifica nel database.
      * @param notifica oggetto Notifica da salvare
      * @return true se l'inserimento ha avuto successo, false altrimenti
+     * @author Sderr12
      */
     boolean inserisciNotifica(Notifica notifica);
 
@@ -21,6 +22,7 @@ public interface NotificaDAO {
      * Recupera tutte le notifiche create da un determinato proprietario.
      * @param idProprietario ID del proprietario
      * @return lista di notifiche
+     * @author Sderr12 
      */
     List<Notifica> getNotifichePerProprietario(int idProprietario);
 
@@ -28,6 +30,7 @@ public interface NotificaDAO {
      * Recupera tutte le notifiche associate a un determinato lotto.
      * @param idLotto ID del lotto
      * @return lista di notifiche
+     * @author Sderr12
      */
     List<Notifica> getNotifichePerLotto(int idLotto);
 
@@ -35,6 +38,7 @@ public interface NotificaDAO {
      * Recupera tutte le notifiche indirizzate a un destinatario specifico.
      * @param idDestinatario ID del destinatario
      * @return lista di notifiche
+     * @author Sderr12
      */
     List<Notifica> getNotifichePerDestinatario(int idDestinatario);
 
@@ -42,6 +46,7 @@ public interface NotificaDAO {
      * Elimina una notifica dal database tramite il suo ID.
      * @param id ID della notifica da eliminare
      * @return true se l'eliminazione ha avuto successo, false altrimenti
+     * @author Sderr12
      */
     boolean eliminaNotifica(int id);
 }
