@@ -26,7 +26,7 @@ import java.util.List;
  * dei progetti quando necessario.
  * </p>
  *
- * @author entn
+ * @author entn, Sderr12
  */
 public class ProjectViewController {
 
@@ -53,7 +53,7 @@ public class ProjectViewController {
      * Imposta l'utente loggato per il controller.
      *
      * @param utente Utente attualmente loggato
-     * @author entn
+     * @author entn, Sderr12
      */
     public void setUtenteLoggatoLoadProject(Utente utente) {
         System.out.println("setUtenteLoggato called. utente=" + (utente==null? "null": utente.getIdUtente()));
@@ -150,7 +150,7 @@ public class ProjectViewController {
 
     /**
      * Inizializza il menu delle stagioni con le opzioni disponibili.
-     * @author entn
+     * @author entn, Sderr12
      */
     public void setStagioniMenu() {
         stagioneMenu(stagioneMenu);
@@ -161,7 +161,7 @@ public class ProjectViewController {
      * Imposta inoltre il comportamento al click su ciascuna voce.
      *
      * @param stagioneMenu MenuButton da popolare
-     * @author entn
+     * @author entn, Sderr12
      */
     static void stagioneMenu(MenuButton stagioneMenu) {
         List<String> voci = List.of("Primavera", "Estate", "Autunno", "Inverno");

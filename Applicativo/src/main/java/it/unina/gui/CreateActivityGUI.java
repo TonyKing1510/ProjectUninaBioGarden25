@@ -20,7 +20,7 @@ import java.util.Objects;
  * <p>
  * È implementata come utility class e fornisce solo metodi statici.
  *
- * @author entn
+ * @author entn, Sderr12
  */
 public class CreateActivityGUI {
 

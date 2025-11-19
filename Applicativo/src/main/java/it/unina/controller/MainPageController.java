@@ -1,6 +1,7 @@
 package it.unina.controller;
 
 import it.unina.gui.VisualizeProjectGUI;
+import it.unina.gui.VisualizeNotificheGUI;
 import it.unina.gui.CreateProjectGUI;
 import it.unina.gui.LoginGUI;
 import it.unina.model.Utente;
@@ -27,12 +28,16 @@ public class MainPageController {
   private Label nomeCognomeLabel;
 
 
-
   /**
    * Pannello principale dove vengono caricate dinamicamente le viste delle sezioni.
    */
   @FXML
   private BorderPane borderPane;
+
+
+
+  @FXML
+  private BorderPane borderPane2;
 
   /**
    * Utente attualmente loggato nel sistema.
@@ -61,7 +66,7 @@ public class MainPageController {
   /**
    * Metodo di inizializzazione chiamato automaticamente da JavaFX
    * dopo il caricamento del file FXML associato.
-   * @author entn
+   * @author entn, Sderr12
    */
   @FXML
   public void initialize() {
@@ -76,7 +81,7 @@ public class MainPageController {
 
   @FXML
   private void goToVisualizeNotifiche() throws IOException{
-
+      VisualizeNotificheGUI.initializeNotificheView(borderPane, utenteLoggato);
   }
 
   /**

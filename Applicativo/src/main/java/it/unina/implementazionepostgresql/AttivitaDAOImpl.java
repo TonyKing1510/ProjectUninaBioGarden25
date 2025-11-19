@@ -22,7 +22,7 @@ import java.util.logging.Logger;
  * Gestisce le operazioni CRUD relative alle attività, come inserimento, aggiornamento
  * e recupero delle attività, associando utenti, colture e progetti.
  *
- * @author entn
+ * @author entn, Sderr12
  */
 public class AttivitaDAOImpl implements AttivitaDAO {
 
@@ -108,7 +108,7 @@ public class AttivitaDAOImpl implements AttivitaDAO {
      * Recupera tutte le attività presenti nel database.
      *
      * @return lista di tutte le attività create
-     * @author entn
+     * @author entn, Sderr12
      */
     @Override
     public List<Attivita> getAttivitaCreate() {
@@ -156,7 +156,7 @@ public class AttivitaDAOImpl implements AttivitaDAO {
      *
      * @param idColtura ID della coltura
      * @return mappa con chiave {@link Attivita} e lista di utenti {@link Utente} assegnati
-     * @author entn
+     * @author entn, Sderr12
      */
     @Override
     public Map<Attivita, List<Utente>> getAttivitaByIdColture(int idColtura) {
@@ -226,7 +226,7 @@ public class AttivitaDAOImpl implements AttivitaDAO {
      *
      * @param progetto oggetto {@link Progetto} di riferimento
      * @return mappa con chiave {@link Lotto} e valore mappa di {@link Colture} e relative {@link StatisticheColtura}
-     * @author entn
+     * @author entn, Sderr12
      */
     @Override
     public Map<Lotto, Map<Colture, StatisticheColtura>> getStatistichePerLottiEColtureByIdProgetto(Progetto progetto) throws StatisticheColtura.StatisticheException{
@@ -276,7 +276,7 @@ public class AttivitaDAOImpl implements AttivitaDAO {
      * Aggiorna lo stato di un'attività esistente nel database.
      *
      * @param attivita oggetto {@link Attivita} da aggiornare
-     * @author entn
+     * @author entn, Sderr12
      */
     @Override
     public void updateAttivita(Attivita attivita) {
@@ -307,7 +307,7 @@ public class AttivitaDAOImpl implements AttivitaDAO {
      * @param resultSet risultato della query SQL
      * @param rawData   mappa da popolarel con chiave {@link Lotto} e valore mappa di {@link Colture} e lista di {@link Attivita}
      * @throws SQLException in caso di errore durante l'accesso al ResultSet
-     * @author entn
+     * @author entn, Sderr12
      */
     private void populateRawData(ResultSet resultSet, Map<Lotto, Map<Colture, List<Attivita>>> rawData) throws SQLException {
         while (resultSet.next()) {

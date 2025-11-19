@@ -8,7 +8,7 @@ public interface UtenteDAO {
     /**
      * Inserisce un nuovo utente nel database. (serve per la registrazione)
      * @param utente L'utente da inserire.
-     * @author entn
+     * @author entn, Sderr12
      */
     boolean addUtente(Utente utente);
 
@@ -18,7 +18,7 @@ public interface UtenteDAO {
      * @param username L'username dell'utente.
      * @param password La password dell'utente.
      * @return L'utente trovato o null.
-     * @author entn
+     * @author entn, Sderr12
      */
     Utente login(String username, String password);
 

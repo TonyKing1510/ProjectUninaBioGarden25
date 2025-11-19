@@ -4,7 +4,21 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f588e128-981b-48a0-9925-96cb99f4b822" name="Changes" comment="" />
+    <list default="true" id="f588e128-981b-48a0-9925-96cb99f4b822" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/ProjectUninaBioGarden25.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Applicativo/src/main/java/it/unina/controller/MainPageController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Applicativo/src/main/java/it/unina/controller/MainPageController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Applicativo/src/main/java/it/unina/controller/NotificheViewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Applicativo/src/main/java/it/unina/controller/NotificheViewController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Applicativo/src/main/java/it/unina/controller/ProjectViewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Applicativo/src/main/java/it/unina/controller/ProjectViewController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Applicativo/src/main/java/it/unina/dao/UtenteDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/Applicativo/src/main/java/it/unina/dao/UtenteDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Applicativo/src/main/java/it/unina/gui/CreateActivityGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/Applicativo/src/main/java/it/unina/gui/CreateActivityGUI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Applicativo/src/main/java/it/unina/gui/VisualizeNotificheGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/Applicativo/src/main/java/it/unina/gui/VisualizeNotificheGUI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Applicativo/src/main/java/it/unina/implementazionepostgresql/AttivitaDAOImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/Applicativo/src/main/java/it/unina/implementazionepostgresql/AttivitaDAOImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Applicativo/src/main/resources/it/unina/NotificheView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/Applicativo/src/main/resources/it/unina/NotificheView.fxml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -34,21 +48,28 @@
   "keyToString": {
     "Application.Demo.executor": "Run",
     "Application.HelloApplication.executor": "Run",
+    "Application.Unnamed.executor": "Run",
     "Application.WelcomePage.executor": "Run",
+    "Maven.Unnamed.executor": "Run",
     "ModuleVcsDetector.initialDetectionPerformed": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
     "git-widget-placeholder": "main",
-    "last_opened_file_path": "/home/sder/oo-basi/ProjectUninaBioGarden25/Applicativo",
+    "junie.onboarding.icon.badge.shown": "true",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "/home/sder/Univeristy/OO-BASI/ProjectUninaBioGarden25/Applicativo",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Artifacts",
+    "project.structure.last.edited": "Modules",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.41494253",
-    "settings.editor.selected.configurable": "editor.preferences.tabs",
+    "settings.editor.selected.configurable": "preferences.keymap",
+    "to.speed.mode.migration.done": "true",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -60,11 +81,57 @@
       <recent name="$PROJECT_DIR$/src/main/resources/it/unina" />
     </key>
   </component>
+  <component name="RunManager" selected="Maven.Unnamed">
+    <configuration name="WelcomePage" type="Application" factoryName="Application">
+      <option name="ALTERNATIVE_JRE_PATH" value="valhalla-ea-23" />
+      <option name="MAIN_CLASS_NAME" value="it.unina.gui.WelcomePage" />
+      <module name="ProjectUninaBioGarden25" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Applicativo" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Unnamed" type="MavenRunConfiguration" factoryName="Maven">
+      <MavenSettings>
+        <option name="myGeneralSettings" />
+        <option name="myRunnerSettings" />
+        <option name="myRunnerParameters">
+          <MavenRunnerParameters>
+            <option name="cmdOptions" />
+            <option name="profiles">
+              <set />
+            </option>
+            <option name="goals">
+              <list>
+                <option value="clean" />
+                <option value="javafx:run" />
+              </list>
+            </option>
+            <option name="multimoduleDir" />
+            <option name="pomFileName" />
+            <option name="profilesMap">
+              <map />
+            </option>
+            <option name="projectsCmdOptionValues">
+              <list />
+            </option>
+            <option name="resolveToWorkspace" value="false" />
+            <option name="workingDirPath" value="$PROJECT_DIR$/Applicativo" />
+          </MavenRunnerParameters>
+        </option>
+      </MavenSettings>
+      <method v="2" />
+    </configuration>
+    <list>
+      <item itemvalue="Application.WelcomePage" />
+      <item itemvalue="Maven.Unnamed" />
+    </list>
+  </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9823dce3aa75-fbdcb00ec9e3-intellij.indexing.shared.core-IU-251.25410.129" />
-        <option value="bundled-js-predefined-d6986cc7102b-6a121458b545-JavaScript-IU-251.25410.129" />
+        <option value="bundled-jdk-9823dce3aa75-bf35d07a577b-intellij.indexing.shared.core-IU-252.26830.84" />
+        <option value="bundled-js-predefined-d6986cc7102b-3aa1da707db6-JavaScript-IU-252.26830.84" />
       </set>
     </attachedChunks>
   </component>
@@ -92,10 +159,15 @@
       <workItem from="1748594909798" duration="8017000" />
       <workItem from="1748607667345" duration="31000" />
       <workItem from="1749491594814" duration="55000" />
+      <workItem from="1763514603711" duration="6161000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
   </component>
 </project>
